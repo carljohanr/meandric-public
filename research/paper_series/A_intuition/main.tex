@@ -1,0 +1,64 @@
+% ======================================================================
+% Paper A of the meander series: the intuition paper and survey.
+% Restructured 2026-10-25 from paper_expository_alpha/. New results are proved in papers B-D.
+% Compile: tectonic main.tex
+% ======================================================================
+\documentclass[11pt]{article}
+\input{../common/preamble}
+
+% One tape drawn as a row of boxes: #1 shift, #2 comma list of + and -, #3 head index (as in Paper B).
+\newcommand{\tp}[3]{%
+  \begin{scope}[shift={#1}]
+  \foreach \c [count=\i] in {#2} {
+    \ifnum\i=#3\relax
+      \draw[line width=0.9pt,fill=red!13] ({(\i-1)*0.36},-0.18) rectangle ++(0.36,0.36);
+    \else
+      \draw[line width=0.4pt] ({(\i-1)*0.36},-0.18) rectangle ++(0.36,0.36);
+    \fi
+    \node[font=\small,inner sep=0pt] at ({(\i-0.5)*0.36},0) {$\c$};
+  }
+  \end{scope}}
+
+\title{Why $3.42$? The meander exponent,\\ from random walks to random surfaces\seriesline{Paper A.}}
+\author{Carl Johan Ragnarsson}
+\date{Draft of October 25, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A meander of order $n$ is a closed road that crosses a straight river $2n$ times without
+crossing itself. The number $M_n$ of meanders of order $n$ is believed to grow like
+$A\,\mu^n n^{-\alpha}$, with a constant $A$, $\mu\approx 12.26$ and
+$\alpha=(29+\sqrt{145})/12\approx 3.4201$. The value of $\alpha$ comes from a physical argument
+that treats a large meander as a random surface carrying two curves, and it has never been
+proved. This paper, the first of a series of four, explains that argument from the beginning,
+assuming no physics, and surveys what is now proved. The other papers contain the new results:
+an exact encoding of meanders by walks on words and the bounds $12.2191\le\mu\le12.2970$
+(Paper~B); the bounds $\mu^n e^{-C\sqrt n}\le M_n\le\mu^{n+1}/(8n)$ and an exactly solvable family
+(Paper~C); and, in a continuum model of random surfaces, a proof that the analog of two spanning
+trees has tail exponent $(17+\sqrt{145})/12$, which corresponds to the predicted
+$\alpha_*=(29+\sqrt{145})/12$, together with a lower bound of the
+predicted order in the conjectured limit of large meanders (Paper~D). Here we explain why these results hold and how they fit
+together, and we describe the step that is still missing. All code was written using Claude
+(Opus 5.5) or Codex (Sol 5.1) with active review and guidance throughout.
+\end{abstract}
+
+\tableofcontents
+
+\input{sec_intro}
+\input{sec_walks}
+\input{sec_surfaces}
+\input{sec_proved}
+\input{sec_continuum}
+\input{sec_bridge}
+
+\clearpage
+\appendix
+\input{sec_appendix}
+
+\clearpage
+\bibliographystyle{plain}
+\bibliography{../common/refs}
+
+\end{document}

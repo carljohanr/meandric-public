@@ -1,0 +1,72 @@
+% Section 7. Sources: 1201_upper_structures/FINAL.md (replay details); 1251_referee_upper_12297/FINAL.md (independent
+% checker, 5,410 tapes, negative control, finite-graph test, lift); 1252_referee_lower_theory/FINAL.md (theory chain,
+% small exact models); 1253_referee_lower_computation/FINAL.md (reproduction, independent recomputation, sampled rows,
+% support completeness, exact drift, negative controls, what was not done); 637 FINAL/PROOF section 1 checks;
+% 677_tape_bijection_review; 1252 FINAL EY6 (recount to M_15). Folder numbers only in Appendix A.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Checking the certificates}\label{sec:checks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{The tape machine}
+
+A separate independent reading checked the case analysis of Theorem~\ref{thm:tape} by hand, including empty stacks,
+strip boundaries and the excluded merge, and found only points of wording. The label machine and the tape machine,
+programmed separately, agree on all counts for $n\le8$ and on all successor sets within $12$ moves of the start, and
+an independently written tape machine reproduces the meander numbers up to $M_{15}=602{,}188{,}541{,}928$.
+
+\subsection{The upper bound}
+
+\emph{The certificate.} The certificate is a file with the radius, the gram length, the length of the boundary word,
+the edit window, the tables as exact rationals, and $R_+$. The search programs that produced it play no role in the
+proof.
+
+\emph{The first check.} A checker that imports no part of the search code rebuilds every formal row as a word, applies
+the moves and their reverses literally, reads the weights and factors from the letters, and evaluates all
+$2{,}097{,}152$ row values in rational arithmetic. It also checks the table symmetries, positivity, reciprocity of the
+factors on actual pairs of tapes, and a set of short actual tapes of the machine (not formal rows).
+
+\emph{An independent check.} A second checker was written from a separate statement of the theorem, sharing no code
+with the first. It evaluated all formal rows exactly and found the same largest value, equal to $R_+$ as a fraction,
+at the same row, with no row above it. The same reading re-proved each step from the rows to the bound: the
+paired-row lemma, the passage to $M_n\le R_+^{2n-2}$, the reduction to formal rows, the edge factors, and the gram
+length $r+1$. It also showed, by testing parameters just outside the locality conditions of Lemma~\ref{lem:local},
+that these conditions cannot be relaxed.
+
+\emph{Tests that bypass the reduction.} An error in the reduction to formal rows could make a correct computation
+prove nothing. So the row inequality was also tested directly on $5{,}410$ actual tapes of up to $671$ letters, with the full gram
+products over the whole tape and exact arithmetic: every actual row value was at most its formal row value, which was
+at most $R_+$. The $400$ largest formal rows were embedded in long tapes, where they occur exactly, so the bound is not
+an artifact of the padding. On a finite graph of $7{,}796$ tapes the inequalities of Lemma~\ref{lem:paired} were
+confirmed numerically. Finally $M_n\le R_+^{2n-2}$ holds for the $32$ known terms of the sequence.
+
+\subsection{The lower bound}
+
+\emph{The theory.} A separate independent reading re-derived every link from Theorem~F to the certificate: the strip
+version of Theorem~F, the reference law of memory three with the radius condition $r\ge m$, the closed-walk
+directions, the signed parent, and sparse refinement. It found no error and closed two gaps in the written argument.
+It also
+tested the method on small strips where the answer is known exactly, as described at the end of
+Section~\ref{sec:flows}.
+
+\emph{The computation.} A second reading reproduced the final certificate bit for bit with the project's checker,
+and recomputed the whole chain from the stored parent and coefficients with independently written code (reference law,
+tape machine, balance equations, interval arithmetic). For all five stages it found the same counts, entropy bounds
+agreeing to within $3.2\cdot10^{-42}$, and the same rounded bounds. It confirmed that the recorded set of changed
+flow values is complete and that all $968{,}894$ directions are closed walks with protected ends and exactly zero drift.
+Deliberately corrupted parents and reference laws were rejected by the checker; a changed coefficient only changes
+which feasible flow is certified.
+% 1253: entropy lower bounds equal to within 3.2e-42; floors identical.
+
+\emph{Later complete checks.} The initial independent reading checked the larger-radius balance equations on
+samples. A later audit checked all $45{,}638{,}378$ final flow values for positivity, reconstructed every protected
+cycle, and independently enclosed the entropy with directed rounding. All $220{,}110$ parent balance equations were
+checked exactly. It also tested all balance rows at the larger radii modulo randomly chosen primes. Those modular
+tests cover every row but are randomized consistency checks, not direct rational verification of every final equation.
+The deterministic balance proof remains the exact parent together with the lifting and closed-walk identities.
+The appendix points to the audit and the portable certificate specification.
+
+\subsection{What was not done}
+
+No proof has been formalized in a proof assistant. Neither the proofs nor the programs have been reviewed outside the
+project. The separate readings had access to the project's own arguments; their independence lies in their own written
+proofs and their own programs.

@@ -1,0 +1,132 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Determinant weights as a change of parameter}\label{sec:tilt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Spanning trees and determinants}
+
+By Kirchhoff's matrix-tree theorem, the number of spanning trees of a connected graph is the
+product of the nonzero eigenvalues of its Laplacian matrix, divided by the number of vertices. Weighting
+planar maps by the $k$-th power of this number models a surface decorated by $k$ independent
+spanning trees, with central charge $c=-2k$~\cite{PaperA}.
+
+The continuum analog replaces the graph by a surface. A smooth surface with Riemannian metric $g$
+has a Laplace operator $\Delta_g$ with eigenvalues
+$0=\Lambda_0<\Lambda_1\le\Lambda_2\le\cdots\to\infty$. Their product diverges but can be
+renormalized: the \emph{zeta-regularized determinant} is $\det{}'_\zeta\Delta_g=e^{-\mathcal Z'(0)}$,
+where $\mathcal Z(s)=\sum_{i\ge1}\Lambda_i^{-s}$ is continued analytically to $s=0$. For a metric $g=e^{2\varphi}g_0$ obtained from a smooth
+reference metric $g_0$ by a smooth change of scale $\varphi$, the \emph{Polyakov--Alvarez formula}
+expresses the change of the determinant:
+\begin{equation}\label{eq:PA}
+\log\ldet=\log\det{}'_\zeta\Delta_{g_0}-\frac1{12\pi}\int|\nabla\varphi|^2\,dA_0
+-\frac1{6\pi}\int K_0\,\varphi\,dA_0+\log\operatorname{Vol}_g-\log\operatorname{Vol}_{g_0},
+\end{equation}
+where $K_0$ is the curvature and $dA_0$ the area element of $g_0$, and $\operatorname{Vol}$ is the
+total area. The formula contains the Dirichlet energy $\int|\nabla\varphi|^2$, the same quadratic
+form that appears in the density of the Gaussian free field.
+
+\subsection{The metric of the model}
+
+Given the final partition $\Pt$ of the subdivision, with $n$ squares, APPS replace the field by a
+regularized version $h^{\Pt}$: the conditional expectation of $h$ given its $n$ averages $h_S$,
+$S\in\Pt$~\cite[Definition~6.4]{APPS}. It is a finite combination
+\begin{equation}\label{eq:coords}
+h^{\Pt}=\sum_{S\in\Pt}a_Sf_S ,
+\end{equation}
+where the $f_S$ are orthonormal for $(\cdot,\cdot)_\nabla$ and, for each fixed $\Pt$, the $n$
+coordinates $a_S$ are independent standard normal variables~\cite[Lemma~6.5]{APPS}. The metric of
+the model is
+\[
+g=e^{2(h^{\Pt}/Q+b)}g_0,\qquad b=\tfrac14\log n-\tfrac34\log\operatorname{Vol}_{e^{2h^{\Pt}/Q}g_0},
+\]
+where the constant $b$, chosen by APPS~\cite[Definition~6.7]{APPS}, rescales the total area. This
+metric is not smooth, and APPS
+\emph{define} its determinant $\ldet$ by the right side of~\eqref{eq:PA} with
+$\varphi=h^{\Pt}/Q+b$; no spectral zeta function of the rough metric is involved.
+
+% Source note: APPS Definition 6.4 calls h^P the finite conditional projection.
+
+\subsection{The theorem of Ang, Park, Pfeffer and Sheffield}
+
+\begin{theorem}[Ang, Park, Pfeffer and Sheffield {\cite[Theorem~6.9]{APPS}}]\label{thm:apps69}
+Fix $n$ and a real $k$, and write $Q_k^2=Q^2+k/3$, assumed positive. Conditional on $N=n$, the law of the
+subdivision at parameter $Q$, reweighted by $(\ldet)^k$, is the law of the subdivision at
+parameter $Q_k$, conditioned on $N=n$.
+\end{theorem}
+
+In terms of the central charge, $Q^2\mapsto Q^2+k/3$ is $c\mapsto c-2k$: in this model, drawing $k$
+spanning trees is exactly lowering the central charge by $2k$. The additivity of central charges,
+an assumption for meanders, is here a theorem. The reason is visible in~\eqref{eq:PA}: the energy
+term is a quadratic form in the Gaussian coordinates $a_S$, so a power of the determinant
+multiplies the Gaussian density by another Gaussian factor, and only the variance changes.
+
+\subsection{The normalization across sizes}
+
+Theorem~\ref{thm:apps69} compares surfaces of one size. An exponent compares different sizes, so
+every factor depending on $n$ matters.
+
+\begin{proposition}[the determinant]\label{prop:det}
+On the event $N=n$, with $\xi_S=a_S/Q$,
+\[
+\ldet\;=\;A_0\,n^{1/3}\exp\Bigl(-\frac16\sum_{S\in\Pt}\xi_S^2\Bigr),\qquad
+A_0=\frac{\det{}'_\zeta\Delta_{g_0}}{\operatorname{Vol}_{g_0}} ,
+\]
+where $A_0$ is a deterministic constant that does not depend on $n$, $Q$ or the partition.
+\end{proposition}
+
+\begin{proof}
+Put $\varphi=h^{\Pt}/Q+b$ in~\eqref{eq:PA}. The field is normalized so that its integral against
+$K_0$ vanishes, and $\int K_0\,dA_0=4\pi$ by the Gauss--Bonnet theorem, so the curvature term is
+$-\frac1{6\pi}\cdot4\pi b=-\frac23b$. The volume of $g$ is $e^{2b}$ times the volume of
+$e^{2h^{\Pt}/Q}g_0$, so with the stated $b$ the terms outside the energy add up to
+\[
+-\tfrac23b+2b+\log\operatorname{Vol}_{e^{2h^{\Pt}/Q}g_0}+\log A_0=\tfrac13\log n+\log A_0 .
+\]
+For the energy, the orthonormality of the $f_S$ in~\eqref{eq:coords} gives
+$\int|\nabla h^{\Pt}|^2=2\pi\sum_Sa_S^2$, hence
+$\frac1{12\pi}\int|\nabla\varphi|^2=\frac1{6}\sum_S\xi_S^2$.
+\end{proof}
+
+The factor $n^{1/3}$ cancels when one conditions on $N=n$, so it plays no role in
+Theorem~\ref{thm:apps69}. In the arXiv version of~\cite{APPS}, the display~(6.9) has $2h^\varepsilon/Q$
+inside the gradient, where $h^\varepsilon$ denotes the regularized field; that is inconsistent by a factor of four with their equation~(6.7), their
+Definition~6.7 and the proof of their Theorem~6.9. We derived Proposition~\ref{prop:det} from
+equation~(6.7) and Definition~6.7 directly.
+
+Write $p_n(Q)=\Prob_Q(N=n)$ for the law of the size at parameter $Q$.
+
+\begin{proposition}[exact identity]\label{prop:identity}
+Let $k$ be real with $Q_k^2=Q^2+k/3>0$. Then
+\[
+\E_Q\bigl[(\ldet)^k;\,N=n\bigr]\;=\;A_0^k\,n^{k/3}\Bigl(\frac{Q}{Q_k}\Bigr)^np_n(Q_k).
+\]
+Consequently, if $Q_k\ge2$, then for every $n$
+\begin{equation}\label{eq:identity}
+\sum_{n'\ge n}\Bigl(\frac{Q_k}{Q}\Bigr)^{n'}A_0^{-k}\,n'^{-k/3}\;
+\E_Q\bigl[(\ldet)^k;\,N=n'\bigr]\;=\;\Prob_{Q_k}(N\ge n).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Fix a partition $\Pt$ with $n$ squares. Every square that appears in the subdivision, including
+the ancestors of the squares of $\Pt$, has an average that is a fixed linear combination of the
+$n$ averages over $\Pt$, and these are linear in the coordinates $a_S$. The rule~\eqref{eq:rule}
+reads $h_S/Q>\log(\varepsilon/|S|)$. So the event $\{\Pt^\varepsilon=\Pt\}$ is the event that the
+vector $\xi=(\xi_S)_{S\in\Pt}$ lies in a set $\mathcal D_{\Pt}\subset\mathbb R^n$ that does not depend on
+$Q$~\cite[Lemma~6.3]{APPS}. The vector $\xi$ has density $(Q/\sqrt{2\pi})^ne^{-Q^2|\xi|^2/2}$.
+There are finitely many partitions with $n$ squares, so
+\[
+p_n(Q)=\Bigl(\frac Q{\sqrt{2\pi}}\Bigr)^n\sum_{\Pt:\,|\Pt|=n}\int_{\mathcal D_{\Pt}}e^{-Q^2|\xi|^2/2}\,d\xi .
+\]
+By Proposition~\ref{prop:det}, $(\ldet)^k=A_0^kn^{k/3}e^{-(k/3)|\xi|^2/2}$ on $N=n$. Multiplying
+the density by this factor replaces $Q^2$ by $Q^2+k/3=Q_k^2$ in the exponent, which gives the
+first formula. Multiply it by $(Q_k/Q)^nA_0^{-k}n^{-k/3}$ and sum over $n'\ge n$: the right side
+becomes $\sum_{n'\ge n}p_{n'}(Q_k)$, which is $\Prob_{Q_k}(N\ge n)$ because $N$ is finite almost
+surely at parameter $Q_k\ge2$. All terms are nonnegative, so no question of convergence arises.
+\end{proof}
+
+The identity~\eqref{eq:identity} needs two compensations. The factor $(Q_k/Q)^{n}$ is exponential:
+like $\mu^n$ for meanders, it changes the growth rate but not the exponent, and we divide it out as
+one divides $M_n$ by $\mu^n$. The polynomial factor $n^{-k/3}$ is essential. Without it the left
+side of~\eqref{eq:identity} becomes $\E_{Q_k}[N^{k/3};N\ge n]$, and a tail $n^{-x+o(1)}$ turns this
+into $n^{k/3-x+o(1)}$: the exponent shifts by $k/3$. The factor is invisible at a fixed size and
+decisive across sizes.

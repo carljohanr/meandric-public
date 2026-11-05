@@ -1,0 +1,15 @@
+# Reciprocal factors for literal edit edges
+
+This applies the already established general finite SOS theorem in `../1003_paired_path_consistency/PROOF.md`, section 1, to more edges. That theorem allows an antisymmetric log multiplier on every unordered edge in the support of the symmetrized finite matrix S; it does not require both directions to be forward moves of A.
+
+An edit edge connects a short headed tape (s,h) to a long headed tape (t,h+1), with identical words outside the replacement of the short head symbol by a length-three word. Its descriptor is the short tape, its head, and the long triple. For short symbol 0 the triples are 001, 010, 100; for short symbol 1 they are 011, 101, 110. The triples 001,100,101 are forward splits; the other triples are the literal reverses of forward merges. These are actual unordered support edges of S. No multi-step undo is substituted for a one-step transpose edge.
+
+Choose a positive table G(window, triple), where the window has length 2d+1 around the SHORT head, with 1<=d<=r. Put the factor G on the direction short-to-long and its exact reciprocal on long-to-short. Use this same prescription for both outgoing and incoming neighbours of the original current state. Each actual inverse pair therefore has product one by construction. The previously proved Young inequality and finite-cap argument apply unchanged, giving mu<=R^2 when every paired row is at most R.
+
+The short window is available within the 2r+3 formal row: for a split it is part of the original row; for a merge the shortened row has length 2r+1, sufficient for d<=r. Padding both physical tapes by r+1 zeros handles endpoints and short tapes. Actual boundary and cap restrictions delete positive terms, so the same formal dominance argument applies.
+
+Impose G(comp(window),comp(triple))=G(window,triple) and G(reverse(window),reverse(triple))=G(window,triple). Complement does not change the short/long orientation. Consequently evaluating the incoming weight through the complemented outgoing shortcut preserves this edit factor; direct incoming replay is nevertheless used for the certificate. Reversal also preserves short/long orientation, so its edit-field sign is positive, unlike a head-shift field. These identities preserve complementary row grouping and reflection symmetry.
+
+There are 3*2^(2d+1) valid (window,triple) pairs. Complement fixes none; complement followed by reversal fixes none because the window length is odd. Reversal fixes 2^(d+1) pairs, one palindromic admissible triple per palindromic window. Hence the number of independent G entries is 3*2^(2d-1)+2^(d-1): 7,26,100,392,1552,6176 at d=1,...,6.
+
+`verify.py` is separate from the numerical producer and feature compiler. It uses literal incoming and outgoing rules, checks all rational table identities and all formal rows, and tests both edit and head reciprocity on physical tapes through four pairs, including neighbours beyond the cap. These controls do not replace the finite-cap theorem. The new table assignment has been derived and checked in this continuation; no new separate-author mathematical review is claimed.

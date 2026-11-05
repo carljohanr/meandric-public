@@ -1,0 +1,152 @@
+% Section 4. Sources: 641_tape_window_bounds/PROOF.md section 2 (weight family, Lemmas 1-2, padding);
+% 1003_paired_path_consistency/PROOF.md sections 2-3 (head factors, cut convention, locality);
+% 1007_edit_edge_1230/PROOF.md (edit factors, triples, symmetries); 1201_upper_structures/PROOF.md (k = r+1 lemma)
+% and FINAL.md (certificate, tables of matched tests, run times); 1201 runs/r9_run2_verify.json (exact R, argmax);
+% 1251_referee_upper_12297/FINAL.md (sharpness of locality, independent replay); 607_bounds_paper/paper_word.tex
+% section 3 (symmetries, convexity); web/src/meandric/TapeMachineWriteup.tsx (single-weight tape certificates and the
+% value 15.89 for the table alone at radius 6).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The upper-bound certificate}\label{sec:upper}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Corollary~\ref{cor:paired} needs the row inequality $\phi_T\le R$ at every tape $T$ of $\cls$, and there are
+infinitely many. This section describes weights and factors whose row values depend only on the letters near the
+head, so that a finite list of cases suffices, and then the certificate that proves the upper bound of
+Theorem~\ref{thm:main}.
+
+\subsection{The weights}
+
+Fix a whole number $r$, the \emph{radius}. To evaluate weights, pad each end of a tape with $r+1$ extra letters $-$,
+so that the letters near the head are defined even when the head is close to an end; the padding is not part of the
+machine. The \emph{window} of a tape is the word of the $2r+1$ letters centered on the head. The \emph{left side} is
+the word of the letters left of the head, read from the far end toward the head; the \emph{right side} is the word of
+the letters right of the head, also read from the far end toward the head. A \emph{$k$-gram} of a word is a block of
+$k$ consecutive letters. Fix a \emph{gram length} $k\ge1$ and positive tables $U$ on windows and $V$ on words of $k$
+letters, and set
+\begin{equation}\label{eq:W}
+  W(T)\;=\;U(\text{window of }T)\cdot\prod_{\gamma}V(\gamma),
+\end{equation}
+where $\gamma$ runs over the $k$-grams of the left side and of the right side. Let $Z(T)=W(\cpl T)$, where $\cpl T$
+complements every letter, padding included. Intuitively, the table $U$ judges the tape near the head, where the next
+move acts, and the factors $V$ judge the whole tape by its short patterns.
+
+\subsection{The edge factors}
+
+There are two kinds of edges. A \emph{head edge} joins a tape to the same word with the head moved by one letter. Fix
+$q\ge1$ and a positive table $E$ on words of $2q$ letters. A move of the head one letter to the right reads the
+\emph{boundary word}, the $2q$ letters centered on the boundary between the old and the new head position, and has
+the factor $E$ of that word. The reverse move reads the same boundary word and has the factor $1/E$.
+
+An \emph{edit edge} joins a short tape to a long tape in which the head letter is replaced by three letters, with the
+head on the middle one. For a short letter $-$ the triples are $--+$, $-+-$, $+--$; for a short letter $+$ they are
+$-++$, $+-+$, $++-$. Three of the six are splits ($+-+$, $+--$, $--+$) and the other three are reverses of merges.
+The triple $+++$ has no edge, because the merge at $+[+]+$ does not exist. Fix $d\ge1$ and a positive table $G$ on
+pairs (window of radius $d$ around the head of the short tape, triple). The factor is $G$ from short to long and $1/G$
+from long to short. So every edge and its reverse have reciprocal factors, as \eqref{eq:recip} requires.
+
+The tables used have symmetries: $U$ is unchanged when its window is reversed; $E$ is unchanged when its boundary
+word is complemented and is inverted when that word is reversed; and $G$ is unchanged when both the window and the
+triple are complemented or both are reversed. The symmetries reduce storage and search; the proof does not need them.
+
+\subsection{Reduction to finitely many cases}
+
+A \emph{formal row} is a word of $2r+3$ letters with the head on the middle letter. Its row value is \eqref{eq:row}
+computed on the formal row itself, as a stand-alone word with all its moves and all its predecessors, the weights and
+factors being read from its letters.
+
+\begin{lemma}[locality]\label{lem:local}
+Suppose $k\le r+1$, $q\le r+1$ and $d\le r$. For every move, the ratios $W(T')/W(T)$ and $Z(T')/Z(T)$ and the edge
+factor depend only on the letters of $T$ at distance at most $r+1$ from the head.
+\end{lemma}
+
+\begin{proof}
+The $k$-grams away from the head appear in both weights and cancel. A head move to the left removes the last $k$-gram
+of the left side, which ends next to the head, and adds one $k$-gram to the right side, which ends at the old head
+letter: the letters used lie within distance $k$ on the left and $k-1$ on the right. A head move to the right is the
+mirror image. A split adds one letter at the inner end of each side, so its new grams use letters within distance
+$k-1$. A merge removes the inner letter of each side, and the lost grams reach distance $k$. The window of radius $r$
+around a head that moved by one letter lies within distance $r+1$, the boundary word has $q\le r+1$ letters on each
+side of the boundary, and the short window of an edit edge, of radius $d$ around the short head, reaches at most $d+1\le r+1$ letters
+from the head of the long tape. Complementing every letter gives the same statements for $Z$.
+\end{proof}
+
+The conditions cannot be relaxed by one: with $k=r+2$, or $q=r+2$, or $d=r+1$, a test with random tables finds tapes
+where locality fails. Earlier certificates of the project used $k\le r$; that was a restriction of the programs, not
+of the theory.
+
+\begin{proposition}[finitely many cases suffice]\label{prop:rows}
+Suppose the conditions of Lemma~\ref{lem:local} hold and every one of the $2^{2r+3}$ formal rows has row value at
+most $R$. Then $\phi_T\le R$ for every tape $T$ in every finite set of tapes of $\cls$, and so $M_n\le R^{2n-2}$ and
+$\mu\le R^2$.
+\end{proposition}
+
+\begin{proof}[Idea of the proof]
+Take a tape, padded. Its $2r+3$ letters around the head form a formal row. By Lemma~\ref{lem:local}, every move and
+every predecessor of the tape has the same ratio and the same factor as the corresponding term of the formal row.
+The formal row may have more terms, for example a head move into the padding or a move leaving the finite set, but
+all terms are positive. So the row value of the tape is at most that of its formal row. Apply
+Corollary~\ref{cor:paired}.
+\end{proof}
+
+Here no case is a worst case over letters that the formal row cannot see: a formal row determines every ratio
+exactly, because no move acts away from the head. This is the main difference from the window method on bracket
+words~\cite{BoundsPaper}, where a move can involve a letter far from the window.
+
+\subsection{The certificate}
+
+Table~\ref{tab:upper} lists the certificate behind Theorem~\ref{thm:main}. All $2{,}097{,}152$ formal rows were
+evaluated in exact rational arithmetic, with every move made literally on the word, and the largest row value is the
+number $R_+$ stored as an exact rational in the verification report, alongside the weight certificate. Then
+\[ \mu\;\le\;R_+^2\;=\;12.29693385352921289818\ldots\;<\;12.296933854 . \]
+
+\begin{table}[htb]
+\centering
+\begin{tabular}{ll}
+\toprule
+radius $r$ (window of $U$) & $9$ ($19$ letters) \\
+gram length $k$ & $10$ \\
+boundary word of a head edge & $2q=20$ letters \\
+edit window & radius $d=9$ around the short head \\
+formal rows & $2^{21}=2{,}097{,}152$ \\
+free parameters (after the symmetries) & $918{,}784$ \\
+largest row value $R_+$ & $3.50669842637333\ldots$ (exact fraction) \\
+bound $R_+^2$ & $12.29693385352921289818\ldots$ \\
+exact check, one thread & $255$~s; independent checker $292$~s \\
+\bottomrule
+\end{tabular}
+\caption{The upper-bound certificate.}
+\label{tab:upper}
+\end{table}
+
+\paragraph{How the tables were found.}
+Each row value is a sum of products of table entries with positive coefficients. In the logarithms of the entries,
+each term is the exponential of a linear function, so the largest row value is a convex function of these logarithms.
+The search minimized a smooth version of the largest row value (a log-sum-exp with a large parameter) by a
+quasi-Newton method (L-BFGS). A radius-$8$ certificate ($12.299756359$) was rewritten exactly in the larger family of
+radius $9$ and gram length $10$, as a starting point. Two runs of about $2{,}500$ and $2{,}200$ seconds on one thread
+then brought the bound to $12.297636863$ and to $12.296933854$. None of this is part of the proof, which consists of
+the stored tables and the exact check of all rows.
+
+\paragraph{The contribution of each ingredient.}
+Table~\ref{tab:ingredients} compares the ingredients at small radius, where the optimum can be found reliably; its
+values are floating-point optima, not certified bounds. At radius $4$ the edit factors lower $R^2$ by $0.034$, about
+three quarters of the gain of one step of radius ($0.046$), with fewer than half as many free parameters ($920$
+against $2{,}080$ for head factors alone at radius $5$). The longer gram length is a real but small gain. The $k$-gram factors do most of the work overall: for a single
+weight, the table $U$ alone gives only $15.89$ at radius $6$, and single weights with $8$-gram factors needed radius
+$12$ to certify $\mu\le12.3889$.
+
+\begin{table}[htb]
+\centering
+\begin{tabular}{lccc}
+\toprule
+radius & head factors only & head and edit factors & same, with gram length $r+1$ \\
+\midrule
+$4$ & $12.40026$ & $12.36583$ & $12.36392$\\
+$5$ & $12.35452$ & $12.33585$ & $12.33555$\\
+\bottomrule
+\end{tabular}
+\caption{Best values of $R^2$ found at small radius for three parts of the family (floating point, not bounds).}
+\label{tab:ingredients}
+\end{table}
+% Source: 1201 FINAL, matched small-radius tests, rows a = 5 (r = 4) and a = 6 (r = 5); (rU,k,q,d) = (4,4,5,0),
+% (4,4,5,4), (4,5,5,4) and (5,5,6,0), (5,5,6,5), (5,6,6,5). Value 15.89 and 12.3889: web TapeMachineWriteup.tsx.

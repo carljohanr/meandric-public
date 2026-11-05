@@ -1,0 +1,39 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Where the proofs are}\label{app:repo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+All proofs, programs and data are in the project repository~\cite{Repo}, folder
+\texttt{meandric/research}. Below, a number such as \texttt{149} abbreviates the folder whose name
+begins with it. Nothing has been reviewed outside the project.
+
+Every result of Papers~B, C and~D quoted in this paper is listed, with the files that contain its
+proof and the status of that proof, in the appendix ``Where the proofs are'' of the paper named at
+the statement~\cite{PaperB,PaperC,PaperD}. This covers Theorems~\ref{thm:tape}, \ref{thm:band},
+\ref{thm:sqrt}, \ref{thm:tail}, \ref{thm:apps} and~\ref{thm:nearsplit},
+Propositions~\ref{prop:condlower} and~\ref{prop:condupper}, and the other statements attributed to
+those papers. The table lists the remaining items, which appear only in this paper. ``Proved''
+means that a complete proof is written but has not been checked by a separate, independent
+reading. ``Data'' means exact computation, sampling or numerical fitting, with no claim of proof.
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.40\textwidth}>{\raggedright\arraybackslash}p{0.37\textwidth}>{\raggedright\arraybackslash}p{0.13\textwidth}}
+\toprule
+result & where & status\\
+\midrule
+Exponent $3/2$ for meandric systems with loop weight $q\ge167.6$ (Section~\ref{sec:shape}) &
+\texttt{149}, \texttt{REPORT.md}, Theorem~2 & proved\\
+Change of regime near $q\approx7.5$ (Section~\ref{sec:shape}) & first estimate $8.5\pm1$ in
+\texttt{149}; corrected to $7.5\pm1$ in \texttt{222} & data\\
+Correlations $-0.19$ and $-0.08$ in meanders of order $512$ (Section~\ref{sec:quarter}) &
+\texttt{123} & data\\
+Typical size $n^{0.52}$ of the quarter-plane walk (Section~\ref{sec:quarter}) & \texttt{112}
+(exponent $0.520\pm0.004$); also \texttt{123} & data\\
+Fit $\alpha\approx3.4205\pm0.0004$ from $40$ counts (Section~\ref{sec:estimate}) & \texttt{162},
+\texttt{REPORT.md}, row for meanders; it uses the unchecked counts for $33\le n\le40$ & data\\
+Table~\ref{tab:walks}, Figure~\ref{fig:readoff}, and the tape-machine counts for $n\le6$
+(Section~\ref{sec:walks}) & \texttt{paper\_expository\_alpha/\allowbreak examples.py} & data\\
+\bottomrule
+\end{tabular}
+\end{center}

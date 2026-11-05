@@ -1,0 +1,54 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{A branching random walk model}\label{sec:brw}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+A simplified model shows the mechanism of Section~\ref{sec:heuristic} in its purest form. Replace
+the dyadic squares by the vertices of the rooted tree in which every vertex has four children. Attach to each vertex
+other than the root an independent normal variable with mean
+$-Q\log2$ and variance $\log2$, and let the \emph{position} of a vertex be $y_0$ plus the sum of these
+variables along the path from the root, where $y_0=Q\log(1/\varepsilon)\ge0$ is the starting
+position. A vertex is \emph{alive} if it and all its ancestors have nonnegative positions. Let $V$
+be the number of alive vertices; the number of terminal vertices, the children of alive vertices
+that are not alive, is $3V+1$.
+
+This is the subdivision of Section~\ref{sec:model}, with the height as the position, except that
+the field increments are replaced by independent normal steps; in the real model nearby steps are
+correlated. It is a \emph{branching random walk killed at zero}: individuals that fall below zero
+are removed together with their descendants, and $V$ is the total number of individuals that ever
+live. For one step, the logarithm of four times its exponential moment is
+\[
+\log4-\theta Q\log2+\frac{\theta^2}2\log2=\psi(\theta)\log2,
+\]
+with $\psi$ the quadratic~\eqref{eq:quadratic}. For $Q>2$ it has the two roots
+$\lambda_\pm=Q\pm\sqrt{Q^2-4}$, that is $\gamma$ and $4/\gamma$.
+
+\begin{theorem}[A\"id\'ekon, Hu and Zindy~\cite{AHZ}]\label{thm:ahz}
+For $Q>2$ and the start $y_0=0$, $\Prob(V\ge n)$ is asymptotic to a positive constant times
+$n^{-x}$, where $x=\lambda_+/\lambda_-$.
+% UNVERIFIED: the project checked the hypotheses of AHZ Theorem 1(ii) for the start 0 only;
+% the general-start form of their theorem was not rechecked for this paper.
+\end{theorem}
+
+The roots $\lambda_+$ and $\lambda_-$ are the cost and yield rates of Section~\ref{sec:heuristic}. Since $\lambda_+\lambda_-=4$ and $\lambda_++\lambda_-=2Q$,
+\[
+x+\frac1x=\frac{\lambda_+^2+\lambda_-^2}{\lambda_+\lambda_-}=\frac{(2Q)^2-8}{4}=Q^2-2=\frac{13-c}6 .
+\]
+So the KPZ quadratic relates the two exponential rates of a killed branching random walk, and
+$x=4/\gamma^2$ as in Theorem~\ref{thm:tail}. Here the probability of each size is also controlled.
+
+\begin{theorem}\label{thm:brwlocal}
+Let $Q>2$ and $y_0\ge0$. For all $n\ge1$, $\Prob(V=n)$ lies between two positive constant multiples of
+$n^{-1-x}$, the constants depending on $Q$ and $y_0$. At $Q^2=29/6$ the exponent is $1+x=\astar$.
+\end{theorem}
+
+The lower bound and upper bounds $n^{-1-p}$ for every $p<x$ are proved directly; the sharp upper
+bound also uses Theorem~\ref{thm:ahz}. Three ideas make the proof work. First, regard $V=V(y_0)$ as a
+nondecreasing step function of the start $y_0$, a \emph{staircase}. Its successive jumps are exactly
+independent, each with the law of $V(0)$, because the cluster that a newly alive vertex brings
+along depends only on the unused steps below it. So the values of the staircase form a renewal
+sequence, and by the renewal theorem each integer is a value with probability tending to
+$1/\E[V(0)]>0$: a tail estimate becomes a local one at the cost of a constant. Second, given the
+alive set, the margins by which its terminal children miss being alive are independent truncated
+normal variables; this controls how long the staircase stays at a value. Third, a tilt along one
+path at rate $\lambda_+$ makes one vertex high. The Gaussian free field lacks the independence in
+the first two ideas, one reason why the local lower bound for the APPS model is open.

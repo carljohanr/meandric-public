@@ -1,0 +1,61 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Where the proofs are}\label{app:repo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+All proofs are in the project repository~\cite{Repo}, folder \texttt{meandric/research}. Below,
+\texttt{1340}--\texttt{1343}, \texttt{623} and \texttt{626} abbreviate the folders whose names begin
+with these numbers, and the extension \texttt{.md} is omitted; \texttt{1340/PROOF\_MAIN\_THEOREM} has
+the dependency table for the tail law and the KPZ curve. Every result listed is \emph{checked}: a
+separate, independent reading of the written proof, in the listed file, found no gap (sometimes
+after clarifications that were incorporated). Nothing has been reviewed outside the project.
+
+\begin{center}
+\footnotesize\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{0.98}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.195\textwidth}>{\raggedright\arraybackslash}p{0.395\textwidth}>{\raggedright\arraybackslash}p{0.37\textwidth}}
+\toprule
+result & proof & independent check\\
+\midrule
+Props.~\ref{prop:det}, \ref{prop:identity} (normalization) & \fn{1340/PROOF_NORMALIZATION} &
+\fn{1343/REFEREE_NORMALIZATION}\\
+Thm.~\ref{thm:upper} (upper bound, $Q>2$) & \fn{1341/PROOF_sharp_upper} & \fn{1343/REFEREE_SHARP_UPPER}\\
+Reachability, ceiling & \fn{1341/PROOF_spine_hit} &
+\fn{1343/REFEREE_SPINE_GENERAL}\\
+Lemma~\ref{lem:desc} (descendants) & \fn{1340/PROOF_DESCENDANTS} &
+\fn{1342/REFEREE_APPS_DESCENDANTS}, \fn{1343/REFEREE_CRITICAL_LOWER}\\
+Thm.~\ref{thm:lower}, $Q>2$ (assembly) & \fn{1341/PROOF_sharp_tail_all_subcritical} &
+\fn{1340/REFEREE_SHARP_TAIL_ASSEMBLY}\\
+Prop.~\ref{prop:critupper} ($Q=2$ upper) & \fn{1342/PROOF_APPS_CRITICAL_UPPER} &
+\fn{1340/REFEREE_CRITICAL_UPPER}\\
+Thm.~\ref{thm:lower}, $Q=2$; Thm.~\ref{thm:kpz}, $k=-\frac12$ & \fn{1341/PROOF_critical_lower},
+\fn{1341/PROOF_critical_tail} & \fn{1343/REFEREE_CRITICAL_LOWER}, \fn{1340/REFEREE_CRITICAL_ASSEMBLY}\\
+Local upper bound & \fn{1341/PROOF_local_upper} & \fn{1343/REFEREE_LOCAL_UPPER}\\
+Prop.~\ref{prop:area} (area) & \fn{1341/PROOF_area_obstruction} & \fn{1340/REFEREE_AREA_OBSTRUCTION}\\
+Thm.~\ref{thm:brwlocal} (branching walk) & \fn{623/PROOF_TOY} & \fn{626/FINAL}, \fn{626/REPAIRS}\\
+Identity for $d_\Pi$, \eqref{eq:sandwich} & \fn{1341/PROOF_OFFBLOCK_SET_IDENTITY} &
+\fn{1342/REFEREE_TWO_DISK_BALANCE}\\
+Prop.~\ref{prop:micro}, \eqref{eq:F0} & \fn{1343/PROOF_MICROSCOPIC_EQUIVALENCE},
+\fn{1340/PROOF_ZERO_DEFECT} & \fn{1343/REFEREE_MICROSCOPIC_EVENT}, \fn{1343/REFEREE_ZERO_DEFECT}\\
+Thm.~\ref{thm:nearsplit}, lower bound & \fn{1341/PROOF_CONTINUUM_SMALL_BALL_LOWER},
+\fn{1340/PROOF_SPHERE_GAUGE_CHANGE}, \fn{1342/PROOF_PINNED_GMC_LOCAL_TAIL},
+\fn{1341/LEMMA_TWO_BLOB_SUFFICIENCY}, \fn{1341/LEMMA_FIXED_CLUMP_SLE} &
+\fn{1342/REFEREE_SPHERE_PINNED_CLUMPS}, \fn{1343/REFEREE_PINNED_GMC_LOCAL_TAIL},
+\fn{1342/REFEREE_FIXED_CLUMP_SLE}\\
+Thm.~\ref{thm:nearsplit}, upper bound & \fn{1340/PROOF_GLOBAL_NEARBLOCK_UPPER_A} (exponent
+$\xstar-o(1)$), \fn{1340/COROLLARY_GLOBAL_FIVE_SEVENTHS_GAIN} ($\xstar+5/7$); intermediate steps in
+\fn{1340/FINAL} & reviews named in the first file's header; \fn{1343/REFEREE_GLOBAL_FIVE_SEVENTHS_GAIN}\\
+$\Prob(E_0)=0$ & \fn{1341/PROOF_EXACT_BLOCK_ZERO_BOUNDARY_TREE} &
+\fn{1342/REFEREE_EXACT_BLOCK_ZERO_SKELETON}\\
+Fixed two-clump event & \fn{1341/PROOF_FIXED_TWO_CLUMP_UPPER} & \fn{1342/REFEREE_FIXED_TWO_CLUMP_UPPER}\\
+Prop.~\ref{prop:disks} (glued disks) & \fn{1341/PROOF_TWO_DISK_BALANCE} & \fn{1342/REFEREE_TWO_DISK_BALANCE}\\
+Lemma~\ref{lem:transfer}(c), (d) & \fn{1343/PROOF_LINEAR_RECORD_COMPLETION} &
+\fn{1342/REFEREE_LINEAR_RECORD_COMPLETION}\\
+Prop.~\ref{prop:condlower} & \fn{1340/PROOF_ONE_SIDED_TRANSFER}, \fn{1343/PROOF_BRIDGE} &
+\fn{1343/REFEREE_ONE_SIDED_TRANSFER}\\
+Prop.~\ref{prop:condupper} & \fn{1342/REDUCTION_MESOSCOPIC_UPPER_TRANSPORT} &
+\fn{1340/REFEREE_FINITE_RUN_AND_TRANSPORT}\\
+Bounds on $M_n$ in Sec.~\ref{sec:bridge} & \fn{1340/PROOF_SQRT_COUNT_BOUND} (lower),
+\fn{403_alpha_bounds/PROOF} (upper) & \fn{1341/REFEREE_SQRT_COUNT_BOUND},
+\fn{404_referee_alpha_bounds/REPORT}\\
+\bottomrule
+\end{tabular}
+\end{center}

@@ -1,0 +1,54 @@
+% Section 5. Sources: 602 REPORT.md section 3, logs/cert_r12.log; 602r REPORT.md item 3; 1367 FINAL.md, logs/.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{How the certificates were checked}\label{sec:checks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{The upper certificate}
+
+The radius-$12$ certificate is a file of $268$~MB (SHA-256 beginning \texttt{3e71e227}). Three programs accept it.
+Two were written with the solver and evaluate the $536{,}805{,}378$ inequalities from formulas for the changes of $E$
+and $T$, in $128$-bit integers. The third was written for this paper from the mathematical statement only, without
+reading the other two. It does not use those formulas: it enumerates the short states of Lemma~\ref{lem:trunc}
+directly, applies the four moves literally, recounts $E$ and $T$ on the whole stacks before and after each move, reads
+the views off the stacks, and compares both sides after clearing denominators, in unsigned $128$-bit integers; a
+bound computed at start-up shows that no intermediate value exceeds $2^{127}$. It finds no violation, finds four
+violations when $R$ is lowered by $10^{-9}$, and locates the same largest quotient as the other two programs. It runs
+in $5$ seconds on four threads.
+
+A certificate that is wrong in a small way must be rejected. The third program rejects eight damaged copies: $R$
+lowered by $10^{-9}$; the entry of the tightest state lowered by $0.1$ percent; the entry of the tightest state with
+two full views of twelve symbols lowered by $0.1$ percent; an entry used by a successor of the tightest state raised
+by $0.1$ percent; a zero entry; a truncated file; a trailing byte; a wrong header. The full-view case matters: an
+earlier test on complete states could not reach it, because it needs $24$ open chords. At radius $7$ the same program
+reproduces the result of an independent check on all states with at most $22$ open chords (largest quotient
+$3.191740267742$ at $U$ empty, $L=000000$). The per-size inequality $z_n\le R^{2n}$ also holds for the $34$
+published values, as it must.
+
+\subsection{The lower certificate}
+
+The radius-$10$ certificate is a file of $16$~MB listing the integers $X$. Two programs, written separately, accept
+it. Checker~A builds the flow from Proposition~\ref{prop:rev} in exact integers, checks positivity and that both drift
+sums vanish exactly, and encloses $h$ in $160$-bit interval arithmetic. Checker~B does not use
+Proposition~\ref{prop:rev}: it rebuilds the flow with its own reader and checks every balance equation (S) directly,
+$8{,}388{,}608$ of them, in exact integers; then it checks (D) and (P) and bounds $h$ from below with correctly
+rounded decimal logarithms, adding or subtracting one unit in the last place by hand and rounding every sum toward the
+safe side. Both give $e^{2h}\ge10.086918840819$. As a test of checker~B, three wrong constructions are rejected
+because (S) fails: pushes without the reference factor $q$, one flow value changed by one unit, and a pop that reveals
+one fresh symbol instead of two.
+
+A third program was written in the independent reading of the lower bound, from the statement of Theorem~L and the
+file format alone. It checks (P) and (D), checks every equation (S) by sending each window, move and revealed symbol
+to its new extended window in exact integers, and bounds the logarithms with its own directed rounding. It confirms
+$e^{2h}\ge10.086918840819$ at radius $10$, with slack about $6\cdot10^{-13}$, reproduces the radius-$4$ and radius-$8$
+values, and rejects damaged flows and the target $10.086918840820$.
+
+\subsection{Limits}
+
+Both methods converge slowly in the radius. The upper gap to the estimate is about $0.49/r$, the lower gap about
+$0.026$ at radius $10$; it shrank by $0.014$ from radius $6$ to $8$ and by $0.0076$ from $8$ to $10$. A radius-$12$
+lower certificate would have
+$33.5$ million windows and needs a compiled checker; we expect a gain of a few thousandths. The two bounds use the
+same machine and the same notion of a window, but not the same information: the upper weight prices runs of equal
+symbols explicitly, while the lower rule uses a reference law that only prefers alternation. A reference law of memory
+two or three, or a lower rule that sees more of one stack than of the other, may close the gap faster. We have not
+tried.

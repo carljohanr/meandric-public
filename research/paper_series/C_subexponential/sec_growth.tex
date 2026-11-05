@@ -1,0 +1,145 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Gluing and the growth rate}\label{sec:growth}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Terminology}
+
+Let a meander of order $N$ have crossings $1,\ldots,2N$. The \emph{gap} $i$, for $0\le i\le 2N$, is
+the stretch of river between crossings $i$ and $i+1$; gaps $0$ and $2N$ are the two ends. An arch
+joining crossings $x<y$ \emph{passes over} gap $i$ if $x\le i<y$. An arch is \emph{exterior} if no
+other arch on the same side encloses it, and \emph{short} if it joins two neighboring crossings.
+The probability $\Pr_N$ and the expectation $\mathbb E_N$ refer to a meander of order $N$ chosen
+uniformly at random.
+
+\subsection{Supermultiplicativity and Fekete's lemma}
+
+Two meanders can be glued into one. Let $G$ have order $a$ and $H$ order $b$. Place $H$ to the right
+of $G$ on the same river. The last crossing $2a$ of $G$ is the right end of an exterior upper arch
+$\{x,2a\}$, and the first crossing of $H$, now numbered $2a+1$, is the left end of an exterior upper
+arch $\{2a+1,y\}$. Replace these two arches by $\{x,y\}$ and $\{2a,2a+1\}$. Nothing crosses, because
+$\{x,y\}$ passes over everything between $x$ and $y$; and re-pairing one arch of each of two closed
+curves joins them into one. Intuitively, both roads are cut open next to the boundary between them
+and reconnected across it. The result $G\cdot H$ is a meander of order $a+b$, the \emph{product} of
+$G$ and $H$. Given $a$, the pieces are recovered by undoing the re-pairing. Hence
+\begin{equation}\label{eq:supermult}
+M_{a+b}\;\ge\;M_aM_b\qquad\text{for all }a,b\ge1 .
+\end{equation}
+Section~\ref{sec:products} identifies exactly which meanders are products.
+
+Inequality~\eqref{eq:supermult} says that $\log M_n$ is superadditive. Fekete's lemma~\cite{Fekete} then says
+that $\log M_n/n$ converges to its supremum. The limit is finite because the upper and lower arch
+systems are each counted by the Catalan number $\mathrm{Cat}_n=\binom{2n}{n}/(n+1)$, so
+$M_n\le\mathrm{Cat}_n^2\le16^n$. Hence $\mu=\lim M_n^{1/n}$
+exists, $\mu\le16$, and
+\[ M_n\;\le\;\mu^n,\qquad\text{that is}\qquad u_n\le1 \quad\text{and}\quad L(n)\ge0 \qquad\text{for every } n. \]
+In terms of $L$, inequality~\eqref{eq:supermult} says that $L$ is \emph{subadditive},
+\begin{equation}\label{eq:subadd}
+L(a+b)\;\le\;L(a)+L(b),
+\end{equation}
+and the existence of $\mu$ says $L(n)/n\to0$. These three facts about $L$ (it is nonnegative,
+subadditive, and $o(n)$) are used repeatedly.
+
+\subsection{The ratio limit}
+
+\begin{theorem}[ratio limit]\label{thm:ratio}
+$M_{n+1}/M_n\to\mu$. In particular the largest ratio $R_\star=\sup_n M_{n+1}/M_n$ is finite.
+\end{theorem}
+
+The proof rests on an exact identity. A \emph{wiggle} is a short upper arch followed by a short lower
+arch, on three consecutive crossings $i,i+1,i+2$. Any crossing $x$ of a meander of order $n$ can be
+replaced by three consecutive crossings that form a wiggle, with the old arches at $x$ reattached to
+the outer two. This keeps the road one loop and gives a meander of order $n+1$ with a marked wiggle;
+collapsing the marked wiggle undoes it. So marked crossings of order-$n$ meanders correspond exactly to
+marked wiggles of order-$(n+1)$ meanders, and with $Z$ the number of wiggles,
+\[ M_{n+1}\,\mathbb E_{n+1}[Z] \;=\; 2n\,M_n . \]
+A further counting argument with these insertions shows that $Z/n$ concentrates at $2/\mu$ with exponentially small error probabilities, in
+both directions. The identity then gives
+$M_{n+1}/M_n=2n/\mathbb E_{n+1}[Z]\to\mu$. Since $Z\le n+1$, it also gives $M_{n+1}\ge M_n$: the counts never decrease.
+
+The ratio limit has a rate. Its proof combines a lower bound on $M_n$ with two inequalities that
+hold for every $n\ge3$, with a constant $C_0$:
+\begin{equation}\label{eq:ratioinput}
+\frac{M_{n+1}}{\mu M_n}\;\ge\;1-C_0\sqrt{\frac{L(n)+\log n}{n}},\qquad
+\frac{\mu M_n}{M_{n+1}}\;\ge\;1-C_0\sqrt{\frac{L(n+1)+\log n}{n}} .
+\end{equation}
+The first bounds the ratio from below and the second bounds it from above. Both come from a further
+structural decomposition of meanders that we do not describe here~\cite{Repo}. A lower bound on
+$M_n$ is an upper bound on the loss $L$, and it makes both right sides close to $1$.
+
+\begin{theorem}[rate in the ratio limit]\label{thm:rate}
+There is a constant $C_{\mathrm r}$ such that for every $n\ge2$
+\[ \Big|\frac{M_{n+1}}{\mu M_n}-1\Big| \;\le\; C_{\mathrm r}\, n^{-1/4}\sqrt{\log n} . \]
+Consequently $|\log(u_{n+k}/u_n)|\le C_{\mathrm r}'\,k\,n^{-1/4}\sqrt{\log n}$ for $0\le k\le n$.
+\end{theorem}
+
+The constants are large: with the constants of the proof the bound says something only for $n$
+beyond about $10^{14}$. The proof inserts the earlier lower bound $L(n)\le C'\sqrt n\log n$
+into~\eqref{eq:ratioinput}. With Theorem~\ref{thm:main} in its place the factor $\sqrt{\log n}$
+disappears, by the following short argument, which we give in full.
+
+\begin{remark}
+There is a constant $C_{\mathrm r}''$ such that $|M_{n+1}/(\mu M_n)-1|\le C_{\mathrm r}''\,n^{-1/4}$ for every
+$n\ge2$. Indeed, by Theorem~\ref{thm:main}, $L(n)\le C\sqrt n$ and $L(n+1)\le2C\sqrt n$, so both right
+sides of~\eqref{eq:ratioinput} are at least $1-\epsilon_n$ with $\epsilon_n=O(n^{-1/4})$; when
+$\epsilon_n\le1/2$ the second inequality gives $M_{n+1}/(\mu M_n)\le1/(1-\epsilon_n)\le1+2\epsilon_n$, and
+the finitely many other $n$ are covered by $M_{n+1}/M_n\le R_\star$ after enlarging the constant.
+Summing the logarithms as in Theorem~\ref{thm:rate} gives $|\log(u_{n+k}/u_n)|=O(k\,n^{-1/4})$ for
+$0\le k\le n$, and the proof of Proposition~\ref{prop:cutbound} below, run with this rate, improves
+the cut bound to $O(s^{-1/4})$. The inequalities~\eqref{eq:ratioinput} cannot give more than
+$n^{-1/4}$: sequences of the same form as the decomposition behind them, with loss of order $\sqrt n$, can
+have ratios that differ from $\mu$ by a multiple of $n^{-1/4}$ infinitely often~\cite{Repo}.
+\end{remark}
+
+Theorem~\ref{thm:rate} says that $u_n$ is \emph{locally smooth}: it changes by a bounded factor over
+windows of length about $n^{1/4}/\sqrt{\log n}$, and by the remark over windows of length about
+$n^{1/4}$. It does not say that $u_n$ is decreasing: the
+statement $M_{n+1}\le\mu M_n$ for all $n$ is open. It holds for every $n\le31$, since the ratios
+$M_{n+1}/M_n$ increase in that range and $M_{32}/M_{31}=11.023$ is below the lower bound
+$12.2191$ for $\mu$.
+
+\subsection{The halving identity}
+
+The \emph{doubling defect} is
+\[ D(m)\;=\;\log\frac{M_{2m}}{M_m^2}\;=\;2L(m)-L(2m) . \]
+By~\eqref{eq:supermult}, $D(m)\ge0$. Section~\ref{sec:products} shows that $e^{-D(m)}$ is exactly
+the probability that a random meander of order $2m$ is a product of two meanders of order $m$.
+
+\begin{proposition}[halving identity]\label{prop:halving}
+For every $n\ge1$,
+\[ L(n)\;=\;\sum_{j\ge0}2^{-(j+1)}D(2^jn). \]
+\end{proposition}
+
+\begin{proof}
+Since $D(m)=2L(m)-L(2m)$, the partial sums telescope:
+$\sum_{j=0}^{J-1}2^{-(j+1)}D(2^jn)=L(n)-2^{-J}L(2^Jn)$. The last term is
+$n\cdot L(2^Jn)/(2^Jn)$, which tends to $0$ because $L(k)/k\to0$.
+\end{proof}
+
+The right side involves only the counts, not $\mu$. Intuitively, the identity starts from a huge
+meander, halves it again and again down to order $n$, and adds up what each halving costs. It turns statements about $u_n$ into
+statements about the single sequence $D(m)$.
+
+\begin{corollary}\label{cor:halving}
+For a constant $\alpha$:
+\begin{enumerate}
+\item $L(n)=\alpha\log n+O(1)$ for all $n$ if and only if $D(m)=\alpha\log m+O(1)$;
+\item $L(n)=\alpha\log n+o(\log n)$ if and only if $D(m)=\alpha\log m+o(\log m)$;
+\item $L(n)\le\chi\log n+O(1)$ for some $\chi$ if and only if $D(m)\le\chi'\log m+O(1)$ for some $\chi'$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+In each part, one direction follows from $D(m)=2L(m)-L(2m)$ and the other from the identity. For
+example, in part 1, if $|D(m)-\alpha\log m|\le c$ for all $m$, then
+\[ L(n)=\sum_{j\ge0}2^{-(j+1)}\big(\alpha\log n+\alpha j\log 2+O(c)\big)
+ =\alpha\log n+\alpha\log2+O(c), \]
+using $\sum_j 2^{-(j+1)}=1$ and $\sum_j j\,2^{-(j+1)}=1$. Part 3 is the same computation with inequalities, using $L\ge0$, and part 2 uses that $\epsilon\log(2^jn)\le\epsilon(\log n+j\log2)$.
+\end{proof}
+
+So the power law~\eqref{eq:law} is equivalent to $D(m)=\alpha\log m+O(1)$: the probability that a
+meander of order $2m$ splits into two meanders of order $m$ should decay like $m^{-\alpha}$. If $u_n\sim An^{-\alpha}$,
+then $D(2m)-D(m)$ tends to $\alpha\log 2\approx2.371$; if in addition the correction is smooth, for example
+$u_n=An^{-\alpha}(1+O(1/n))$, then $m\,(D(m+1)-D(m))$ tends to $\alpha$.
+Table~\ref{tab:D} in Appendix~\ref{app:data} lists exact values. Along the computed range $D$ is
+increasing and concave, and both of these quantities increase, reaching $3.13$ at $m=15$ and $2.19$
+at $m=8$. Theorem~\ref{thm:main} gives $D(m)\le 2L(m)\le 2C\sqrt m$.

@@ -1,0 +1,39 @@
+% ======================================================================
+% Paper E of the meander series: Hamiltonian cycles on bicubic planar maps.
+% Compile from this folder:  tectonic main.tex
+% Sources (read-only): 602_bicubic_upper_bound, 602r_referee_bicubic_bound, 189_bicubic_hamiltonian,
+% 1367_bicubic_note (new checker, lower bound). Numbers are copied from the logs named in Appendix A.
+% ======================================================================
+\documentclass[11pt]{article}
+\input{../common/preamble}
+
+\newcommand{\pA}{\mathsf{pushU}}
+\newcommand{\pB}{\mathsf{pushL}}
+\newcommand{\qA}{\mathsf{popU}}
+\newcommand{\qB}{\mathsf{popL}}
+\newcommand{\Ex}{\mathbb{E}}
+\newtheorem*{theoremL}{Theorem L}
+\def\UrlBreaks{\do\/\do\_\do\.}
+
+\begin{document}
+
+\title{Hamiltonian cycles on bicubic planar maps:\\ bounds on the growth rate\seriesline{Paper E.}}
+\author{Carl Johan Ragnarsson}
+\date{Draft of October 25, 2026}
+\maketitle
+
+\input{sections/abstract}
+\input{sections/s1_intro}
+\input{sections/s2_words}
+\input{sections/s3_upper}
+\input{sections/s4_lower}
+\input{sections/s5_checks}
+
+\clearpage
+\appendix
+\input{sections/a_where}
+
+\bibliographystyle{plain}
+\bibliography{../common/refs}
+
+\end{document}

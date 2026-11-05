@@ -1,0 +1,77 @@
+% ======================================================================
+% Paper D of the meander series: the KPZ formula in a continuum model, and near-splits in the
+% conjectured meander limit. Compile with: tectonic main.tex
+% Sources: see the appendix "Where the proofs are" (sec_appendix.tex).
+% Lines marked "% UNVERIFIED" state less than the sources or flag a point not settled by them.
+% ======================================================================
+\documentclass[11pt]{article}
+\input{../common/preamble}
+\usepackage{enumitem}
+\setlist{itemsep=1pt,topsep=4pt,parsep=0pt}
+
+% Local notation.
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Pt}{\mathcal{P}}
+\newcommand{\astar}{\alpha_*}
+\newcommand{\xstar}{x_*}
+\newcommand{\ldet}{\det{}'\Delta_g}
+% File names in the appendix table, breakable at slashes and underscores.
+\def\UrlBreaks{\do\/\do\_}
+\newcommand{\fn}[1]{\nolinkurl{#1}}
+
+\title{The KPZ formula in a continuum model,\\ and near-splits in the conjectured meander limit%
+\seriesline{Paper D.}}
+\author{Carl Johan Ragnarsson}
+\date{Draft of October 25, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The number of meanders with $2n$ crossings is conjectured to grow like $A\mu^n n^{-\alpha}$ with
+$\alpha=(29+\sqrt{145})/12\approx3.4201$. The value comes from the Knizhnik--Polyakov--Zamolodchikov
+(KPZ) formula of physics, applied to a random surface carrying two curves. This paper studies two
+continuum settings in which parts of that prediction can be proved. In the random surface model
+of Ang, Park, Pfeffer and Sheffield, built by subdividing a square according to a Gaussian free
+field, we prove that the probability of at least $n$ squares is $n^{-4/\gamma^2+o(1)}$ for every
+value of the parameter, including the critical endpoint. They showed that weighting by a power of
+a Laplacian determinant, the continuum analog of counting spanning trees, exactly changes the
+parameter. Combined with this and with a normalization identity that we derive, the tail law gives
+the full KPZ curve in that model, for the total weight of sizes at least $n$; the analog of two
+spanning trees has tail exponent $(17+\sqrt{145})/12$, which corresponds to the predicted
+$\alpha_*=(29+\sqrt{145})/12$. We also show that large area does not force many squares, and we discuss a
+branching random walk in which the formula is the relation between two exponential rates. In the
+random surface with two independent space-filling curves that Borga, Gwynne and Sun conjecture to
+be the limit of large meanders, we prove that the probability of a near-split into two halves,
+imperfect by a fraction $\delta$, lies between constant multiples of $\delta^{3.4201}$ and
+$\delta^{3.1344}$; the exponent of the lower bound is the predicted one. A calculation with two
+random disks glued along their boundaries, a simpler surface whose link to near-splits is open,
+gives the predicted exponent exactly. None of these results is yet a theorem about finite
+meanders; we state what is missing to transfer them, and what the missing steps would give. All code was written using Claude (Opus
+5.5) or Codex (Sol 5.1) with active review and guidance throughout.
+\end{abstract}
+
+
+\input{sec_intro}
+\input{sec_model}
+\input{sec_tilt}
+\input{sec_tail}
+\input{sec_upper}
+\input{sec_lower}
+\input{sec_area}
+\input{sec_brw}
+\input{sec_limit}
+\input{sec_nearsplit}
+\input{sec_disks}
+\input{sec_bridge}
+\input{sec_open}
+
+\clearpage
+\appendix
+\input{sec_appendix}
+
+\bibliographystyle{plain}
+{\footnotesize\bibliography{../common/refs}}
+
+\end{document}

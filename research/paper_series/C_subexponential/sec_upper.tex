@@ -1,0 +1,121 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The upper bound}\label{sec:upper}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The bound $M_n\le\mu^n$ uses one way of gluing two meanders. The bound $M_n\le\mu^{n+1}/(8n)$ uses
+many: if two meanders of order $n$ can be glued in at least $4n-1$ ways that can be told apart afterwards,
+then meanders of order about $2n$ are about $n$ times as many as pairs of meanders of order $n$,
+and that forces a factor $1/n$. The device of joining two objects of equal size in many
+recognizable ways goes back to work of Madras on lattice trees~\cite{Madras}.
+% UNVERIFIED: the Madras attribution rests on the abstract of his J. Stat. Phys. 78 (1995) paper only;
+% the full text was not read.
+
+\subsection{Capped blocks}
+
+Let $\Gamma$ be a meander of order $N$. A \emph{capped block} of $\Gamma$ is a lower arch
+$\{\ell,\ell'\}$ with $\ell'\ge\ell+3$ such that every upper arch with an end in
+$\{\ell+2,\ldots,\ell'\}$ has both ends there. Its \emph{size} is $\ell'-\ell+1$, the number of
+crossings from $\ell$ to $\ell'$. Intuitively, a capped block is a small meander hanging under one
+lower arch, attached to the rest of the road only through the two crossings $\ell$ and $\ell+1$. The
+size is always even, $2b+2$ with $b\ge1$, and the road inside the block is a single path through all
+its crossings. Two lower arches are nested or disjoint, so two capped blocks are nested or disjoint.
+Two capped blocks with more than $N$ crossings each, out of $2N$, must overlap and are therefore
+nested; so a meander has at most one capped block of each size larger than~$N$.
+
+\emph{Insertion.} The upper arches of a meander cut the half-plane above the river into
+\emph{regions}. Let $G$ be a meander of order $a$, let $i$ be one of its $2a+1$ gaps, and let
+$\{p,q\}$ be an upper arch on the boundary of the region that lies directly above gap $i$. Let
+$H$ be a meander of order $b$. Put $2b+2$ new crossings into gap $i$: the crossings of $H$, with one
+extra crossing on each side, $\ell$ on the left and $\ell'$ on the right, joined by a new lower arch
+that caps them. Remove $\{p,q\}$ and the upper arch $\{\ell+1,y_1\}$ at the first crossing of $H$.
+Add the upper arch $\{y_1,\ell'\}$, and join $\ell$ and $\ell+1$ to $p$ and $q$ by two upper arches, in
+the one of the two possible pairings that crosses nothing. Because $\{p,q\}$ lies on the boundary of
+the region containing the gap, no other arch is crossed. The road becomes one loop, and the new lower arch spans a capped block
+of size $2b+2$. Extraction reverses this. Intuitively, $H$ is opened at its first crossing and spliced
+into the road of $G$ at the arch $\{p,q\}$.
+
+\begin{theorem}[insertion bijection]\label{thm:insertion}
+For $a,b\ge1$ and $N=a+b+1$, insertion is a bijection from the quadruples $(G,i,\{p,q\},H)$ onto the
+pairs (meander $\Gamma$ of order $N$, capped block of $\Gamma$ of size $2b+2$).
+\end{theorem}
+
+Write $T(G)$ for the number of pairs $(i,\{p,q\})$ available in $G$, and $T_a=\sum_G T(G)$, the sum over
+meanders $G$ of order $a$. The theorem says that the meanders of order $N$, counted with their number of capped
+blocks of size $2b+2$, total $T_aM_b$. For $a\le b$ the block has $2b+2\ge N+1$ crossings and is
+unique, which gives
+\begin{equation}\label{eq:insertion}
+M_{a+b+1}\;\ge\;T_aM_b\qquad(1\le a\le b).
+\end{equation}
+
+\begin{lemma}\label{lem:faces}
+For every meander $G$ of order $a$, $T(G)\ge4a-1$. Hence $T_a\ge(4a-1)M_a$.
+\end{lemma}
+
+\begin{proof}
+The $a$ upper arches cut the upper half-plane into $a+1$ regions; the pairs $(i,\{p,q\})$ counted by
+$T(G)$ are, region by region, a gap in it times an arch on its boundary. A bounded region lies directly
+under one arch with $k$ arches directly below it; it has $k+1$ arches on its boundary and contains
+$k+1$ gaps. The unbounded region has $c$ exterior arches on its boundary and contains $c+1$ gaps. So
+$T(G)=\sum_F c_F^2+c_\infty$, where $c_F\ge1$ is the number of arches on the boundary of region $F$
+and $c_\infty=c$. Every arch bounds two regions, so $\sum_Fc_F=2a$. For positive integers
+$c^2\ge3c-2$, so $\sum_Fc_F^2\ge 6a-2(a+1)=4a-2$, and $c_\infty\ge1$.
+\end{proof}
+
+\subsection{The doubling argument}
+
+\begin{proof}[Proof of the upper bound in Theorem~\ref{thm:main}]
+Put $g(n)=8n\,M_n$. By~\eqref{eq:insertion} with $a=b=n$ and Lemma~\ref{lem:faces},
+\[ g(2n+1)=8(2n+1)M_{2n+1}\;\ge\;8(2n+1)(4n-1)M_n^2\;\ge\;64n^2M_n^2=g(n)^2 , \]
+because $8(2n+1)(4n-1)=64n^2+16n-8\ge64n^2$. Since $(2n+1)+1=2(n+1)$, the numbers
+$f(n)=\log g(n)/(n+1)$ satisfy $f(2n+1)\ge f(n)$. Let $n^{(0)}=n$ and $n^{(k+1)}=2n^{(k)}+1$, so
+$n^{(k)}+1=2^k(n+1)$. Then
+\[ f(n)\;\le\;f(n^{(k)})\;=\;\frac{\log(8n^{(k)})}{n^{(k)}+1}+\frac{n^{(k)}}{n^{(k)}+1}\cdot\frac{\log M_{n^{(k)}}}{n^{(k)}}
+\;\longrightarrow\;\log\mu \qquad(k\to\infty). \]
+So $\log g(n)\le(n+1)\log\mu$, that is $8nM_n\le\mu^{n+1}$.
+\end{proof}
+
+Every $n$ starts its own chain $n,2n+1,4n+3,\ldots$, so the bound holds at every $n$ and needs no
+regularity of $u_n$. The constant $8$ cannot be improved by this argument. On the exact data,
+$(8nM_n)^{1/(n+1)}\le9.07$ for $n\le32$, well below $\mu$, so the bound is far from tight there. In
+terms of the loss it says $L(n)\ge\log n-\log(\mu/8)$. Combined with $M_{2m+1}\le R_\star M_{2m}$, inequality~\eqref{eq:insertion} with $a=b=m$ also gives
+$D(m)\ge\log(4m-1)-\log R_\star$; under the power law this says again that $\alpha\ge1$.
+
+\subsection{The exponent \texorpdfstring{$3/2$}{3/2} along a subsequence}
+
+Insertion can be repeated. Let $H_1$ and $H_2$ be meanders of orders $b_1$ and $b_2$, and let
+$\mathrm{wrap}(H_2)$ be the meander of order $b_2+1$ in which $H_2$ hangs as a capped block under one
+new lower arch. Inserting the product $H_1\cdot\mathrm{wrap}(H_2)$ into $G$ gives a map that is again
+one-to-one with a recognizable image: the inserted block is the smallest capped block with more than
+$N$ crossings. The result is a three-piece inequality.
+
+\begin{theorem}[three-piece insertion]\label{thm:threepiece}
+For $N\ge5$,
+\[ M_N\;\ge\;\sum T_a\,M_{b_1}M_{b_2}, \]
+the sum over positive integers with $a+b_1+b_2=N-2$, $2a\le N-1$, $2b_1\le N$ and $2b_2+2\le N$.
+\end{theorem}
+
+\begin{theorem}\label{thm:threehalves}
+For every $\kappa<3/2$, $\liminf_{n\to\infty}n^\kappa u_n=0$. Equivalently,
+$\limsup_n L(n)/\log n\ge3/2$.
+\end{theorem}
+
+\begin{proof}
+Suppose $u_n\ge c_\kappa n^{-\kappa}$ for all large $n$, with $\kappa<3/2$. If $\kappa<1$ this already
+contradicts $u_n\le\mu/(8n)$, so let $1\le\kappa<3/2$. In
+Theorem~\ref{thm:threepiece} keep the triples with $a$ and $b_1$ in $[N/4,3N/8]$. There are at least
+$N^2/256$ of them for large $N$, each has $T_a\ge(4a-1)M_a\ge (N/2)M_a$, and all three sizes are at
+least $N/4-2$. Inserting the assumed lower bound for $M_a$, $M_{b_1}$, $M_{b_2}$ gives
+$u_N\ge c_\kappa'N^{-(3\kappa-3)}$ for large $N$. Since $3/2-(3\kappa-3)=3(3/2-\kappa)$, the distance to
+$3/2$ triples at each step, so after finitely many steps the exponent is below $1$. That contradicts
+$u_n\le\mu/(8n)$.
+\end{proof}
+
+So if a power law $u_n=n^{-\alpha+o(1)}$ holds, then $\alpha\ge3/2$. Without that assumption,
+Theorem~\ref{thm:threehalves} says only that no lower bound $c_\kappa n^{-\kappa}$ with $\kappa<3/2$ holds
+for all large $n$; it does not give $u_n=O(n^{-3/2})$. Heuristically, $3/2$ is the limit of
+the method: Theorem~\ref{thm:threepiece} is nearly an equality when $u_n$ is of order $n^{-3/2}$,
+which is the behavior of tree-like families built only by insertion and products. Going further needs
+an input that separates meanders from such families. One candidate is that a positive fraction of
+meanders of order $n$ has no capped block with more than $n$ crossings; with it the same argument
+gives $\kappa<2$. In the exact data this fraction is $0.5$ at $n=2$ and $3$ and about $0.85$ at
+$n=24$ and $25$, but it is not proved to stay positive.

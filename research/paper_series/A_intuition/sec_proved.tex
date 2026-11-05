@@ -1,0 +1,89 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{What is proved for finite meanders}\label{sec:proved}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+For finite meanders the proved statements trap the leftover factor $u_n=M_n/\mu^n$ in a window.
+The proofs are in Paper~C~\cite{PaperC}; here we explain why they work.
+
+\begin{theorem}\label{thm:sqrt}
+There is a constant $C$ such that for every $n\ge1$
+\[ \mu^n e^{-C\sqrt n} \;\le\; M_n \;\le\; \frac{\mu^{n+1}}{8n} . \]
+\end{theorem}
+
+The upper bound decays like $n^{-1}$, already a power law but with exponent $1$ instead of
+$3.42$. The lower bound decays faster than any power of $n$. So the true $u_n$, believed to be
+$A\,n^{-3.4201}$, is proved to lie between $e^{-C\sqrt n}$ and $\mu/(8n)$. In logarithmic terms,
+\[ -C\sqrt n \;\le\; \log u_n \;\le\; -\log n + \log(\mu/8),\]
+while the prediction is $-3.4201\log n+\log A$. Both bounds are new as far as we know. The
+lower bound improves one obtained earlier in this project, which had $C\sqrt n\log n$ in the
+exponent. Both sides have a short explanation.
+
+\subsection{The upper bound}\label{sec:upperA}
+
+Meanders can be glued: two meanders of orders $a$ and $b$ can be placed side by side on the
+river and their roads joined into one, so that the two pieces can be recovered from the result
+(Paper~C). This gives $M_{a+b}\ge M_aM_b$. Fekete's lemma says that a sequence $(y_k)$ with
+$y_{j+k}\ge y_j+y_k$ has $y_k/k\to\sup_k y_k/k$. Applied to $y_k=\log M_k$, it shows that
+$\mu=\lim M_n^{1/n}$ exists, equals $\sup_n M_n^{1/n}$, and so $M_n\le\mu^n$ for every $n$.
+
+A more careful gluing inserts a second meander of order $n$, capped by one extra pair of
+crossings (one on each side of it, joined by a new arch below the river), into a gap of a first
+meander of order $n$. The result has order $2n+1$, and the insertion can be done in at least
+$4n-1$ ways, all of which can be told apart afterwards. So $M_{2n+1}\ge(4n-1)M_n^2$ (Paper~C), and
+since $8(2n+1)(4n-1)\ge64n^2$, the numbers $g(n)=8n\,M_n$ satisfy $g(2n+1)\ge g(n)^2$. The upper
+bound follows in two lines. Since $(2n+1)+1=2(n+1)$, the numbers $f(n)=\log g(n)/(n+1)$ satisfy
+$f(2n+1)\ge f(n)$.
+Iterating along $n,\,2n+1,\,4n+3,\ldots$ gives an increasing sequence whose limit is $\log\mu$,
+because $g(n)^{1/n}\to\mu$. So $f(n)\le\log\mu$, that is $8nM_n\le\mu^{n+1}$. Intuitively, if
+two halves can be glued in about $n$ ways, a meander of order $2n$ is about $n$ times more common
+than a pair of halves, and that forces a factor $1/n$.
+
+\subsection{The lower bound}
+
+The lower bound needs the opposite inequality: a large meander must not be much more common than
+a pair of smaller ones. Cut it in two. Let the meander have order $m$, so that its sphere has
+$2m$ squares. By a form of the planar separator theorem (balanced separators of this size are
+classical for planar graphs~\cite{LT,Miller}), the sphere has a closed curve, a
+\emph{separator}, that crosses the river and the road at about $\sqrt m$ points in total and
+splits the sphere into two pieces of comparable size. Each piece can be completed to a meander:
+draw a new closed curve just outside the piece, made of bits of river and road, and then join the
+remaining loose ends outside it so that the river and the road each close up into one curve. The
+original meander can be recovered from the two completed ones plus a small record. The new
+ingredient is that the number of possible records is at most $e^{Bs}$ for a constant $B$, where
+$s$ is the number of points where the separator crosses the drawing. Intuitively, the new curve
+can be traced again in the completed meander one step at a time, with at most three choices per
+step, so the piece is easy to find. Earlier completions had no such curve and needed about
+$m^{s}$ records, which produced the extra logarithm.
+
+With $s$ of order $\sqrt m$ this gives
+\[ M_m \;\le\; e^{B'\sqrt m}\, M_a M_b \]
+for some $a$ and $b$ that each lie between $m/10$ and $9m/10$ and add up to $m$ plus at most a
+constant times $\sqrt m$. In terms of $L(n)=n\log\mu-\log M_n=-\log u_n$, which satisfies
+$L(n)\ge0$ and $L(n)/n\to0$, this says $L(a)+L(b)\le L(m)+B''\sqrt m$, so one of the two pieces, of size $k$, has
+$L(k)/k\le L(m)/m+B''/\sqrt m$. Start from a huge size and keep passing to such a piece until the
+size first drops below a target $n$. The sizes shrink geometrically, so the added terms
+$B''/\sqrt{\text{size}}$ sum to at most a constant times $1/\sqrt n$, and the starting term
+$L(m)/m$ is as small as we like. This gives some $k$ between $n/10$ and $n$ with
+$L(k)\le B'''\sqrt n$. Finally, $L(a+b)\le L(a)+L(b)$, so splitting any $n$ into such blocks of
+geometrically decreasing sizes gives $L(n)\le C\sqrt n$, which is Theorem~\ref{thm:sqrt}.
+
+The square root has a clear source. Some planar maps, such as square grids, really need
+separators with about $\sqrt m$ crossings, and the argument uses one separator for every meander.
+To do better, the separator would have to be shorter, which can only hold for a fraction of
+meanders, and that fraction would have to be estimated. Paper~C states exactly what such an
+estimate would give. It also gives a second criterion, in terms of meanders whose arches are
+nested only to a bounded depth, and shows why building such meanders by gluing short ones cannot
+meet it. These criteria are proved but not yet independently checked.
+
+\subsection{Prime meanders}
+
+Say that a meander has a \emph{cut} at the gap between crossings $2m$ and $2m+1$ if no arch
+below the river passes over the gap, the crossings $2m$ and $2m+1$ are joined by a short arch
+above the river, and exactly one other arch above the river passes over the gap. This is a thin
+neck of the kind in Section~\ref{sec:shape}, at any position, and the meanders with a cut are
+exactly the pairs glued side by side as at the start of Section~\ref{sec:upperA}. A meander is
+\emph{prime} if it has no cut. Every meander factors uniquely into prime meanders (a close
+relative of known decompositions), and on average a meander has a bounded number of cuts. A small new result is that the chance of a cut at a given
+position tends to zero as the distance of that position from both ends grows; its proof has not
+yet been independently checked. These facts, an exact identity that relates the power law to
+necks at the middle (used in Section~\ref{sec:bridge}), and exact data are in Paper~C.

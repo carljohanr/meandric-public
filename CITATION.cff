@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "Please cite the relevant paper in this repository and acknowledge this software when using it."
+title: "Meandric research: growth rates, proofs and bound generators"
+type: software
+authors:
+  - family-names: Ragnarsson
+    given-names: Carl Johan
+repository-code: "https://github.com/carljohanr/meandric-public"
+version: "0.1.0"
+date-released: "2026-11-04"
+license: GPL-3.0-only

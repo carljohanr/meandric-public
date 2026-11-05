@@ -1,0 +1,52 @@
+% ======================================================================
+% Paper C of the meander series: the subexponential factor u_n = M_n / mu^n.
+% Draft of 2026-10-25. Compile from this folder with: tectonic main.tex
+% Sources: see Appendix B (sec_appendix.tex). Exact data: web/src/meandric/meandricData.ts,
+% rows with source 'friend' (n = 33-40) excluded; the table was recomputed for this paper.
+% ======================================================================
+\documentclass[11pt]{article}
+\input{../common/preamble}
+\usetikzlibrary{intersections,calc}
+
+\title{The subexponential factor of meander numbers\seriesline{Paper C.}}
+\author{Carl Johan Ragnarsson}
+\date{Draft of October 25, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A meander of order $n$ is a closed road that crosses a straight river $2n$ times without crossing
+itself. Their number $M_n$ grows like $\mu^n$ with $\mu\approx12.26$, and the factor
+$u_n=M_n/\mu^n$ that remains is conjectured to decay like a power $n^{-\alpha}$ with
+$\alpha=(29+\sqrt{145})/12\approx3.4201$. This paper collects what can be proved about $u_n$. The
+main result is that $\mu^n e^{-C\sqrt n}\le M_n\le\mu^{n+1}/(8n)$ for every $n$. The lower bound is
+new; it removes a logarithmic factor from the previous one. Its proof cuts a meander into two balanced
+halves and completes each half to a meander in a way that can be undone at small cost. Around these
+bounds we prove the ratio limit $M_{n+1}/M_n\to\mu$ with a rate, the unique factorization of
+meanders into prime meanders (those that are not obtained by gluing two smaller ones), the bound
+$\sum_n u_n\le1/4$, a bound on the probability that a meander splits as such a product at a given
+position, and comparisons with splittings that are nearly exact. For meanders whose crossing labels, a
+height attached to each crossing, stay in $\{-1,0,1,2\}$, the growth rate and the exponent are found
+exactly: the growth rate is a quartic irrational $10.4245\ldots$ and the exponent is $3.7758\ldots$,
+given by the angle of a wedge in which a two-dimensional walk is confined. The generating function of
+this bounded-label family is not D-finite: it satisfies no linear differential equation with polynomial
+coefficients. Finally we state which
+estimates would improve the bounds, show why some natural routes cannot, and list exact data. All code was written using
+Claude (Opus 5.5) or Codex (Sol 5.1) with active review and guidance throughout.
+\end{abstract}
+
+\input{sec_intro}
+\input{sec_growth}
+\input{sec_upper}
+\input{sec_lower}
+\input{sec_products}
+\input{sec_band}
+\input{sec_improve}
+\input{sec_open}
+\input{sec_appendix}
+
+\bibliographystyle{plain}
+\bibliography{../common/refs}
+
+\end{document}

@@ -1,0 +1,119 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{What would improve the bounds}\label{sec:improve}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Theorem~\ref{thm:main} leaves the loss $L(n)$ between about $\log n$ and $C\sqrt n$. This section
+states what would lower the upper estimate $C\sqrt n$, why some natural routes cannot, and what
+weaker targets remain. The propositions and the argument that gluing cannot help have complete
+written proofs, which have not been checked independently; the expected value of $\beta$ is a
+heuristic.
+
+\subsection{Short separators for a fraction of meanders}
+
+The proof of the lower bound applies one separator with about $\sqrt N$ ports to every meander. A
+separator with fewer ports may exist only for some meanders; then the argument must also pay for how
+rare these meanders are.
+
+\begin{proposition}[fraction criterion]\label{prop:fraction}
+Let $0<\tau<1$ and $c_{\mathrm f}>0$. Suppose that for all large $N$ a fraction at least
+$e^{-c_{\mathrm f}N^\tau}$ of the meanders of order $N$ have a separator with at most
+$c_{\mathrm f}N^\tau$ ports whose two disks each contain between $N/2$ and $3N/2$ of the $2N$
+crossings. Then $L(n)\le K_{\mathrm f}\,n^\tau$ for all $n$, for some constant $K_{\mathrm f}$.
+\end{proposition}
+
+\begin{proof}[Key idea]
+Run the proof of Proposition~\ref{prop:reverse} on these meanders only. Their number is at least
+$e^{-c_{\mathrm f}N^\tau}M_N$ and at most a polynomial times $e^{2c_\Omega c_{\mathrm f}N^\tau}\max M_aM_b$,
+so $L(a)+L(b)\le L(N)+B'N^\tau$. The descent of Section~\ref{sec:descent} goes through with
+$N^{\tau-1}$ in place of $N^{-1/2}$, because the geometric sums still converge.
+\end{proof}
+
+With $\tau=1/2$ and fraction one this is the lower bound of Theorem~\ref{thm:main}. The criterion
+allows separators of any shape. For example, if every face of the map can be reached from one fixed
+face by crossing at most $\omega$ edges, the map has a balanced separator with at most $2\omega+1$ ports.
+
+\subsection{Shallow meanders}
+
+The simplest balanced cut is a vertical line through the middle gap of the river. It always exists,
+it splits the crossings evenly, and its ports are the arches that pass over the gap, so its cost
+depends on how many arches do. Say that an arch system has \emph{depth} at most $d$ if no point lies
+under more than $d$ of its arches, and let $M^{(d)}_n$ count meanders of order $n$ whose upper and
+lower arch systems both have depth at most $d$. We call these \emph{shallow} meanders.
+
+\begin{proposition}[depth criterion]\label{prop:depth}
+Suppose that for some $K_{\mathrm d}$ and $\beta>0$
+\[ M^{(d)}_n\;\ge\;\mu^n\exp\!\big(-K_{\mathrm d}\,n\,d^{-\beta}-K_{\mathrm d}\,d\big)\qquad\text{for all }n,d\ge1 .\]
+Then $L(m)\le K_{\mathrm d}'\,m^{1/(1+\beta)}$ for all $m$, for some constant $K_{\mathrm d}'$.
+\end{proposition}
+
+\begin{proof}
+In a meander of depth at most $d$, at most $2d$ arches pass over the middle gap. By
+Proposition~\ref{prop:linrec}, $M^{(d)}_{2m}\le e^{2B_{\mathrm{lin}}d}M_m^2$ with $B_{\mathrm{lin}}=\log(64R_\star^3)$.
+With the hypothesis at $n=2m$,
+\[ 2m\log\mu-2K_{\mathrm d}md^{-\beta}-K_{\mathrm d}d\;\le\;2B_{\mathrm{lin}}d+2\log M_m , \]
+so $L(m)\le K_{\mathrm d}\,m\,d^{-\beta}+(B_{\mathrm{lin}}+K_{\mathrm d}/2)\,d$.
+Take $d=\lceil m^{1/(1+\beta)}\rceil$.
+\end{proof}
+
+The exponent $1/(1+\beta)$ is below $1/2$ exactly when $\beta>1$. So shallow meanders improve on the
+square root if and only if confining a meander to depth $d$ costs less than $d^{-1}$ per crossing in
+the exponent.
+
+\emph{Gluing short meanders never helps.} Let $\mu_d=\lim_n(M^{(d)}_n)^{1/n}$ be the growth rate of
+shallow meanders. The only unconditional lower bounds for $M^{(d)}_n$ come from building shallow
+meanders out of short ones, by products. A meander of order $n_1\le d$ has depth at most $n_1$, and a
+product of many of them, combined in a balanced way, adds only a few levels of nesting. This gives
+$\log(\mu/\mu_d)\lesssim L(n_1)/n_1$ with $n_1\approx d$. If $L(n_1)=O(n_1^{\tau})$, that is $\beta=1-\tau$, and Proposition~\ref{prop:depth} returns the exponent
+$1/(2-\tau)$. Since
+\[ \frac1{2-\tau}-\tau\;=\;\frac{(1-\tau)^2}{2-\tau}\;\ge\;0, \]
+the exponent never improves; from $\tau=1/2$ it gives $2/3$, worse than the square root. A proof along
+these lines must produce long, thin meanders that are not concatenations of short ones.
+
+\emph{What is expected.} Heuristically, $\beta\approx1.92$. Typical arch heights in large meanders, the
+numbers of arches nested above a point, are predicted by a KPZ-type argument to grow like $n^\nu$ with $\nu\approx0.52$, and Monte Carlo measurements on the
+closely related semi-meanders, where the river is a half-line, give $0.518$~\cite{Golinelli}. For a process whose height after $n$ steps is about
+$n^\nu$, staying below height $d$ for a long time costs a factor of about
+$\exp(-\mathrm{const}\cdot d^{-1/\nu})$ per step, which suggests
+$\log(\mu/\mu_d)\approx\mathrm{const}\cdot d^{-1/\nu}$ and $\beta=1/\nu\approx1.92$. If so, and if the
+hypothesis of Proposition~\ref{prop:depth} holds with this $\beta$, it gives $L(n)=O(n^{0.34})$. For comparison, pairs of arch systems without the
+single-loop condition have $\beta=2$ exactly: those of depth at most $d$ grow like
+$\sigma_d=(2\cos(\pi/(d+2)))^4$ per order, and $16-\sigma_d\approx32\pi^2/(d+2)^2$.
+
+\emph{A cleaner sufficient condition.} The hypothesis of Proposition~\ref{prop:depth} would follow, with
+$\beta$ up to $2$, from a correlation statement: that
+$\mu_d/\sigma_d\ge(\mu/16)\exp(-O(d^{-\beta'}))$ for some $\beta'>1$, with uniform prefactors. In words, among pairs of arch systems of depth at most
+$d$, the probability of forming a single loop decays at nearly the same exponential rate as for all
+pairs. The growth rates $\mu_d$ can be computed exactly for small $d$ by transfer matrices, finite
+matrices that build a shallow meander one crossing at a time, so this can be tested before a proof is attempted.
+
+\subsection{Existence of an exponent is not easier}
+
+One might hope to prove that some exponent exists, $u_n=n^{-\alpha+o(1)}$ for some finite $\alpha$,
+without finding it. This is at least as hard as a lower bound on $M_n$ of the form $\mu^n$ times a
+power of $n$: if such an $\alpha$ exists,
+then $L(n)\le(\alpha+1)\log n$ for large $n$, that is $M_n\ge\mu^nn^{-\alpha-1}$. By
+Corollary~\ref{cor:halving}, such a polynomial lower bound is the same as $D(m)\le\chi\log m+O(1)$ for
+some $\chi$, that is, $M_{2m}=O(m^{\chi}M_m^2)$. No method in this paper gives that.
+
+\subsection{A weaker target: subexponentiality}\label{sec:subexp}
+
+A summable positive sequence $(a_n)$ is called \emph{subexponential} if
+\[ \frac1{a_N}\sum_{m=1}^{N-1}a_ma_{N-m}\;\longrightarrow\;2\sum_na_n \qquad(N\to\infty). \]
+In words, a large total is almost always made of one large part and one small part. Take $a_n=u_n$. By
+\eqref{eq:cutprob} the left side is exactly $\mathbb E_N[\#\text{cuts}]$. So
+\[ (u_n)\text{ is subexponential}\quad\Longleftrightarrow\quad\mathbb E_N[\#\text{cuts}]\to2U . \]
+Since $\Pr_N(\text{cut at }m)\to u_m$ for each fixed $m$, by Theorem~\ref{thm:ratio}, the cuts near
+the two ends already contribute $2U$ in the limit. So subexponentiality says that cuts with both sides
+large carry vanishing total probability: for every $\epsilon>0$ there is $k_0$ with
+$\sum_{k_0\le k\le N-k_0}\Pr_N(\text{cut at }k)\le\epsilon$ for all large $N$. Intuitively, when a large
+meander has a cut, one side is almost always small.
+
+This is a different target from a polynomial lower bound, and neither is known to imply the other. It
+allows fast decay: sequences like $e^{-\sqrt n}$ are subexponential. It would have a concrete consequence. Since every meander is a sequence of primes and
+$\sum u_n$ is finite, the standard theory of subexponential sequences~\cite{CNW} would give a positive limiting
+fraction of prime meanders, $P_n/M_n\to(1-\mathcal P(1/\mu))^2$; the exact hypotheses of that theory
+remain to be checked here. The exact data are consistent with it: $\mathbb E_N[\#\text{cuts}]$
+decreases, to $0.245$ at $N=32$, while $2U\ge0.2064$ and the estimate of $U$ gives $2U\approx0.207$;
+the middle part with $k_0=5$ is $0.0127$ at $N=32$ (Table~\ref{tab:cuts}). Proposition~\ref{prop:cutbound}
+bounds each middle term, but its bound is not summable. What is missing is an argument that sees many
+cut positions at once; local smoothness of $u_n$ alone cannot give it.

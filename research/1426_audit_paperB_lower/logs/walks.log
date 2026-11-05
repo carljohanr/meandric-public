@@ -1,0 +1,12 @@
+stage 0 dirs_0_base_r8.tsv: directions 542910 (stages.json 542910), shapes 5, shapes equal stages.json: True, time 15s
+stage 1 dirs_1_sparse_r9.tsv: directions 24576 (stages.json 24576), shapes 5, shapes equal stages.json: True, time 16s
+stage 2 dirs_2_aggregated_r10.tsv: directions 139264 (stages.json 139264), shapes 25, shapes equal stages.json: True, time 24s
+stage 3 dirs_3_increment1_r10.tsv: directions 131072 (stages.json 131072), shapes 42, shapes equal stages.json: True, time 34s
+stage 4 dirs_4_increment2_r10.tsv: directions 131072 (stages.json 131072), shapes 42, shapes equal stages.json: True, time 43s
+directions 968894 edges 3685260 failures 0 []
+max |edge density term| 125810243.61262828
+closed-form mass M in [ 0.9671396045946018 ]; exact interval numerators at scale 2^-256:
+  M_lo 111987115400160828403932089798048250772956282813716086763017809029023875019850
+  M_hi 111987115400160828403932089798048250772956282813716086763017809029023875988744
+  M ~ 0.96713960459460176936685549729213476873473090440078516807661653571372766412862760
+  M mod p (plain form) [1915051625478718705, 2235793319846358613]

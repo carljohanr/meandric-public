@@ -1,0 +1,136 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}\label{sec:intro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Meanders and the KPZ formula}
+
+A \emph{meander of order $n$} is a closed curve in the plane, the \emph{road}, that crosses a
+fixed straight line, the \emph{river}, exactly $2n$ times and never crosses itself, counted up to
+deformations that keep the pattern of crossings. The river cuts the road into \emph{arches}, the
+pieces of road between consecutive crossings; the arches above the river pair up the crossings
+without crossing each other, and so do the arches below. Let $M_n$ be the number of meanders of
+order $n$; the first values are $1,2,8,42$. Two meanders of orders $a$ and $b$ can be \emph{glued
+end to end}: place them side by side on one river, remove the upper arch at the last crossing of
+the left one and the upper arch at the first crossing of the right one, and reconnect the four
+loose ends by a short arch joining these two crossings and a long arch over it. The two roads merge
+into one, giving a meander of order $a+b$. Gluing is injective, since the two pieces are recovered
+by undoing the reconnection, so $M_{a+b}\ge M_aM_b$, and $\mu=\lim_n M_n^{1/n}=\sup_nM_n^{1/n}$ exists by Fekete's lemma;
+numerically $\mu\approx12.26$~\cite{JG}. The leftover factor $u_n=M_n/\mu^n$ is believed
+to decay like a power of $n$:
+\begin{equation}\label{eq:conj}
+M_n\;\approx\;A\,\mu^n n^{-\alpha},\qquad \alpha=\astar=\frac{29+\sqrt{145}}{12}\approx3.4201 .
+\end{equation}
+This value was predicted by Di~Francesco, Golinelli and Guitter~\cite{DGG}, and numerical
+estimates agree with it~\cite{JG}. It has not been proved.
+
+The prediction comes from physics. A large meander is viewed as a random surface carrying two
+curves, river and road, that each visit every part of it. The discrete random surfaces here are
+\emph{planar maps}: connected graphs drawn on the sphere without edge crossings, counted up to
+deformation. Each kind of decoration drawn on a random surface (a spanning tree, a curve, a spin
+configuration) has a \emph{central charge} $c$, a number that measures how strongly the decorated
+surface prefers round shapes to shapes with thin necks: $c=0$ for a bare surface, $c=-2$ for a
+spanning tree and, it is predicted, for a curve through every point. Independent decorations are
+expected to add their central charges, so a meander is predicted to have $c=-4$. The
+\emph{KPZ formula} of Knizhnik, Polyakov and Zamolodchikov~\cite{KPZ} turns $c$ into an exponent:
+\begin{equation}\label{eq:kpz}
+\alpha=1+x,\qquad x+\frac1x=\frac{13-c}{6},\qquad x\ge1 .
+\end{equation}
+Here $x$ is the exponent of a tail: if, after the exponential growth is divided out, surfaces of
+size exactly $n$ carry total weight about $n^{-1-x}$, then surfaces of size at least $n$ carry total
+weight about $n^{-x}$. At $c=0$ the
+formula gives $\alpha=5/2$, the exponent of planar maps found by Tutte~\cite{Tutte}; at $c=-2$ it
+gives $\alpha=3$, the exponent of maps with a spanning tree found by Mullin~\cite{Mullin}; at $c=-4$
+the equation $x+1/x=17/6$ has the root
+\[
+\xstar=\frac{17+\sqrt{145}}{12}\approx2.4201,\qquad 1+\xstar=\astar .
+\]
+Paper~A explains this argument from the beginning~\cite{PaperA}. For meanders it rests on two
+unproved steps: that each curve counts as $c=-2$, and that the two curves are independent enough
+at large scales for their central charges to add. Paper~C collects what is proved about the numbers
+$M_n$ themselves~\cite{PaperC}.
+
+This paper concerns two continuum settings in which parts of the prediction can be proved. In
+both, the random surface is not glued from finitely many polygons but is a fixed square or sphere
+whose geometry is distorted by a random function, the Gaussian free field. Each object is explained
+when it first appears. The letter $n$ always denotes a size: the order of a meander, or the number
+of pieces of a surface.
+
+\subsection{What is new}
+
+In the model of Ang, Park, Pfeffer and Sheffield~\cite{APPS}, the \emph{APPS model}, a square is
+repeatedly cut into four wherever the random field is high, with a parameter $Q\ge2$ in the
+threshold, and the number $N$ of final squares is the size. The continuum analog of counting
+spanning trees is the product of the eigenvalues of the Laplacian, suitably renormalized. APPS
+proved that, at each fixed size, weighting by a power of this determinant is the same as changing
+$Q$. What was missing for an exponent was the law of $N$, and the comparison across sizes.
+\begin{itemize}
+\item \textbf{The tail law} (Theorem~\ref{thm:tail}): $\Prob(N\ge n)=n^{-4/\gamma^2+o(1)}$ for every
+$Q\ge2$, where $Q=2/\gamma+\gamma/2$, including the critical endpoint $Q=2$.
+\item \textbf{The normalization} (Propositions~\ref{prop:det}, \ref{prop:identity}): the determinant
+carries a factor proportional to $N^{1/3}$, so its $k$-th power needs the compensation $N^{-k/3}$, as
+well as an exponential factor that changes the growth rate but not the exponent.
+\item \textbf{The KPZ curve} (Theorem~\ref{thm:kpz}): for every real $k\ge-1/2$, the compensated
+$k$-th determinant weight of sizes at least $n$ is $n^{-x_k+o(1)}$ with $x_k+1/x_k=(13+2k)/6$. This
+is the KPZ formula~\eqref{eq:kpz} at $c=-2k$; at $k=2$, the analog of two spanning trees,
+$x_2=\xstar$, which corresponds to $\astar=1+x_2$. This is a statement about sizes at least $n$. For sizes
+exactly $n$, where the exponent would be $\astar$ itself, only the upper bound is proved (Section~\ref{sec:tail}).
+\item \textbf{Area is not size} (Proposition~\ref{prop:area}): the field also defines a random area
+of the square; given a very large area, the probability that $N=1$ stays bounded away from zero.
+\item \textbf{A branching random walk} (Theorem~\ref{thm:brwlocal}): in a simplified version where
+the field is replaced by independent Gaussian steps on a tree, whose tail is due to A\"id\'ekon, Hu
+and Zindy~\cite{AHZ}, $\Prob(\text{size}=n)$ is between constant multiples of $n^{-1-x}$.
+\end{itemize}
+The second setting is a random surface with two independent \emph{space-filling} curves, curves
+that pass through every point; Borga, Gwynne and Sun conjectured it to be the limit of large random
+meanders~\cite{BGS}.
+\begin{itemize}
+\item \textbf{Near-splits} (Theorem~\ref{thm:nearsplit}): a \emph{near-split with tolerance
+$\delta$} means that the region the river covers in the first half of its time and the region the
+road covers in some half of its time agree up to area $\delta$. Its probability in the limit object
+is between $c_1\delta^{\astar}$ and $C_1\delta^{\xstar+5/7}$, where $\xstar+5/7\approx3.1344$; the
+exponent of the lower bound is the predicted one. For finite meanders the same event at tolerance
+below $1/(4n)$ is exactly a \emph{thin neck} at the middle of the river: a closed curve meeting the
+road only twice that cuts the meander into two equal halves.
+\item \textbf{Two glued disks} (Proposition~\ref{prop:disks}): two random disk-shaped surfaces glued
+along a common boundary of length about $\sqrt\delta$, given total area one, split evenly within
+$\delta$ with probability of order $\delta^{1+4/\gamma^2}$, which is $\delta^{\astar}$ at the meander
+value of $\gamma$.
+\item \textbf{Conditional transfer} (Propositions~\ref{prop:condlower}, \ref{prop:condupper}): if
+near-splits of finite meanders, at tolerances just above one lattice cell, are not much rarer than in the
+limit object, then $M_n\ge\mu^nn^{-\astar-o(1)}$; if finite meanders can be coupled with the limit
+object with polynomially small errors, then $M_n\le C\mu^nn^{-\alpha'}$ for an explicit exponent
+$\alpha'$.
+\end{itemize}
+
+\subsection{Status of the results}
+
+The results listed above are new, except those attributed to others. The background in
+Section~\ref{sec:model}, the first part of Section~\ref{sec:tilt} and Section~\ref{sec:limit} is
+from the literature. Each new result has a written proof in the project repository~\cite{Repo}, and
+each was checked by at least one separate, independent reading of that proof;
+Appendix~\ref{app:repo} lists the files. Nothing has been reviewed outside the project. A full
+independent review of the complete arguments, and a systematic search of the literature for
+prior or overlapping results, are still pending. The results we use from the literature were
+checked against the arXiv versions of the papers cited, not against the journal versions; in one
+place (Section~\ref{sec:tilt}) the arXiv text has a misprint that we work around. Short arguments
+are given in full; longer ones are sketched, and their complete case analysis stays in the
+repository.
+
+The results are of three kinds, and it matters which is which.
+\begin{itemize}
+\item \emph{Theorems about the APPS model} and its branching-walk simplification
+(Sections~\ref{sec:tilt}--\ref{sec:brw}). The model is well defined and contains no meanders; the
+determinant only imitates spanning trees.
+\item \emph{Theorems about the conjectured limit} (Theorem~\ref{thm:nearsplit}) and about glued
+disks (Proposition~\ref{prop:disks}). These are theorems about well-defined random objects. Their
+relevance to meanders rests on the conjecture of Borga, Gwynne and Sun, which is open.
+\item \emph{Conditional statements} (Propositions~\ref{prop:condlower}, \ref{prop:condupper}). They
+say what the missing steps would give, and assume those steps.
+\end{itemize}
+The only unconditional statements about finite meanders are the combinatorial facts of
+Proposition~\ref{prop:micro} and Lemma~\ref{lem:transfer}. In particular, nothing in this paper is
+yet a theorem about the exponent $\alpha$ of finite meanders.
+
+Sections~\ref{sec:model}--\ref{sec:brw} treat the APPS model, Sections~\ref{sec:limit}--\ref{sec:disks}
+the conjectured meander limit, Section~\ref{sec:bridge} the transfer to finite meanders, and
+Section~\ref{sec:open} open problems.

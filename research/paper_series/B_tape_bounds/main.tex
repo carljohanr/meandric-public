@@ -1,0 +1,64 @@
+% ======================================================================
+% Paper B of the meander series: the tape machine and bounds on mu.
+% Compile from this folder:  tectonic main.tex
+% Sources (read-only): see the comment at the top of each section file and
+% Appendix A. Numbers are quoted from the sources named there.
+% Comments starting "% UNVERIFIED" mark statements the author could not confirm.
+% ======================================================================
+\documentclass[11pt]{article}
+\input{../common/preamble}
+
+% Local notation for this paper (does not change ../common).
+\newcommand{\Lm}{\mathord{\leftarrow}}      % move: head left
+\newcommand{\Rm}{\mathord{\rightarrow}}     % move: head right
+\newcommand{\Sone}{\mathsf{S}_1}
+\newcommand{\Stwo}{\mathsf{S}_2}
+\newcommand{\Sthree}{\mathsf{S}_3}
+\newcommand{\Mm}{\mathsf{M}}                % move: merge
+\newcommand{\cls}{\mathcal{C}}              % class of tapes reached from the root
+\newcommand{\cpl}[1]{\overline{#1}}         % complement of a tape
+\newtheorem*{theoremF}{Theorem F}
+% Float spacing for this paper.
+\setlength{\textfloatsep}{14pt plus 3pt minus 3pt}
+\setlength{\floatsep}{12pt plus 2pt minus 2pt}
+\setlength{\intextsep}{12pt plus 2pt minus 2pt}
+\def\UrlBreaks{\do\/\do\_\do\.}  % break file paths at / _ .
+
+% One tape drawn as a row of boxes: #1 shift, #2 comma list of + and -, #3 head index.
+\newcommand{\tp}[3]{%
+  \begin{scope}[shift={#1}]
+  \foreach \c [count=\i] in {#2} {
+    \ifnum\i=#3\relax
+      \draw[line width=0.9pt,fill=red!13] ({(\i-1)*0.36},-0.18) rectangle ++(0.36,0.36);
+    \else
+      \draw[line width=0.4pt] ({(\i-1)*0.36},-0.18) rectangle ++(0.36,0.36);
+    \fi
+    \node[font=\small,inner sep=0pt] at ({(\i-0.5)*0.36},0) {$\c$};
+  }
+  \end{scope}}
+
+\begin{document}
+
+\title{The tape machine and bounds on the growth rate of meanders\seriesline{Paper B.}}
+\author{Carl Johan Ragnarsson}
+\date{Draft of October 25, 2026}
+\maketitle
+
+\input{sections/abstract}
+\input{sections/s1_intro}
+\input{sections/s2_tape}
+\input{sections/s3_weights}
+\input{sections/s4_upper}
+\input{sections/s5_flows}
+\input{sections/s6_lower}
+\input{sections/s7_checks}
+\input{sections/s8_limits}
+
+\clearpage
+\appendix
+\input{sections/a_proofs}
+
+\bibliographystyle{plain}
+\bibliography{../common/refs}
+
+\end{document}

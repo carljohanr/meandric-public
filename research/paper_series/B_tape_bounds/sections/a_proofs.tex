@@ -1,0 +1,59 @@
+% Appendix A. Folder map; statuses from the FINAL.md of each folder, ledger/STATE.md and the wave-1200 handovers.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Where the proofs are}\label{app:where}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Paths are relative to the directory \path{meandric/research} of the project repository~\cite{Repo}. ``Read
+independently'' means that a separate reading, in the folder named, wrote its own proof or its own checking program.
+Nothing has been reviewed outside the project. Files larger than about $50$~MB, among them the upper witness and the
+two last lower increments, are kept on external storage and referenced from their folders by name and SHA-256 hash.
+
+Three numbers to reproduce first with a new implementation: the closed walks of Theorem~\ref{thm:tape} give
+$1,2,8,42,262,1828,13820,110954$; the upper certificate gives the largest row value $R_+$ with
+$R_+^2=12.29693385352921289818\ldots$; the final lower stage gives the entropy bound $h\ge1.2515001857$.
+
+\begin{table}[H]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3.5pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{>{\raggedright\arraybackslash}p{3.4cm}>{\raggedright\arraybackslash}p{7.6cm}>{\raggedright\arraybackslash}p{4.0cm}}
+\toprule
+result & where & status \\
+\midrule
+Stack rules (label machine); Lemma~\ref{lem:labels} &
+\path{630_referee_band_growth/REPAIRS.md}, section~2 (Lemma~1, Theorem~M); also \path{607_bounds_paper/paper_word.tex}, Appendix~A &
+proved; read independently \\
+Theorem~\ref{thm:tape} (tape machine) &
+\path{637_rung2_matrix_product/PROOF.md}, section~1 (Proposition~T); review in \path{677_tape_bijection_review} &
+proved; read independently; counts to $n=9$ (\path{1251}) and $n=15$ (\path{1252}) \\
+Lemma~\ref{lem:sweep} (linear completion) &
+\path{805_entropy_certificates/PROOF.md}, section~1.2, step~3; \path{641_tape_window_bounds/PROOF.md}, Lemma~R &
+proved; read independently (\path{808}) \\
+\addlinespace
+Lemma~\ref{lem:oneweight} (one weight) & \path{641_tape_window_bounds/PROOF.md}, Lemma~U & proved \\
+Lemma~\ref{lem:paired}, Corollary~\ref{cor:paired}; head and edit factors &
+\path{1003_paired_path_consistency/PROOF.md}, sections~1--3; \path{1007_edit_edge_1230/PROOF.md} &
+proved; re-proved independently (\path{1251_referee_upper_12297}) \\
+Lemma~\ref{lem:local}, Proposition~\ref{prop:rows} &
+\path{1201_upper_structures/PROOF.md}; \path{641_tape_window_bounds/PROOF.md}, section~2 &
+proved; re-proved, sharpness tested (\path{1251}) \\
+Upper certificate (Table~\ref{tab:upper}) &
+\path{1201_upper_structures/runs/r9_run2_cand.json} (SHA-256 \texttt{332b0346\ldots2246}), report \path{r9_run2_verify.json}; checker \path{1007_edit_edge_1230/verify.py} &
+certified (exact); independent exact checker in \path{1251} \\
+\addlinespace
+Lemma~\ref{lem:region} (finite region) & \path{641_tape_window_bounds/PROOF.md}, Lemma~L & proved \\
+Theorem~F, memory two on letters & \path{805_entropy_certificates/PROOF.md}, section~1 & proved; read independently (\path{808_referee_flow_bound}) \\
+Theorem~F on strips, memory $m$; closed walks, signed parent, sparse refinement &
+\path{1019_overnight_structural} (\path{MEMORY_THREE_EXTENSION.txt}, \path{SIGNED_PARENT_CERTIFICATE_ARGUMENT.txt}, \path{SPARSE_CONTEXT_REFINEMENT_ARGUMENT.txt}); \path{1008_lower_122/PROOF.md}; written out in \path{1252_referee_lower_theory/PROOF.md} &
+proved; re-derived independently (\path{1252}) \\
+Lower certificate (Table~\ref{tab:lower}); reference law &
+\path{1228_combined_lower/inc2_131072_certificate.json}, \path{verify_cmd.sh}; earlier stages in \path{1204_coarse_coordinates/data/alt7}; law \path{1019_overnight_structural/memory_three.py} &
+certified (exact, outward rounding); recomputed independently (\path{1253_referee_lower_computation}); later audit in \path{1426_audit_paperB_lower}; portable format in \path{1421_export_lower_certificate/SPEC.md} \\
+\addlinespace
+Plateau, projection $12.289$; ceilings $\Lambda_K$ & \path{1201_upper_structures/FINAL.md}; \path{1203_ceiling_ladder/FINAL.md} & numerical; projections are conjectures \\
+Strip of three levels & \path{630_referee_band_growth} & proved; read independently \\
+Other certificates in Figure~\ref{fig:radius} & \path{1007_edit_edge_1230}, \path{1201} (paired); \path{641_tape_window_bounds} (one weight); \path{809_flow_certificate_scaling} (no strip) & certified (exact) \\
+\bottomrule
+\end{tabular}
+\end{table}

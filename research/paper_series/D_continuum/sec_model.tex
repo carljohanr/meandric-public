@@ -1,0 +1,114 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The continuum model}\label{sec:model}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+This section describes the model of Ang, Park, Pfeffer and Sheffield~\cite[Section~6]{APPS}.
+Nothing in it is new.
+
+\subsection{The Gaussian free field}
+
+The \emph{Gaussian free field} is the two-dimensional analog of Brownian motion: a centered
+Gaussian random function $h$ of a point $z$ of the plane or the sphere, whose values at two points
+have covariance about
+\[
+\E[h(z)h(w)]\;\approx\;-\log|z-w| .
+\]
+This is infinite when $z=w$, so $h$ has no values at points; it is a random generalized function.
+Its averages over regions are ordinary Gaussian variables. For a square $S$ with side length $|S|$,
+the average $h_S$ of $h$ over $S$ is centered normal with
+\[
+\operatorname{Var}(h_S)=\log\frac1{|S|}+O(1),
+\]
+and for nested squares $S'\subset S$ the covariance of $h_{S'}$ and $h_S$ is
+$\log(1/|S|)+O(1)$. Intuitively, along nested squares each halving of the side adds variance
+$\log2$, nearly independently of what came before, so the averages behave like a Brownian motion
+in the variable $\log(1/|S|)$. Averages over squares at distance $r$ are correlated by about
+$\log(1/r)$.
+
+Formally, $h$ has a density proportional to $\exp\bigl(-\tfrac1{4\pi}\int|\nabla h|^2\bigr)$, where the
+integral is the \emph{Dirichlet energy}. Concretely, if $f_1,f_2,\ldots$ are orthonormal for the inner
+product $(f,g)_\nabla=\frac1{2\pi}\int\nabla f\cdot\nabla g$ and $a_1,a_2,\ldots$ are independent
+standard normal variables, then $h=\sum_ia_if_i$, a sum that converges as a generalized function.
+Intuitively, $h$ is a standard Gaussian vector in infinitely many coordinates. This description
+makes a determinant computation exact (Section~\ref{sec:tilt}).
+
+APPS work on the sphere with a smooth Riemannian metric $g_0$, a smooth way of measuring lengths
+and areas, chosen flat near a closed unit square $S_0$ drawn on the sphere. On the sphere the field
+is defined only up to an additive constant; APPS fix the constant by requiring that the integral of
+$h$ against the Gaussian curvature of $g_0$ vanish. Near $S_0$ the covariance of $h$ is then $-\log|z-w|$ plus a bounded
+smooth function. All estimates below use this exact covariance; none replaces the field by a model
+with independent pieces.
+
+\subsection{The dyadic subdivision}
+
+A \emph{dyadic square} is the unit square $S_0$ or one of the squares obtained from it by
+repeatedly cutting a square into four equal squares. A dyadic square of \emph{depth} $j$ has side
+$2^{-j}$; its \emph{ancestors} are the dyadic squares that contain it.
+
+Fix $Q\ge2$ and a threshold $\varepsilon>0$. Call a dyadic square $S$ \emph{active} if
+\begin{equation}\label{eq:rule}
+e^{h_S/Q}\,|S|\;>\;\varepsilon .
+\end{equation}
+Start from $S_0$; cut every active square into four, and repeat on the new squares. The squares
+that are never cut form a partition $\Pt^\varepsilon$ of $S_0$, and $N$ is their number. Each cut
+adds three squares, so $N\equiv1\pmod 3$. For $Q\ge2$ the procedure stops almost surely, so $N$ is
+finite~\cite{APPS}; at $Q=2$ it also follows from $\E[N]<\infty$ (Proposition~\ref{prop:critupper}). Figure~\ref{fig:subdivision} shows a schematic example.
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[scale=3.0]
+  \draw[line width=0.8pt] (0,0) rectangle (1,1);
+  \draw (0.5,0)--(0.5,1); \draw (0,0.5)--(1,0.5);
+  % refine the upper-left quarter
+  \draw (0.25,0.5)--(0.25,1); \draw (0,0.75)--(0.5,0.75);
+  % refine one of its children twice
+  \draw (0.375,0.75)--(0.375,1); \draw (0.25,0.875)--(0.5,0.875);
+  \draw (0.4375,0.875)--(0.4375,1); \draw (0.375,0.9375)--(0.5,0.9375);
+  % refine another child once
+  \draw (0.125,0.5)--(0.125,0.75); \draw (0,0.625)--(0.25,0.625);
+  % refine the lower-right quarter once
+  \draw (0.75,0)--(0.75,0.5); \draw (0.5,0.25)--(1,0.25);
+  \node[font=\small] at (0.75,0.75) {low};
+  \node[font=\small,anchor=west] at (1.05,0.92) {high field: many small squares};
+  \draw[->,>=Stealth] (1.04,0.92)--(0.47,0.93);
+\end{tikzpicture}
+\caption{A schematic dyadic subdivision. A square is cut while $e^{h_S/Q}|S|>\varepsilon$, so the
+subdivision is finest where the field is high. Here $N=19$.}
+\label{fig:subdivision}
+\end{figure}
+
+Intuitively, $e^{h_S/Q}|S|$ is the size of $S$ as seen by the field: where $h$ is high, squares
+count as large and are cut again and again. The final squares play the role of the faces of a
+random planar map (Section~\ref{sec:intro}), and $N$ is the size of the surface. The parameter $Q$ enters only through the
+rule~\eqref{eq:rule}. Duplantier and Sheffield used the same subdivisions in their proof of a
+version of the KPZ relation~\cite{DS}. The \emph{height} of $S$,
+\begin{equation}\label{eq:height}
+H(S)\;=\;h_S-Q\log\frac{\varepsilon}{|S|},
+\end{equation}
+measures how far $S$ is above the threshold: $S$ is active exactly when $H(S)>0$, and at depth $j$,
+$H(S)=h_S-Qj\log2-Q\log\varepsilon$. From a square to a child the height changes by $-Q\log2$ plus
+a random amount of variance about $\log2$. So the squares form a \emph{branching random walk}, a
+population in which each individual (a square) has four children whose positions (heights) are
+its own plus a random step. Here the steps have negative drift, the population is stopped where
+the height becomes negative, and the branches are correlated because nearby squares see nearly the
+same field. Section~\ref{sec:brw} studies the version without correlations.
+
+\subsection{The parameters}
+
+APPS tie $Q$ to the central charge $c$ by $Q^2=(25-c)/6$, so $Q\ge2$ corresponds to $c\le1$. The
+probability literature writes $Q$ through a second number $\gamma\in(0,2]$, the parameter of
+Liouville quantum gravity (Section~\ref{sec:upper}):
+\begin{equation}\label{eq:Q}
+Q^2=\frac{25-c}{6},\qquad Q=\frac2\gamma+\frac\gamma2,\qquad \gamma=Q-\sqrt{Q^2-4}.
+\end{equation}
+So $\gamma=2$ at $Q=2$. Squaring the second relation gives
+$Q^2-2=4/\gamma^2+\gamma^2/4$. With $x=4/\gamma^2$ this reads
+\begin{equation}\label{eq:xQ}
+x+\frac1x\;=\;Q^2-2\;=\;\frac{13-c}{6},
+\end{equation}
+the KPZ relation~\eqref{eq:kpz}, with $x\ge1$ because $\gamma\le2$. So the KPZ formula says that
+the tail exponent of the size equals $4/\gamma^2$. The recurring values are: for a bare surface,
+$c=0$, $Q^2=25/6$, $\gamma^2=8/3$, $x=3/2$; for one spanning tree, $c=-2$, $Q^2=9/2$, $\gamma^2=2$,
+$x=2$; for two curves as in a meander, $c=-4$, $Q^2=29/6$, $\gamma^2=(17-\sqrt{145})/3\approx1.6528$,
+$x=\xstar$; and at the critical endpoint, $c=1$, $Q=\gamma=2$, $x=1$.
+

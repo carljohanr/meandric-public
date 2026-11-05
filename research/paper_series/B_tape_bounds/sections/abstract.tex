@@ -1,0 +1,18 @@
+% Abstract. Numbers: ledger/facts.json (muLower, muUpper); 1228_combined_lower/FINAL.md; 1201_upper_structures/FINAL.md.
+\begin{abstract}
+A meander of order $n$ is a closed road that crosses a straight river $2n$ times without crossing itself. Their number
+$M_n$ grows like $\mu^n$, and the growth rate $\mu$ is estimated numerically at $12.2629$. We prove
+\[ 12.2191 \;\le\; \mu \;\le\; 12.2970 . \]
+The best bounds in a journal are $11.380$ and $12.901$. Both bounds use the tape machine: a meander is read from left
+to right, one crossing at a time, and the state between two crossings is a word in $+$ and $-$ with a marked letter,
+the head. Each crossing changes only the head and its two neighbors. Meanders of order $n$ are exactly the closed
+walks of $2n-2$ moves from the tape $+[-]+$ back to itself. For the upper bound we give two positive weights to every
+tape and a positive factor to every move, with reciprocal factors on a move and its reverse, and check a finite list of
+$2{,}097{,}152$ inequalities in exact rational arithmetic; together they show that the number of closed walks grows
+by at most a factor $3.50670$ per move. For the lower bound we construct a random rule for choosing moves that is stationary
+and on average does not let the tape grow; its entropy is at least $1.2515$ per move, and a counting argument turns
+this into $\mu\ge e^{2\cdot 1.2515}$. Each certificate was checked again by
+a second, separately written program; for the lower bound, part of this second check covers a sample of the
+equations rather than all of them. The arguments were read independently. We also describe what limits both
+methods. All code was written using Claude (Opus 5.5) or Codex (Sol 5.1) with active review and guidance throughout.
+\end{abstract}

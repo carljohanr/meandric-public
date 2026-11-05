@@ -1,0 +1,7 @@
+r=12 a=1783/2000 p=137/200 t=97/125 R=3187011595/1000000000 count=67108864
+used entries: 67092481, all positive, max 4294967295
+overflow guard: lhs<=4.295e+34 rhs<=1.622e+34 limit 2^126=8.507e+37
+states checked: 536805378 (expected 2(2^(r+2)-1)^2 = 536805378)
+violations at R=(P-0)/Q: 0 ; at stated R: 0
+largest quotient (long double): 3.187011594348202 at U=0 L=1111000000 c=0
+RESULT: ACCEPT

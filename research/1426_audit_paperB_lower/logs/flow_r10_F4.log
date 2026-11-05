@@ -1,0 +1,23 @@
+flowcheck R=10 SMAX=4 threads=4 rows=1 parent=work/parent_c.bin edges=work/edges_c.bin law=work/law_c.txt
+primes 2539181208593945057 3795189218594708497
+radius 6: windows 58450 legal pairs 226079
+radius 8: windows 829352 legal pairs 3210357
+radius 9: windows 3125954 legal pairs 12103723
+radius 10: windows 11784514 legal pairs 45638378
+windows built 0.2s
+parent: 226079 values, all legal pairs at radius 6 covered, max |x_P| 6.18118e+06
+edges used 3685260 of 3685260, completions added 57063342 (per stage 5811472 687197 11952093 20428944 18183636), max |edge term| 1.2581e+08, 1.9s
+stage 0 at radius 8: changed pairs 3210357, changed windows 829352
+stage 1 at radius 9: changed pairs 621335, changed windows 372479
+stage 2 at radius 10: changed pairs 6165672, changed windows 3053933
+stage 3 at radius 10: changed pairs 10470289, changed windows 4596747
+stage 4 at radius 10: changed pairs 10423865, changed windows 5020763
+pass1 4.8s: windows 11784514 pairs 45638378 nonpositive 0 min density (approx) 0.0451051240485067645 max terms per pair 35
+overflow guard: max terms * max|term| = 4.403e+09 < 2^39 = 5.498e+11 : OK
+H_lo_q120 1608864860121387787796084194932697670
+M_hi_q120 1285549038259498526382006441109908318
+M_lo_q120 1285549038259498522551382538054904742
+mass_mod_montgomery 2306146870955828316 1572805432629740057
+drift_mod a 0 0 b 0 0 : zero
+pass2 7.8s: balance rows 44431506, failing mod p1 0, failing mod p2 0, anomalies 0
+done 7.8s

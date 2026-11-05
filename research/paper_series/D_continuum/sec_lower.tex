@@ -1,0 +1,141 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Sketch of the lower bound}\label{sec:lower}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{theorem}\label{thm:lower}
+For every $Q\ge2$ and fixed $\varepsilon>0$,
+$\liminf_{n\to\infty}\log\Prob(N\ge n)/\log n\ge-4/\gamma^2$.
+\end{theorem}
+
+With Theorem~\ref{thm:upper} and Proposition~\ref{prop:critupper} this proves
+Theorem~\ref{thm:tail}. We explain the structure and the key estimates; the complete argument is in
+the files listed in Appendix~\ref{app:repo}. First let $Q>2$ and write
+\[
+\lambda_+=Q+\sqrt{Q^2-4}=\frac4\gamma,\qquad\lambda_-=Q-\sqrt{Q^2-4}=\gamma .
+\]
+
+\subsection{The difficulty with selecting a high square}
+
+The heuristic says: find a square of large height, then count its descendants. But a high square
+counts only if it is \emph{reachable}, that is, all its ancestors are active. And if one selects
+``the first high square the subdivision finds'', the selection depends on the field around it, so
+its descendants no longer have the simple Gaussian law of a fixed square. The proof instead counts
+\emph{deterministic} squares, fixed in advance rather than found by the field, with three properties, each with a clean conditional probability
+given the square's own average, and controls the count by a second moment.
+
+\subsection{The candidates}
+
+Fix a depth $j$. For each of the $4^j$ squares $S$ of depth $j$ consider the \emph{high band}
+\[
+B_S=\bigl\{h_S\in[\lambda_+j\log2,\;\lambda_+j\log2+1]\bigr\}.
+\]
+On $B_S$ the height of $S$ is about $y_j=\sqrt{Q^2-4}\;j\log2-Q\log\varepsilon$. Since
+$\operatorname{Var}(h_S)=j\log2+O(1)$, the expected number $Z_j$ of squares in the high band is
+\[
+\E[Z_j]=2^{\,j(2-\lambda_+^2/2)+O(\log j)}=e^{-(\lambda_++o(1))y_j},
+\]
+where the last step uses $\lambda_+^2/2-2=\lambda_+(\lambda_+-Q)$, which is the statement
+$\psi(\lambda_+)=0$. This is the cost $e^{-\lambda_+y}$ of the heuristic.
+
+\emph{Reachability.} Conditional on $B_S$, the average over the ancestor of $S$ at depth $l$ is
+normal with mean $\lambda_+l\log2+O(1)$ and variance at most $l\log2+O(1)$, uniformly. The
+ancestor is active when this exceeds $Ql\log2+Q\log\varepsilon$, and $\lambda_+>Q$, so failure at
+level $l$ has probability decaying exponentially in $l$. A compactness argument shows that all ancestors are
+active with conditional probability at least some $c_0>0$ independent of $S$ and $j$. It uses a
+\emph{Cameron--Martin shift}: adding to the field a smooth deterministic function, here one that
+raises every relevant average by the same amount, changes the law of the field only by an explicit
+density.
+
+\emph{The ancestral ceiling.} This property keeps the ancestors of $S$ from being much higher than
+needed. Fix a small $\varpi>0$ and let $\mathcal C_S$ be the event that the average
+over every ancestor at depth $l\le j$ is at most $\lambda_+l\log2+\varpi j\log2$. Given $B_S$ the
+ancestors follow their conditional means closely, so $\mathcal C_S$ fails with conditional probability
+$o(1)$.
+
+\emph{Many descendants.} $S$ has at least $e^{(\gamma-o(1))y_j}$ descendants all of whose ancestors
+from $S$ down are active; given $B_S$ this has conditional probability tending to one
+(Lemma~\ref{lem:desc}).
+
+\subsection{The second moment and the role of the ceiling}
+
+Let $T_j$ count the squares with $B_S\cap \mathcal C_S$. Sum over pairs $S,S'$ of depth-$j$ squares at distance
+about $2^{-j_0}$; there are about $4^{2j-j_0}$ of them. Let $U$ be the ancestor of $S$ at depth $j_0$.
+The averages over $S$, $S'$ and $U$ have covariances $j_0\log2+O(1)$ with each other, so
+$h_S+h_{S'}-h_U$ has variance $(2j-j_0)\log2+O(1)$. If both squares are in the high band and the
+ceiling holds at $U$, then $h_S+h_{S'}-h_U\ge\lambda_+(2j-j_0)\log2-\varpi j\log2$, and a
+one-dimensional Gaussian bound gives
+\[
+\Prob(B_S\cap \mathcal C_S\cap B_{S'})\le C\,2^{-\lambda_+^2(j-j_0/2)+\lambda_+\varpi j}.
+\]
+Summing over $j_0$, each separation contributes at most $2^{\lambda_+\varpi j}\E[Z_j]$ up to constants,
+because $2-\lambda_+^2/2<0$. Hence
+\[
+\E[T_j^2]\le\mathrm{poly}(j)\;2^{\lambda_+\varpi j}\;\E[Z_j].
+\]
+Without the ceiling, this second-moment bound holds only when $\lambda_+^2\ge8$, that is $c\le-2$.
+For $c>-2$ the untruncated second moment is inflated by pairs of high squares whose common
+ancestor at an intermediate depth is unusually high; the ceiling excludes such pairs, and it costs
+only a conditional probability $o(1)$.
+
+\subsection{The descendant lemma}
+
+\begin{lemma}[descendants of a deterministic square]\label{lem:desc}
+Let $Q\ge2$, $\lambda>Q$, and $0<\theta<\min(Q,2)$. For a deterministic square $S$ of depth $j$,
+condition on $h_S\in[\lambda j\log2,\lambda j\log2+1]$, and let $y=(\lambda-Q)j\log2-Q\log\varepsilon$
+be the resulting height. Then, uniformly in $S$ and in the conditioned value, with conditional
+probability tending to one as $j\to\infty$, $S$ has at least $e^{(R_\theta-o(1))y}$ descendants
+all of whose ancestors from $S$ downward are active, where
+\[
+R_\theta=\frac{2-\theta^2/2}{Q-\theta}.
+\]
+For $Q>2$ and $\theta=\gamma$, $R_\gamma=\gamma$.
+\end{lemma}
+
+\begin{proof}[Idea of the proof]
+Let $\Phi_U=h_U-\E[h_U\mid h_S]$ for descendants $U$ of $S$; after rescaling $S$ to the unit square
+these form a log-correlated family with bounded errors, uniformly in $S$. At a relative depth $j'$
+slightly less than $y/((Q-\theta)\log2)$, give each descendant the weight
+\[
+w_U=4^{-j'}\exp\bigl(\theta \Phi_U-\theta^2\operatorname{Var}(\Phi_U)/2\bigr),
+\]
+and let $\mathcal M$ be the total weight. Three facts finish the argument.
+(i) $\mathcal M$ is not small: all its negative moments are bounded uniformly, by Kahane's inequality with
+the convex function $u\mapsto u^{-p}$ and the finiteness of negative moments of subcritical chaos
+on a ball~\cite[Theorem~2.12]{RV}. So $\mathcal M\ge e^{-o(y)}$ with probability tending to one.
+(ii) Bad descendants carry little weight: under the weighting, averages along the path to $U$
+grow at slope $\theta$ while the threshold grows at slope $Q$, so by the choice of $j'$ the height
+stays positive with room to spare, and descendants with an inactive ancestor or an unusually large
+final value carry weight exponentially small in $y$.
+(iii) Each good descendant has weight at most $2^{-j'(2-\theta^2/2)+o(y)}$. Dividing the good weight
+by this maximum gives at least $e^{(R_\theta-o(1))y}$ good descendants. For $\theta=\gamma$, the
+identity $2-\gamma^2/2=\gamma(Q-\gamma)$ gives $R_\gamma=\gamma$.
+\end{proof}
+
+Because the conditional probability tends to one, the lemma attaches to the candidates without
+any conditional independence: given $B_S$, the intersection of the three properties has
+probability at least $c_0-o(1)$ by the union bound.
+
+\subsection{Assembly for \texorpdfstring{$Q>2$}{Q>2}}
+
+Let $G_j$ count the depth-$j$ squares that are in the high band, satisfy the ceiling, are
+reachable and active, and have at least $e^{(\gamma-o(1))y_j}$ active descendants. Then
+$\E[G_j]\ge(c_0-o(1))\E[Z_j]$ and $G_j\le T_j$, so the Paley--Zygmund inequality gives
+\[
+\Prob(G_j>0)\ge\frac{\E[G_j]^2}{\E[G_j^2]}\ge\frac{(c_0-o(1))^2\,\E[Z_j]^2}{\E[T_j^2]}
+\ge\exp\Bigl(-\Bigl(\lambda_++\frac{\lambda_+\varpi}{\sqrt{Q^2-4}}+o(1)\Bigr)y_j\Bigr).
+\]
+On $\{G_j>0\}$ the subdivision has at least $e^{(\gamma-o(1))y_j}$ squares. Monotonicity in $n$
+fills in the sizes between consecutive values of $j$, and letting $\varpi\to0$ gives
+$\liminf\log\Prob(N\ge n)/\log n\ge-\lambda_+/\gamma=-4/\gamma^2$.
+
+\subsection{The critical endpoint}
+
+At $Q=2$ the root $\lambda_+=2$ equals $Q$, and $\gamma=2$ is where subcritical chaos estimates
+fail. Fix instead a slope $\lambda>2$ and a chaos parameter $\theta<2$. The reachability, ceiling
+and second-moment estimates use only $\lambda>\max(Q,2)$, and the descendant lemma gives
+$R_\theta=(2-\theta^2/2)/(2-\theta)=(2+\theta)/2$. The same assembly yields
+\[
+\liminf_{n\to\infty}\frac{\log\Prob(N\ge n)}{\log n}\ge-\frac{\lambda^2/2-2}{(\lambda-2)R_\theta}
+=-\frac{\lambda+2}{2+\theta}.
+\]
+Letting $\lambda\downarrow2$ and $\theta\uparrow2$ gives $-1$. No critical chaos measure is needed.

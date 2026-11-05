@@ -1,0 +1,66 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Two glued disks}\label{sec:disks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+One exact calculation makes the role of necks clear. It concerns a simpler random surface than
+the meandric sphere, and its identification with the near-split event is open.
+
+A \emph{quantum disk} is a Liouville quantum gravity surface with the topology of a disk. Besides
+its area $\nu$, it has a boundary length, measured by the field along the boundary in the same way:
+roughly $e^{\gamma h/2}$ times arc length, defined as a chaos on the boundary. The standard quantum
+disk with prescribed boundary length $\ell$ is a canonical random surface of this kind~\cite{DMS}.
+Ang and Gwynne computed the law of its area~\cite[Theorem~1.2]{AG}. For boundary length $1$ the area
+has the inverse gamma density $K_{\mathrm d}t^{-1-x}e^{-\beta/t}$ on $t>0$, with $x=4/\gamma^2$ and
+positive constants $K_{\mathrm d}$ and $\beta$. Adding a constant to the field multiplies areas by the square of the
+factor by which it multiplies boundary lengths, so for boundary length $\ell$ the area has density
+\begin{equation}\label{eq:AG}
+f_\ell(t)=K_{\mathrm d}\,\ell^{2x}\,t^{-1-x}\,e^{-\beta\ell^2/t}.
+\end{equation}
+Such a disk typically has area of order $\ell^2$, and occasionally much more, with tail exponent
+$x$. Glue two independent disks with boundary length $\ell$ along their boundaries, a sphere with a
+neck of length $\ell$, and condition the total area to be one. Typically one disk is tiny; a
+balanced split needs both to be unusually large for their boundary.
+
+\begin{proposition}[two glued disks]\label{prop:disks}
+Let $\nu_1,\nu_2$, the areas of the two disks, be independent with density~\eqref{eq:AG}. As $\ell\to0$ and $\delta\to0$,
+\[
+\Prob\bigl(|\nu_1-\tfrac12|\le\delta\;\big|\;\nu_1+\nu_2=1\bigr)\;\sim\;K_{\mathrm d}\,4^{1+x}\,\delta\,\ell^{2x}.
+\]
+In particular, if $\ell^2=\delta$, then this probability is asymptotic to $K_{\mathrm d}4^{1+x}\delta^{1+x}$; the same
+exponent holds whenever $\ell^2$ stays between two fixed multiples of $\delta$.
+\end{proposition}
+
+\begin{proof}
+Given $\nu_1+\nu_2=1$, $\nu_1$ has density $f_\ell(v)f_\ell(1-v)/g_\ell$, with
+$g_\ell=\int_0^1f_\ell(v)f_\ell(1-v)\,dv$. First, $g_\ell\sim2K_{\mathrm d}\ell^{2x}$. Indeed, on $[\frac14,\frac34]$ both
+factors are $O(\ell^{2x})$, so that part is $O(\ell^{4x})$. On $(0,\frac14)$, the factor
+$f_\ell(1-v)/(K_{\mathrm d}\ell^{2x})$ tends to $(1-v)^{-1-x}$ uniformly, while $f_\ell$ is a probability density
+whose mass concentrates near $0$ as $\ell\to0$, since $\nu_1$ has the law of $\ell^2$ times a fixed
+variable; so that part is asymptotic to $K_{\mathrm d}\ell^{2x}$, and the part near $1$ is the same. Second, for
+$v$ in a window around $1/2$, $f_\ell(v)f_\ell(1-v)\sim K_{\mathrm d}^2\ell^{4x}[v(1-v)]^{-1-x}$, uniformly. Hence
+\[
+\Prob\bigl(|\nu_1-\tfrac12|\le\delta\;\big|\;\nu_1+\nu_2=1\bigr)\sim\frac{2\delta\cdot K_{\mathrm d}^2\ell^{4x}\,4^{1+x}}{2K_{\mathrm d}\ell^{2x}}
+=K_{\mathrm d}\,4^{1+x}\,\delta\,\ell^{2x}.\qedhere
+\]
+\end{proof}
+
+Two costs appear: $\ell^{2x}$ for two large disks instead of one, and $\delta$ for the window. A neck just short enough to be invisible
+at resolution $\delta$ bounds a region of area about $\delta$, so $\ell^2\approx\delta$, and the
+probability is about
+\[
+\delta^{1+x}=\delta^{1+4/\gamma^2},
+\]
+which at the meander value of $\gamma$ is $\delta^{\astar}$: the KPZ exponent as the cost of a balanced
+neck. The lower bound of Theorem~\ref{thm:nearsplit} has the same two factors: pinned clumps for the
+large disks, and the Gaussian balance coordinate for $\delta$.
+
+To apply this to near-splits one would need, and does not have: that a near-split forces a neck
+of boundary length of order $\sqrt\delta$; that the sphere cut along it is comparable to two
+independent disks given total area one, including the law of the neck length; and that the two
+SLE$_8$ curves then visit the two sides in blocks with probability $\delta^{o(1)}$. Known theorems
+that glue quantum disks into a sphere (conformal welding) produce an interface that is an
+SLE$_{\gamma^2}$-type curve, and they describe matched SLE$_{16/\gamma^2}$ curves, not two
+independent SLE$_8$ curves. Nor do near-splits imply thin necks
+deterministically: on a round sphere, two curves that each fill one hemisphere in the first half of
+their time and the other in the second half have zero off-block mass, although the halves meet
+along the whole equator. A neck can only come from a probabilistic property of SLE$_8$.

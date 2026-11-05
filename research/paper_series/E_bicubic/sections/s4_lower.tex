@@ -1,0 +1,134 @@
+% Section 4. Sources: 1367 PROOF_LOWER.md sections 2-4; logs/check_flow_{a,b}_r10.log, logs/float_table.log;
+% Paper B sections 5-6 (Theorem F).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The lower bound}\label{sec:lower}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Stationary random rules}
+
+For a lower bound we must exhibit many closed walks. We let the machine run on infinitely deep stacks and choose
+each move at random by a rule that looks only at the top of the stacks.
+
+\emph{Infinite stacks and windows.} Let $\Omega$ be the set of triples $\omega=(U,L,c)$ with $U=(U_1,U_2,\ldots)$ and
+$L=(L_1,L_2,\ldots)$ infinite sequences over $\{0,1\}$, indexed from the top, and $c$ a parity. The four moves act
+on $\Omega$ as before; a pop needs top symbol $1-c$. Fix a radius $r\ge1$. The \emph{window} of $\omega$ is
+$w=(U_1\ldots U_r,\;L_1\ldots L_r,\;c)$.
+
+\emph{The reference law.} Below the window the stacks are filled by a fixed background law $\beta$: a stationary
+Markov chain on $\{0,1\}$, read downward, of memory $m\le r$, with all transition probabilities positive and
+\emph{reversible}, that is, its law is unchanged when finite blocks are read backward. We use the simplest case: the
+next symbol differs from the previous one with probability $s$ and equals it with probability $1-s$, with $0<s<1$
+(a two-state chain is always reversible). For a word $w_1\ldots w_k$ with $k\ge m$, its \emph{continuation} is the
+conditional law of the following symbols given $w_1\ldots w_k$.
+
+\emph{Flows.} A \emph{flow} is a family of numbers $J(w,\xi)\ge0$ with total $1$, one for each window $w$ and each move
+$\xi$ allowed at $w$. Put $\nu(w)=\sum_\xi J(w,\xi)$ and $p(\xi\mid w)=J(w,\xi)/\nu(w)$. The flow defines a random
+infinite state: the window has law $\nu$, and the two stacks continue below it as independent continuations under
+$\beta$. It also defines a random move, chosen with probability $p(\xi\mid w)$. Intuitively, $J(w,\xi)$ is the
+probability of seeing window $w$ and then making move $\xi$. The conditions are:
+\begin{itemize}
+\item[(S)] \emph{Stationarity.} For every \emph{extended window} $Y$, with $r+1$ symbols of each stack, the
+probability that the extended window after one move is $Y$ equals its probability now, which is $\nu(Y^\circ)$ times
+the reference probabilities of the two symbols at depth $r+1$ given the symbols above them; $Y^\circ$ is $Y$ without
+those two symbols.
+\item[(D)] \emph{Zero drift.} The total flow of $\pA$ equals that of $\qA$, and the same for $L$.
+\item[(P)] \emph{Positivity.} $J(w,\pA)>0$ and $J(w,\pB)>0$ for every window $w$.
+\end{itemize}
+
+\begin{theoremL}
+If a flow satisfies (S), (D) and (P), then $\mu\ge e^{h}$, that is, $\mu^2\ge e^{2h}$, where
+\[ h\;=\;\sum_{w,\xi}J(w,\xi)\,\log\frac{\nu(w)}{J(w,\xi)} \]
+is the entropy of one move given the window.
+\end{theoremL}
+
+The proof follows that of Theorem~F of Paper~B~\cite{PaperB} in three steps.
+
+\emph{Step 1: stationarity.} After a push the symbols below the new extended window are old symbols that continued
+the old window; after a pop the two newly revealed symbols are fresh continuations. So, given the new extended
+window, the rest is again a continuation (this uses $m\le r$), and by (S) the law of the new extended window is the
+old one. Hence the random infinite state has the same law after every move.
+
+\emph{Step 2: ergodicity.} Let $f$ be a bounded function with $\Ex[f(\omega_1)\mid\omega_0]=f(\omega_0)$. Stationarity gives
+$\Ex(f(\omega_1)-f(\omega_0))^2=0$, so $f$ is unchanged by every move of positive probability, in particular by both
+pushes, by (P). Comparing the two pushes from parity $1$ gives $f(1U,L,0)=f(U,1L,0)$.
+For the other symbol, use the three comparisons
+\[ f(0U,L,0)=f(0U,0L,1)=f(U,00L,1)=f(U,0L,0). \]
+The first and last compare a push on $L$; the middle compares the two pushes from $(U,0L,0)$.
+Thus $f(xU,L,0)=f(U,xL,0)$ for either symbol: moving a top symbol between stacks does not change $f$. Glue the two stacks into one two-sided sequence
+$(\ldots,U_2,U_1\mid L_1,L_2,\ldots)$; then $f$ is invariant under shifting this sequence. Because $\beta$ is
+reversible with positive transitions, the glued sequence has the same null sets as the stationary two-sided chain,
+which is ergodic under the shift. So $f$ is constant almost surely, and the process is ergodic.
+
+\emph{Step 3: counting.} By the ergodic theorem and (D), in $t$ moves both stack heights change by $o(t)$, and the
+product of the probabilities of the chosen moves is about $e^{-ht}$. So from some fixed infinite state there are at
+least $\frac12e^{t(h-\varepsilon)}$ move sequences of length $t$ along which no stack ever drops by more than
+$\varepsilon t$. They only read the top $\varepsilon t+1$ symbols of each stack. Copy those symbols into a finite
+state, adding below them a run of equal symbols so that the charge rule of Lemma~\ref{lem:words} holds. By
+Lemma~\ref{lem:sweep} this state is reached from $e$, and every end state returns to $e$, in $O(\varepsilon t)$ moves.
+This gives $e^{t(h-\varepsilon)}/O(t)$ distinct closed walks of one length between $t$ and $t+O(\varepsilon t)$, and
+$z_n\le\mu^{2n}$ gives $h\le\log\mu$ as $t\to\infty$ and $\varepsilon\to0$. \qed
+
+\subsection{Reversible flows}
+
+For meanders, the hard part was to make (S) hold exactly: it is a large linear system, and Paper~B solved it at a
+small radius and corrected the solution with about a million closed-walk directions. For the two-stack machine there
+is a direct construction. Write $\beta(a)$ for the stationary probability of a word $a$ (read from the top),
+$\beta(w)=\beta(U_1\ldots U_r)\,\beta(L_1\ldots L_r)/2$ for a window $w$, and $q(x\mid w)$ for the probability that
+the symbol above the top of $U$ is $x$ given the window; for our chain $q(x\mid w)$ is $s$ if $x\neq U_1$ and $1-s$
+otherwise. Let $w^U$ be the window after $\pA$ at $w$.
+
+\begin{proposition}\label{prop:rev}
+Let $X_U(w)>0$ be given for every window with $U_1\ne c$, and $X_L(w)>0$ for every window with $L_1\ne c$. Put
+\[ J(w,\qA)=\beta(w)\,X_U(w),\qquad J(w,\pA)=\beta(w)\,q(c\mid w)\,X_U(w^U), \]
+and the same for $L$. After normalization, $J$ satisfies (S), (D) and (P).
+\end{proposition}
+
+\begin{proof}
+The random infinite state of the flow has density $\nu(w)/\beta(w)$ with respect to the product of two stationary
+chains and a fair parity. The move $\pA$ maps $\omega$ to $\omega'$ with one more symbol, $c$, on top of $U$, and the
+reference probability is multiplied by $q(c\mid w)$, because for a reversible chain the probability of the symbol
+above equals that of the symbol below. The flow forward along this move is $J(w,\pA)/\beta(w)$ per unit of reference
+probability at $\omega$, that is $q(c\mid w)X_U(w^U)$; the flow back along $\qA$ from $\omega'$ is
+$J(w^U,\qA)/\beta(w^U)=X_U(w^U)$ per unit of reference probability at $\omega'$, and the reference probability at
+$\omega'$ is $q(c\mid w)$ times that at $\omega$. So the two flows are equal. Every move is undone by a move, so at every infinite state the total inflow equals
+the total outflow, and (S) follows by summing over the states with a given extended window. Summing the equality over
+all pushes on $U$ gives (D). (P) holds since every $X>0$.
+\end{proof}
+
+Intuitively, the rule is in detailed balance: in the long run it crosses every move as often forward as backward.
+Such a rule is automatically stationary and automatically has zero drift. Any positive numbers $X$ give a valid lower
+bound; optimization only chooses them well. At an optimum, $\log X(v)$ is a weighted average of $\log(\nu/J)$ over
+the flow values that use $X(v)$, and iterating this relation converges quickly.
+
+\subsection{The certificate}
+
+We take $s=41/50$: the reference stacks prefer to alternate, as typical stacks do. With $s=1/2$ (independent
+symbols) the bounds are smaller, $9.983$ instead of $10.084$ at radius $9$. The numbers $X$ were scaled so that the
+largest is $2^{60}$ and rounded to integers; then every flow value is an integer after a common scaling, and only the
+entropy needs rounding. Table~\ref{tab:lower} gives the bound by radius.
+
+\begin{table}[htb]
+\centering
+\begin{tabular}{rrrl}
+\toprule
+radius $r$ & windows & $e^{2h}$ & status\\
+\midrule
+$1$ & $8$ & $9.497$ & float\\
+$2$ & $32$ & $9.880$ & float\\
+$4$ & $512$ & $10.030980878326$ & certified\\
+$6$ & $8{,}192$ & $10.065$ & float\\
+$8$ & $131{,}072$ & $10.079276064125$ & certified\\
+$10$ & $2{,}097{,}152$ & $\mathbf{10.086918840819}$ & certified\\
+\bottomrule
+\end{tabular}
+\caption{Lower bounds $\mu^2\ge e^{2h}$ from reversible flows with $s=41/50$. Certified values are rounded down and
+were accepted by two checkers and by a third written in an independent reading; float values are from the
+optimizer and are not bounds.}
+\label{tab:lower}
+\end{table}
+
+At radius $10$ the certificate has $2{,}097{,}152$ windows and $6{,}291{,}456$ flow values, and
+\[ h\;\ge\;1.15561971006089,\qquad \mu^2\;\ge\;e^{2h}\;\ge\;10.086918840819, \]
+the lower half of Theorem~\ref{thm:main}. Already radius $1$, a rule that sees only the top symbol of each stack,
+gives about $9.497$ in floating point, well above $8$. The bound grows slowly with the radius, by $0.0076$ from radius $8$ to $10$, so the
+gap of $0.026$ to the estimate would need much larger windows.

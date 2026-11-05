@@ -1,0 +1,128 @@
+% Section 3. Sources: 607_bounds_paper/paper.tex section 3 (weight inequality, four points, best weight, ledger);
+% 641_tape_window_bounds/PROOF.md Lemma U; 607_bounds_paper/paper_word.tex section 3.1 (edge certificate);
+% 1003_paired_path_consistency/PROOF.md section 1 (finite SOS theorem), section 4 (field is not a potential);
+% 1251_referee_upper_12297/STATEMENT.md and FINAL.md section 2 (normalization); 1201_upper_structures/FINAL.md
+% (edge-class inventory: Perron vectors give equality).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{From weights to an upper bound}\label{sec:weights}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+A \emph{history} is a walk of the tape machine that starts at the root and may end anywhere. A \emph{successor} of a
+tape is a tape one move later; a \emph{predecessor} is a tape one move earlier. By Theorem~\ref{thm:tape} and
+\eqref{eq:fekete}, bounding $\mu$ from above means bounding the number of closed walks.
+
+\subsection{One weight}
+
+Let $W$ assign a positive number $W(T)$ to every tape $T$ of $\cls$, and suppose that for some $R$ and every tape $T$
+of $\cls$,
+\begin{equation}\label{eq:sub}
+  \sum_{T'\ \text{successor of}\ T} W(T') \;\le\; R\,W(T).
+\end{equation}
+Intuitively, every tape has at most $R$ continuations, when continuations are counted by weight and not by number.
+
+\begin{lemma}\label{lem:oneweight}
+If \eqref{eq:sub} holds at every tape of $\cls$, then $M_n\le R^{2n-2}$ for every $n$, and $\mu\le R^2$.
+\end{lemma}
+
+\begin{proof}
+Give each history the weight of its last tape. One more move replaces a history ending at $T$ by one history for each
+successor of $T$, and by \eqref{eq:sub} their weights add up to at most $R\,W(T)$. So the histories of $t$ moves have
+total weight at most $R^tW(\text{root})$. Those that end at the root weigh $W(\text{root})$ each, and all others have
+positive weight, so at most $R^t$ histories of $t$ moves end at the root. Put $t=2n-2$ and use
+Theorem~\ref{thm:tape}.
+\end{proof}
+
+Intuitively, the proof keeps a running total of the weights of all histories, and this total grows by at most a
+factor $R$ per move. After four moves eight histories are back at the root, the eight meanders of order $3$; the
+others are counted too, which makes the bound loose but not wrong. Four points of the argument are easy to get
+wrong~\cite{BoundsPaper}. The inequality is about the \emph{sum}: a single successor may weigh more than the present
+tape. A history carries \emph{one} weight, that of its current tape; the factors $W(T')/W(T)$ along a history
+telescope. Histories that do not return to the root are \emph{kept}, with positive weight. And weights are \emph{not
+probabilities}: their only job is to satisfy \eqref{eq:sub}.
+
+With all weights equal, \eqref{eq:sub} holds with $R=4$, the largest number of moves at a tape, and gives the trivial
+bound $\mu\le16$. Unequal weights help because tapes differ in how many continuations they have; for example a tape
+with the head on a $-$ has no merge, and a tape with the head at an end has one head move fewer. The ideal weight would
+be the number of ways to return to the root in a given number of moves, which is the original counting problem. The
+weights used below are tractable stand-ins, and they are valid only because the inequality is checked everywhere. In
+matrix language, \eqref{eq:sub} says $AW\le RW$ for the $0/1$ matrix $A$ of the moves, and
+Lemma~\ref{lem:oneweight} is the easy half of the Collatz--Wielandt characterization of the Perron root, the largest
+eigenvalue of a nonnegative matrix~\cite{Seneta}.
+
+
+\subsection{Two weights and reciprocal edge factors}
+
+The certificate of Section~\ref{sec:upper} uses a sharper test. It looks at each tape both forward, along its moves,
+and backward, along the moves that lead into it, and it lets each move carry a factor that its reverse pays back.
+Intuitively, a move may borrow weight as long as the reverse move returns it.
+
+Let $X$ be a finite set of tapes and $A$ its $0/1$ matrix of moves, with rows and columns indexed by the tapes:
+$A_{TT'}=1$ if a move goes from $T$ to $T'$, both in $X$. Choose positive weights $W(T)$ and $Z(T)$ on $X$. Call
+$\{T,T'\}$ an \emph{edge} if a move goes from $T$ to $T'$ or from $T'$ to $T$, and choose for every edge a positive
+factor $\theta_{TT'}$ with
+\begin{equation}\label{eq:recip}
+  \theta_{T'T}=1/\theta_{TT'}.
+\end{equation}
+The \emph{row value} of tape $T$ is
+\begin{equation}\label{eq:row}
+  \phi_T \;=\; \frac12\sum_{T':\ T\to T'}\theta_{TT'}\,\frac{W(T')}{W(T)}\;+\;\frac12\sum_{T':\ T'\to T}\theta_{TT'}\,\frac{Z(T')}{Z(T)}.
+\end{equation}
+The first sum runs over successors, the second over predecessors. In both, the factor is the one oriented from the
+present tape $T$ toward its neighbor $T'$, not the one in the direction of the move. Confusing the two orientations
+would invalidate the certificate.
+
+\begin{lemma}[paired rows]\label{lem:paired}
+If $\phi_T\le R$ for every $T\in X$, then the spectral radius of $A$ is at most $R$.
+\end{lemma}
+
+\begin{proof}
+Put
+\[ B_{TT'}=A_{TT'}\sqrt{\frac{Z(T)\,W(T')}{W(T)\,Z(T')}},\qquad
+   \vartheta_{TT'}=\theta_{TT'}\sqrt{\frac{W(T')\,Z(T')}{W(T)\,Z(T)}} . \]
+The matrix $B$ is obtained from $A$ by conjugating with a positive diagonal matrix, so it has the same spectral
+radius $\rho(A)$. Let $\widehat B=\frac12(B+B^{\mathsf T})$ be its symmetric part. Then
+$\vartheta_{T'T}=1/\vartheta_{TT'}$, and a short computation gives $\widehat B_{TT'}\vartheta_{TT'}=\frac12\bigl(A_{TT'}W(T')/W(T)+A_{T'T}Z(T')/Z(T)\bigr)\theta_{TT'}$,
+so that $\phi_T=\sum_{T'}\widehat B_{TT'}\vartheta_{TT'}$. For every edge and every real vector $v$,
+$2v_Tv_{T'}\le \vartheta_{TT'}v_T^2+\vartheta_{T'T}v_{T'}^2$, since the difference is
+$\bigl(\sqrt{\vartheta_{TT'}}\,v_T-v_{T'}/\sqrt{\vartheta_{TT'}}\,\bigr)^2$. Summing over the edges with the weights
+$\widehat B_{TT'}\ge0$ gives
+\[ v^{\mathsf T}\widehat Bv\;\le\;\sum_T\phi_Tv_T^2\;\le\;R\,\lvert v\rvert^2 . \]
+A move always changes the tape, so $A$ has no diagonal entries. The matrix $B\ge0$ has a nonnegative eigenvector $v$
+for its spectral radius $\rho(A)$, and for it $v^{\mathsf T}\widehat Bv=v^{\mathsf T}Bv=\rho(A)\lvert v\rvert^2$. Hence
+$\rho(A)\le R$.
+\end{proof}
+
+\begin{corollary}\label{cor:paired}
+If $\phi_T\le R$ holds for every finite set $X$ of tapes of $\cls$ and every $T\in X$, then $M_n\le R^{2n-2}$ for
+every $n$, and $\mu\le R^2$.
+\end{corollary}
+
+\begin{proof}
+Fix $n$ and $t=2n-2$, and let $X$ be the tapes of $\cls$ with at most $t+3$ letters; every closed walk of $t$ moves
+stays in $X$, and so does every concatenation of such walks. So $(A^{\ell t})_{\text{root},\text{root}}\ge
+M_n^{\,\ell}$ for every $\ell\ge1$. Taking $\ell t$-th roots and letting $\ell\to\infty$ gives
+$M_n^{1/t}\le\rho(A)\le R$.
+\end{proof}
+
+The argument uses finite matrices only; it never assumes that a change of weights is valid on the infinite set of
+all tapes.
+Restricting to $X$ only deletes positive terms from \eqref{eq:row}, so in practice one checks the row values with all
+neighbors present.
+
+\paragraph{Why two weights and edge factors help.}
+Lemma~\ref{lem:oneweight} looks at successors only. Averaging the forward and the backward view lets the slack of
+one direction (the amount by which its sum falls below $R$) pay for the other. The edge factors add a freedom that no
+weight on tapes has.
+The ratios $W(T')/W(T)$ of a single weight multiply to one around every closed cycle of moves; reciprocal edge factors need
+only invert along the \emph{same} edge, so around a cycle they can multiply to anything. They are parameters of the
+inequality, not move probabilities. On a finite set of tapes, taking for $W$ and $Z$ the right and left Perron
+vectors of $A$ (its eigenvectors for the spectral radius) and all factors equal to one makes every row value equal to
+the spectral radius. So the Perron vectors are the ideal choice, and improving a certificate means describing them
+better by features that can be read near the head.
+
+It is natural to take $Z$ to be $W$ of the complemented tape $\cpl T$, in which every letter is changed. Reversing a
+move and complementing the tape gives a forward move: the reverse of the split $[+]\mapsto+[-]+$ is
+$+[-]+\mapsto[+]$, whose complement $-[+]-\mapsto[-]$ is a merge, and the same holds for the other splits and merges;
+head moves are their own reverses. So the predecessors of $T$ are the complements of the successors of $\cpl T$, and
+the backward sum of \eqref{eq:row} is a forward sum for the complemented tape. The missing merge at $+[+]+$ has no
+edge in either direction.

@@ -1,0 +1,113 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}\label{sec:intro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{The factor \texorpdfstring{$u_n$}{u\_n}}
+
+A \emph{meander of order $n$} is a closed road that crosses a straight river $2n$ times and never
+crosses itself. Number the crossings $1,\ldots,2n$ from left to right along the river. Above the
+river the road consists of $n$ \emph{arches}, each joining two crossings, and no two arches cross;
+the same holds below the river. So a meander is a pair of noncrossing perfect matchings of
+$\{1,\ldots,2n\}$, one drawn above and one below, whose union is a single closed curve.
+Figure~\ref{fig:running} shows one of the eight meanders of order~$3$. The number $M_n$ of
+meanders of order $n$ starts
+\[ 1,\ 2,\ 8,\ 42,\ 262,\ 1828,\ 13820,\ 110954,\ \ldots \]
+and is known exactly for every $n\le 32$ (OEIS A005315~\cite{OEIS} and~\cite{Jensen,JensenGit}). No formula is
+known.
+
+\begin{figure}[ht]
+\centering
+\meanderfigure
+\caption{A meander of order $3$, the running example of the series. Above the river the road
+joins crossings $1$--$2$, $3$--$6$ and $4$--$5$; below it joins $1$--$6$, $2$--$5$ and $3$--$4$.}
+\label{fig:running}
+\end{figure}
+
+The growth rate $\mu=\lim_n M_n^{1/n}$ exists (Section~\ref{sec:growth}). Its value is about $12.26$,
+and Paper~B of this series proves $12.2191\le\mu\le12.2970$~\cite{PaperB}. This paper is about
+what is left once the exponential growth is removed,
+\[ u_n \;=\; \frac{M_n}{\mu^n}. \]
+Intuitively, $\mu^n$ accounts for the local freedom of the road, about $\mu$ choices for each new
+pair of crossings, and $u_n$ is the remaining global correction. The physics prediction~\cite{DGG} is
+\begin{equation}\label{eq:law}
+u_n \;\approx\; A\,n^{-\alpha},\qquad \alpha=\alpha_*=\frac{29+\sqrt{145}}{12}\approx 3.4201,
+\end{equation}
+for a constant $A$. The prediction is not proved; numerical analysis of the exact counts
+supports it~\cite{JG}. Paper~A explains where the number comes from~\cite{PaperA}, and Paper~D
+studies the continuum model behind it~\cite{PaperD}. Throughout, $\alpha$ denotes the true exponent,
+if it exists, and $\alpha_*$ the predicted number. We use the logarithmic form
+\[ L(n) \;=\; n\log\mu-\log M_n \;=\; -\log u_n , \]
+so that~\eqref{eq:law} reads $L(n)=\alpha\log n+O(1)$. We call $L(n)$ the \emph{loss} at order $n$.
+
+\subsection{Main results}
+
+Rigorous work on meanders has concentrated on the growth rate~\cite{AP,PaperB}. We are not aware
+of earlier rigorous bounds on $u_n$ beyond $u_n\le1$, which follows from the existence of $\mu$;
+our literature search was limited, and we claim no priority. The law~\eqref{eq:law} could fail in two
+ways: $u_n$ could decay faster than every power, or it could be irregular. The results below address
+both.
+
+\begin{theorem}\label{thm:main}
+There is a constant $C$ such that for every $n\ge1$
+\[ \mu^n e^{-C\sqrt n} \;\le\; M_n \;\le\; \frac{\mu^{n+1}}{8n} . \]
+\end{theorem}
+
+So $u_n$ lies between $e^{-C\sqrt n}$ and $\mu/(8n)$. The upper bound on $u_n$ is already a power
+law, with exponent $1$ in place of $3.42$; the lower bound $e^{-C\sqrt n}$ decays faster than every
+power. In
+logarithmic terms,
+\[ \log n-\log(\mu/8) \;\le\; L(n) \;\le\; C\sqrt n, \]
+while the prediction is $L(n)=3.4201\log n+O(1)$. The upper bound on $M_n$ comes from gluing two meanders of
+order $n$ in at least $4n-1$ ways that can be told apart afterwards (Section~\ref{sec:upper}). The lower
+bound is new. It improves the bound $L(n)\le C'\sqrt n\log n$ obtained earlier in this project, and it
+comes from cutting a meander into two balanced pieces along a closed curve that meets the road and
+the river about $\sqrt n$ times (Section~\ref{sec:lower}).
+
+Around Theorem~\ref{thm:main} we prove or collect the following.
+\begin{itemize}
+\item \emph{Growth and ratios} (Section~\ref{sec:growth}). The ratio limit $M_{n+1}/M_n\to\mu$,
+with the rate $|M_{n+1}/(\mu M_n)-1|\le C_{\mathrm r}\,n^{-1/4}\sqrt{\log n}$ for a constant
+$C_{\mathrm r}$, improved to $O(n^{-1/4})$ by the lower bound of Theorem~\ref{thm:main}, and an exact
+\emph{halving identity} that expresses $L(n)$ through the numbers
+$D(m)=\log(M_{2m}/M_m^2)$, which measure how much more common a meander of order $2m$ is than a pair
+of meanders of order $m$.
+\item \emph{A subsequence result} (Section~\ref{sec:upper}). For every $\kappa<3/2$,
+$\liminf_n n^\kappa u_n=0$. So if a power law holds, then $\alpha\ge3/2$.
+\item \emph{Products and cuts} (Section~\ref{sec:products}). Two meanders can be glued side by side
+into one, their \emph{product}; a \emph{cut} is a position where a meander comes apart as such a
+product. Every meander factors uniquely into \emph{prime} meanders, those without a cut;
+$\sum_n u_n\le 1/4$; the expected number of cuts is bounded; the probability of a cut at distance $s$
+from the ends is at most $C_{\mathrm c}\,s^{-1/4}\sqrt{\log(s+1)}$; and \emph{near-cuts}, which
+fail to be cuts in at most $K$ crossings, are at most $e^{O(K+1)}$ times more frequent than cuts.
+\item \emph{An exactly solvable family} (Section~\ref{sec:band}). Each crossing of a meander carries
+an integer \emph{label}, a signed count of the half turns the road makes on its way from the first crossing. For
+meanders whose labels lie in $\{-1,0,1,2\}$, the count is $\Lambda^n n^{-\alpha_{\mathrm b}+o(1)}$ with
+$\Lambda=10.4245\ldots$ and $\alpha_{\mathrm b}=3.7758\ldots$, both in closed form. Because
+$\alpha_{\mathrm b}$ is irrational, the generating function of this family is not D-finite: it
+satisfies no linear differential equation with polynomial coefficients.
+\item \emph{Criteria} (Section~\ref{sec:improve}). Two conditional statements that would improve
+the lower bound on $M_n$ to $L(n)=O(n^\tau)$ with $\tau<1/2$, a proof that gluing short meanders cannot supply
+their hypotheses, a heuristic for what is true, and an exact reformulation of a weaker target.
+\end{itemize}
+
+\subsection{Status of the results}\label{sec:status}
+
+Besides the lower bound of Theorem~\ref{thm:main}, the following are new as far as we know: the upper bound, the
+subsequence result, the bound $\sum u_n\le1/4$, the cut bounds, the near-cut comparisons, the
+results on bounded labels, including the corollary that the generating function of that family is not
+D-finite (its main input is the exponent theorem), and the criteria of Section~\ref{sec:improve}. The
+factorization into prime meanders is a close relative of known decompositions, and we claim no novelty for it.
+% UNVERIFIED: the related decomposition into irreducible meanders in the physics literature was
+% identified from a search summary; the paper itself was not read.
+
+Most results were checked by a separate, independent reading of the written proof, which found no
+gap. This includes both bounds of Theorem~\ref{thm:main}, the subsequence result, the ratio limit and
+its rate (also in the improved form that uses Theorem~\ref{thm:main}), the factorization,
+$\sum u_n\le1/4$, the near-cut comparisons, the growth rate and the exponent for bounded labels, the
+irrationality of the exponent $\alpha_{\mathrm b}$, and the corollary on D-finiteness. The halving
+identity and its corollary, the transcendence of $\alpha_{\mathrm b}$, the cut bound of
+Proposition~\ref{prop:cutbound} and the criteria of Section~\ref{sec:improve} have complete written
+proofs that have not been checked in this way.
+Appendix~\ref{app:repo} gives the status of each result. Nothing in this paper has been reviewed
+outside the project. Conjectures, heuristics and numerical statements are labeled as such. The exact
+data in Appendix~\ref{app:data} use only the published counts $M_n$, $n\le32$.

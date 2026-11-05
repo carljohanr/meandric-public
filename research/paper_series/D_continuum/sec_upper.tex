@@ -1,0 +1,132 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Proof of the upper bound}\label{sec:upper}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Gaussian multiplicative chaos}
+
+Let $\Phi$ be a centered Gaussian field on a square whose covariance is $-\log|z-w|$ plus a bounded
+function, such as the Gaussian free field. For $0<\theta<2$, the random measure
+\[
+e^{\theta \Phi(z)-\theta^2\E[\Phi(z)^2]/2}\,dz ,
+\]
+defined by smoothing $\Phi$ at scale $r$ and letting $r\to0$, is a nonzero random measure called
+\emph{Gaussian multiplicative chaos}~\cite{RV}; subtracting half the variance makes the expected
+density one. Its total mass over a fixed square has a heavy tail: the moment of order $p>0$ is
+finite exactly when $p<4/\theta^2$~\cite[Theorem~2.11]{RV}. Intuitively, the mass can be carried by
+a small region where $\Phi$ is unusually high. For $\Phi=h$ and $\theta=\gamma$ this measure is the
+\emph{Liouville quantum gravity area}. \emph{Liouville quantum gravity} (LQG) with parameter $\gamma$
+is the name for a random surface whose area element is, formally, $e^{\gamma h(z)}dz$; the chaos
+construction makes this precise. It is used in Sections~\ref{sec:area} and~\ref{sec:limit}.
+
+Two further facts are used. \emph{Kahane's convexity inequality}: if two centered Gaussian fields
+$\Phi$ and $\Psi$ satisfy $\operatorname{Cov}(\Phi(z),\Phi(w))\le\operatorname{Cov}(\Psi(z),\Psi(w))$
+for all $z,w$, then $\E[F(m_\Phi)]\le\E[F(m_\Psi)]$ for every convex
+function $F$ of at most polynomial growth, where $m_\Phi$ and $m_\Psi$ are the total masses of the two
+chaos measures with the same $\theta$~\cite[Theorem~2.1]{RV}. Intuitively, more correlation makes
+the mass more variable. And for a field built from independent contributions of successive scales,
+the masses at finer cutoffs form a martingale, uniformly integrable when
+$\theta<2$~\cite[Theorem~2.5]{RV}.
+
+\subsection{Uniform moments of the square counts}
+
+For $\theta>0$ and a depth $j$, define the normalized sum over the $4^j$ squares of depth $j$,
+\[
+\mathcal M_{\theta,j}=4^{-j}\sum_{|S|=2^{-j}}\exp\Bigl(\theta h_S-\frac{\theta^2}2\operatorname{Var}(h_S)\Bigr).
+\]
+It is the total mass of the chaos measure of the piecewise constant field $\Phi_j(z)=h_{S_j(z)}$,
+where $S_j(z)$ is the depth-$j$ square containing $z$.
+
+\begin{lemma}\label{lem:moments}
+If $0<\theta<2$ and $1\le p<4/\theta^2$, then $\sup_j\E[\mathcal M_{\theta,j}^p]<\infty$.
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+The covariance of the square averages gives, uniformly in $j$, $z$ and $w$,
+\[
+\operatorname{Cov}\bigl(\Phi_j(z),\Phi_j(w)\bigr)\le\log\frac1{|z-w|\vee2^{-j}}+C_0 .
+\]
+For comparison, take the field $\Psi_u$ with covariance $\int_0^ue^{-e^{2v}|z-w|^2/2}\,dv$, which has
+independent scale increments; at $u=j\log2$ this covariance is $\log(1/(|z-w|\vee2^{-j}))+O(1)$.
+Adding one independent centered normal variable of large fixed variance makes its covariance dominate that of $\Phi_j$ everywhere. Kahane's inequality with
+$F(u)=u^p$ bounds $\E[\mathcal M_{\theta,j}^p]$ by the $p$-th moment of the comparison mass, times a
+fixed lognormal moment. The comparison masses form a uniformly integrable martingale in $u$, so
+each is the conditional expectation of the limiting chaos mass, and by Jensen's inequality its $p$-th
+moment is at most that of the limit, which is finite because $p<4/\theta^2$. The passage from
+Kahane's inequality for finite Gaussian vectors to these integrals is routine.
+\end{proof}
+
+\subsection{The upper bound for \texorpdfstring{$Q>2$}{Q>2}}
+
+\begin{theorem}\label{thm:upper}
+Let $Q>2$ and $x=4/\gamma^2$. Then $\E[N^p]<\infty$ for every real $1\le p<x$. Consequently
+\[
+\limsup_{n\to\infty}\frac{\log\Prob(N\ge n)}{\log n}\le-\frac4{\gamma^2}.
+\]
+\end{theorem}
+
+\begin{proof}
+Let $\mathcal N_j$ be the number of squares of depth $j$ that are active, whether or not they are reached
+by the subdivision. Every square that is cut in the subdivision is active, and each cut adds
+three squares, so
+\[
+N\le1+3\sum_{j\ge0}\mathcal N_j .
+\]
+For any $\theta>0$, the indicator of $\{e^{h_S/Q}2^{-j}>\varepsilon\}$ is at most
+$(e^{h_S/Q}2^{-j}/\varepsilon)^{\theta Q}$, so
+\[
+\mathcal N_j\le\varepsilon^{-\theta Q}\,2^{-\theta Qj}\sum_{|S|=2^{-j}}e^{\theta h_S}.
+\]
+Since $\operatorname{Var}(h_S)=j\log2+O(1)$ uniformly, $e^{\theta h_S}\le
+C\,2^{j\theta^2/2}\exp(\theta h_S-\theta^2\operatorname{Var}(h_S)/2)$, and therefore
+\begin{equation}\label{eq:Ij}
+\mathcal N_j\;\le\;C\,2^{\,j(2-\theta Q+\theta^2/2)}\,\mathcal M_{\theta,j}=C\,2^{\,j\psi(\theta)}\mathcal M_{\theta,j},
+\end{equation}
+with $\psi$ the quadratic~\eqref{eq:quadratic} and $C$ depending on $\theta$, $Q$ and $\varepsilon$.
+
+The roots of $\psi$ are $\gamma$ and $4/\gamma$, and $\psi<0$ strictly between them. Fix $p<x$. Since
+$\gamma<2$ we can choose $\theta$ slightly above $\gamma$ with $\theta<2$ and $p<4/\theta^2$; then
+$\psi(\theta)<0$. By Minkowski's inequality, \eqref{eq:Ij} and Lemma~\ref{lem:moments},
+\[
+\|N\|_p\le1+3\sum_{j\ge0}\|\mathcal N_j\|_p\le1+C\sum_{j\ge0}2^{j\psi(\theta)}\sup_i\|\mathcal M_{\theta,i}\|_p<\infty .
+\]
+Markov's inequality gives $\Prob(N\ge n)\le\E[N^p]\,n^{-p}$. Letting $p$ increase to $x$ proves the
+bound on the limit superior.
+\end{proof}
+
+\subsection{The upper bound at the critical endpoint}
+
+At $Q=2$ we have $x=1$, so Minkowski's inequality is not available for the needed moments below
+one. Instead:
+
+\begin{proposition}\label{prop:critupper}
+At $Q=2$ and every fixed $\varepsilon>0$, $\E[N]<\infty$. Hence $\Prob(N\ge n)\le\E[N]/n$.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+Let $\mathcal R_j$ count the squares of depth $j$ that are active together with all their ancestors.
+Then $N\le1+3\sum_j\mathcal R_j$, and $\E[\mathcal R_j]\le4^j\sup\Prob(\mathcal A_j)$, where $\mathcal A_j$ is the event that all squares of
+a fixed chain $S_0\supset\cdots\supset S_j$ are active, that is $h_{S_l}>2l\log2+2\log\varepsilon$.
+
+Change the law by the density $\exp(2h_{S_j}-2\operatorname{Var}(h_{S_j}))$, an exponential tilt.
+This gives
+\[
+4^j\Prob(\mathcal A_j)\le C\,\E^*\bigl[e^{-2(h_{S_j}-2j\log2)}\,;\mathcal A_j\bigr],
+\]
+where $\E^*$ is the tilted expectation. Under the tilt, the field's averages over circles
+centered in $S_j$ with radii $r_02^{-l}$ form a Brownian motion in the variable $l\log2$, with
+drift exactly $2$, plus an independent normal starting value; the square averages differ from the
+circle averages by Gaussian amounts of bounded variance. The threshold also has slope $2$. So,
+relative to the threshold, the averages along the chain of ancestors form a Brownian motion
+$\mathcal W$ without drift, which must stay above a barrier for a time $j\log2$. Up to the bounded
+errors, $e^{-2(h_{S_j}-2j\log2)}$ is $e^{-2\mathcal W_{j\log2}}$.
+Allow the errors to reach $O(\sqrt{\log j})$, at the cost of an event of probability
+$O(j^{-M})$ for any fixed $M$. The reflection principle gives
+\[
+\E\bigl[e^{-2\mathcal W_{j\log2}};\min_{u\le j\log2}\mathcal W_u\ge-b'\bigr]\le C\,b'\,e^{2b'}\,(j\log2)^{-3/2}\qquad(b'\ge1).
+\]
+With $b'$ of order $\sqrt{\log j}$, this yields $\E[\mathcal R_j]\le j^{-3/2+o(1)}$, which is summable.
+\end{proof}
+
+Intuitively, at the critical point the factor $4$ in the number of squares per level exactly
+balances the cost of staying active, and what remains is the probability $j^{-3/2}$ that a
+driftless walk stays above a barrier and ends near it.

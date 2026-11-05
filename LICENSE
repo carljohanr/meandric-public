@@ -1,0 +1,16 @@
+Meandric research package
+Copyright (c) 2026 Carl Johan Ragnarsson
+
+Original software source code and scripts in this repository are licensed under
+the GNU General Public License, version 3 only (SPDX: GPL-3.0-only).
+The complete terms are in LICENSES/GPL-3.0-only.txt.
+
+Original papers, proof documents, figures and explanatory documentation are
+licensed under Creative Commons Attribution 4.0 International
+(SPDX: CC-BY-4.0). The complete terms are in LICENSES/CC-BY-4.0.txt.
+
+These grants cover only rights held by the copyright holder. Third-party
+material retains its existing terms; see docs/ATTRIBUTION.md. These licenses
+do not claim copyright in mathematical facts or ideas.
+
+The software is distributed without warranty, as described in the GPL.

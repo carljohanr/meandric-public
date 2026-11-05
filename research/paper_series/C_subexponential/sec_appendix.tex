@@ -1,0 +1,116 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\appendix
+\section{Exact data}\label{app:data}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+All values below are computed from the published exact counts $M_n$ for $n\le32$: OEIS A005315~\cite{OEIS} for
+$n\le28$ and~\cite{JensenGit} for $29\le n\le32$. They need no value of $\mu$. Nothing is fitted.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{rrrr@{\hspace{1.2em}}rrr}
+\toprule
+$m$ & $D(m)$ & $m\,(D(m+1)-D(m))$ & $D(2m)-D(m)$ & $m$ & $D(m)$ & $m\,(D(m+1)-D(m))$\\
+\midrule
+$1$ & $0.6931$ & $1.6582$ & $1.6582$ & $9$ & $6.5482$ & $2.9622$\\
+$2$ & $2.3514$ & $2.0014$ & $1.7902$ & $10$ & $6.8773$ & $3.0023$\\
+$3$ & $3.3521$ & $2.3683$ & $1.9612$ & $11$ & $7.1776$ & $3.0361$\\
+$4$ & $4.1415$ & $2.5426$ & $2.0425$ & $12$ & $7.4536$ & $3.0648$\\
+$5$ & $4.7772$ & $2.6804$ & $2.1001$ & $13$ & $7.7090$ & $3.0896$\\
+$6$ & $5.3133$ & $2.7781$ & $2.1403$ & $14$ & $7.9466$ & $3.1112$\\
+$7$ & $5.7763$ & $2.8539$ & $2.1703$ & $15$ & $8.1689$ & $3.1302$\\
+$8$ & $6.1840$ & $2.9137$ & $2.1935$ &  &  & \\
+\bottomrule
+\end{tabular}
+\caption{The doubling defect $D(m)=\log(M_{2m}/M_m^2)=-\log\Pr_{2m}(\text{cut at }m)$. If
+$u_n\sim An^{-\alpha}$, the column $D(2m)-D(m)$ tends to $\alpha\log2$, and, if the correction is also smooth,
+the column $m\,(D(m+1)-D(m))$ tends to $\alpha$; for $\alpha_*$ these limits are $3.4201$ and $2.3707$. The first needs $D(m+1)$, hence
+$M_{2m+2}$, and the second needs $M_{4m}$, so it stops at $m=8$.}
+\label{tab:D}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{rrrrrr}
+\toprule
+$N$ & $\mathbb E_N[\#\text{cuts}]$ & $k_0=2$ & $k_0=3$ & $k_0=5$ & $10^4\,M_{N/2}^2/M_N$\\
+\midrule
+$10$ & $0.3378$ & $0.1088$ & $0.0544$ & $0.0084$ & $84.20$\\
+$12$ & $0.3159$ & $0.0994$ & $0.0514$ & $0.0156$ & $49.26$\\
+$16$ & $0.2876$ & $0.0858$ & $0.0445$ & $0.0178$ & $20.62$\\
+$20$ & $0.2704$ & $0.0770$ & $0.0393$ & $0.0166$ & $10.31$\\
+$24$ & $0.2590$ & $0.0710$ & $0.0355$ & $0.0151$ & $5.79$\\
+$28$ & $0.2510$ & $0.0668$ & $0.0327$ & $0.0138$ & $3.54$\\
+$32$ & $0.2451$ & $0.0636$ & $0.0306$ & $0.0127$ & $2.30$\\
+\bottomrule
+\end{tabular}
+\caption{The expected number of cuts $\mathbb E_N[\#\text{cuts}]=\sum_{k=1}^{N-1}M_kM_{N-k}/M_N$, the
+part of this sum with $k_0\le k\le N-k_0$, and the probability of a cut exactly at the middle (times
+$10^4$). The total does not increase for any $N\le32$; the middle parts with $k_0=2$, $3$ and $5$
+decrease for $N\ge6$, $9$ and $15$ respectively. If $(u_n)$ is subexponential (Section~\ref{sec:subexp}), the total tends to $2U\ge0.2064$.}
+\label{tab:cuts}
+\end{table}
+
+The prime counts $P_n$ follow from $1+\mathcal M=1/(1-\mathcal P)$, that is
+$M_n=\sum_{k=1}^{n}P_kM_{n-k}$ with $M_0=1$; $P_{32}/M_{32}=0.7938$. The ratios $M_{n+1}/M_n$ increase for
+$n\le31$, from $2$ to $11.0227$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Where the proofs are}\label{app:repo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+All proofs, programs and data are in the project repository~\cite{Repo}, folder
+\texttt{meandric/research}. ``Checked'' means that a separate, independent reading of the written
+proof found no gap; the folder of that reading is given in parentheses. ``Proved'' means that a
+complete proof is written but has not been checked in this way. ``Data'' means exact computation, with
+no claim of proof. Nothing has been reviewed outside the project.
+
+\begin{center}
+\footnotesize
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.45\textwidth}>{\raggedright\arraybackslash}p{0.27\textwidth}>{\raggedright\arraybackslash}p{0.19\textwidth}}
+\toprule
+result & folders & status\\
+\midrule
+Products and cuts, primes (Theorem~\ref{thm:cuts}) & \texttt{120}; also \texttt{403} & checked (\texttt{120}, \texttt{404})\\
+Ratio limit (Theorem~\ref{thm:ratio}) & \texttt{113} & checked (\texttt{113})\\
+Rate in the ratio limit (Theorem~\ref{thm:rate}) & \texttt{628}, \texttt{621} & checked (\texttt{631})\\
+Rate $n^{-1/4}$ (remark after Theorem~\ref{thm:rate}) & \texttt{1342}, \texttt{621} & checked (\texttt{1340})\\
+Halving identity (Proposition~\ref{prop:halving}, Corollary~\ref{cor:halving}) & \texttt{621}, \texttt{628}; full proof here & proved\\
+Insertion, $M_n\le\mu^{n+1}/(8n)$ (Theorem~\ref{thm:insertion}, Lemma~\ref{lem:faces}) & \texttt{403}; constant $8$ from \texttt{404} & checked (\texttt{404})\\
+Three-piece insertion, exponent $3/2$ (Theorems~\ref{thm:threepiece}, \ref{thm:threehalves}) & \texttt{403} & checked (\texttt{404})\\
+$\sum u_n\le1/4$ (Theorem~\ref{thm:sumu}) & \texttt{120} & checked (\texttt{120})\\
+Mean number of cuts~\eqref{eq:cutmean} & \texttt{120}, \texttt{113} & checked (\texttt{120}, \texttt{113})\\
+Cuts away from the ends (Proposition~\ref{prop:cutbound}); form with $s^{-1/4}$ & \texttt{review\_2026-10-25\_\allowbreak ideas\_2\_3}; this paper & proved\\
+Balanced separator (Proposition~\ref{prop:noose}) & \texttt{1340} & checked (\texttt{1342})\\
+Disk completion (Proposition~\ref{prop:disc}) & \texttt{1340}, caps in \texttt{1343} & checked (\texttt{1341}, \texttt{1342})\\
+Reverse inequality, $M_n\ge\mu^ne^{-C\sqrt n}$ (Proposition~\ref{prop:reverse}, Theorem~\ref{thm:main}) & \texttt{1340} & checked (\texttt{1341})\\
+Earlier bound with $\sqrt n\log n$ & \texttt{628} & checked (\texttt{631})\\
+Extension to loop-weighted systems & \texttt{1340} & checked (\texttt{1342})\\
+Zero defect (Proposition~\ref{prop:zerodefect}) & \texttt{1340} & checked (\texttt{1343})\\
+Linear-record completion (Proposition~\ref{prop:linrec}, Corollary~\ref{cor:defect}) & \texttt{1343}; earlier form \texttt{1340} & checked (\texttt{1342}; earlier form \texttt{1343})\\
+Labels, machine and growth rate for bounded labels (Theorem~\ref{thm:bandgrowth}) & \texttt{204}, \texttt{606}, \texttt{622}, \texttt{625} & checked (\texttt{630})\\
+Upper bound with $\alpha_{\mathrm b}$ (Theorem~\ref{thm:bandexp}) & \texttt{632} & checked (\texttt{639})\\
+Lower bound with $\alpha_{\mathrm b}$ (Theorem~\ref{thm:bandexp}) & \texttt{643}; input \texttt{638} & checked (\texttt{650})\\
+$\Lambda$ algebraic of degree four & \texttt{625} & checked (\texttt{630})\\
+$\theta/\pi$ and $\alpha_{\mathrm b}$ irrational & \texttt{625}, \texttt{1344} & checked (\texttt{1352}, \texttt{1355})\\
+$\alpha_{\mathrm b}$ transcendental & \texttt{625} & proved\\
+Generating function not D-finite (Corollary~\ref{cor:bandnondfinite}) & \texttt{1344}, \texttt{1353} & checked (\texttt{1352}, \texttt{1355})\\
+Fraction and depth criteria, gluing barrier, correlation condition (Section~\ref{sec:improve}) & \texttt{review\_2026-10-25\_\allowbreak ideas\_2\_3} & proved\\
+Existence of $\alpha$ implies a polynomial bound; subexponential reformulation & \texttt{review\_2026-10-25\_\allowbreak ideas\_2\_3} & proved\\
+$\beta\approx1.92$ & \texttt{review\_2026-10-25\_\allowbreak ideas\_2\_3} & heuristic\\
+Baxter numbers for labels in $\{-1,0,1\}$ & \texttt{628} & literature, data\\
+Tables~\ref{tab:D} and~\ref{tab:cuts}, $P_n$, ratios & this paper; also \texttt{628}, \texttt{120} & data\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Each step of the proof for bounded labels was read independently once, and none twice. That proof
+uses the martingale central limit theorem, which was checked at a source, and the series for the
+Dirichlet heat kernel of a planar wedge, which enters only the lower bound of Theorem~\ref{thm:bandexp}.
+That series was at first only tested numerically. It has since been checked against its primary source,
+Lemma~1 of Ba\~nuelos and Smits~\cite{BanuelosSmits1997}, and the estimate drawn from it was rederived
+(\texttt{1353}) and checked independently (\texttt{1355}). The rate in Theorem~\ref{thm:rate} and the
+cut bound of Proposition~\ref{prop:cutbound}, which uses it, rest as stated on the earlier lower bound
+with $\sqrt n\log n$; their improved forms use Theorem~\ref{thm:main} instead.

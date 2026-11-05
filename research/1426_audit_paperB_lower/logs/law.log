@@ -1,0 +1,10 @@
+paper reading == SPEC group reading: True
+counts [22, 42, 80, 154]
+min_quintet 7.520605100194493e-11
+all_quintets_positive True
+marginals_consistent True
+total_mass_1 True
+reversal_reflection_symmetric True
+irreducible True
+all_quartets_positive True
+law.json entries compared: 298 mismatches: 0

@@ -1,0 +1,186 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Near-splits}\label{sec:nearsplit}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Thin necks in finite meanders}
+
+A meander of order $2m$ has a \emph{thin neck at the middle} if the first $2m$ of its $4m$
+crossings along the river occupy $2m$ consecutive positions along the road, read cyclically;
+equivalently, exactly two road arches pass over or under the gap between crossings $2m$ and
+$2m+1$. A vertical line through that gap then meets the road twice, and on the sphere it is a short
+closed curve cutting the surface into equal halves. Call this the \emph{zero-defect event} $F_0$:
+no crossing is out of place. Write $\Prob_{2m}$ for the uniform probability on meanders of order
+$2m$. Call a meander of order $2m$ a \emph{junction} if it is two meanders of order $m$ glued end
+to end (Section~\ref{sec:intro}); only two arches pass over its middle gap, the short arch
+joining crossings $2m$ and $2m+1$ and the long arch over it, so it is a special case of $F_0$. Since gluing
+is injective, $q_m=M_m^2/M_{2m}$ is the probability that a uniform meander of order $2m$ is a
+junction. Let $X_m$
+be the number of meanders of order $m$ with one marked \emph{exterior} arch above the river, an
+arch not nested under any other arch. Then
+\begin{equation}\label{eq:F0}
+\Prob_{2m}(F_0)=\frac{2X_m^2}{M_{2m}},\qquad M_m\le X_m\le\tfrac12M_{m+1},\qquad
+2q_m\le\Prob_{2m}(F_0)\le\tfrac12C_r^2\,q_m ,
+\end{equation}
+with $C_r=\sup_nM_{n+1}/M_n<\infty$. (By parity the two arches are both above or both below the
+river; given the side, meanders with $F_0$ correspond to pairs of meanders with a marked exterior
+arch.) Under~\eqref{eq:conj},
+\[
+q_m\approx\frac{(A\mu^mm^{-\alpha})^2}{A\mu^{2m}(2m)^{-\alpha}}=A\,2^\alpha m^{-\alpha},
+\]
+so $\alpha$ is the exponent of a thin neck cutting a meander into equal halves~\cite{PaperA}.
+
+\subsection{The continuum event}
+
+Let $\Pi$ be a permuton, and read its second coordinate, the road, on the circle
+$\mathbb T=\mathbb R/\mathbb Z$, since the road is a loop. Let $I=[0,1/2]$ be the first half of the river and $J_s=[s,s+1/2]$
+(mod $1$) a cyclic half of the road. The \emph{off-block mass}
+\[
+d_\Pi(s)=\Pi\bigl(I\times(\mathbb T\setminus J_s)\bigr)+\Pi\bigl(([0,1]\setminus I)\times J_s\bigr)
+\]
+counts crossings in the first river half but not in $J_s$, or the other way around.
+Intuitively, it measures how far the crossings are from splitting into two blocks at the cut
+points $1/2$ on the river and $s$, $s+\frac12$ on the road. For the meandric permuton,
+\[
+d_\Pi(s)=\nu\bigl(\eta_1([0,1/2])\,\triangle\,\eta_2(J_s)\bigr),
+\]
+the area of the symmetric difference of the regions covered by the river in its first half of time
+and by the road during $J_s$. A \emph{near-split with tolerance $\delta$} means
+$\inf_sd_\Pi(s)\le\delta$. For finite meanders it is convenient to ignore thin strips around the cut
+points. For
+$0<\delta<1/8$, let $J_s^{+\delta}$ be the closed $\delta$-neighborhood of $J_s$ and $J_s^{-\delta}$
+the set of points of $J_s$ at distance at least $\delta$ from its complement, and put
+\[
+d^\delta_\Pi(s)=\Pi\bigl([0,\tfrac12-\delta]\times(\mathbb T\setminus J_s^{+\delta})\bigr)
++\Pi\bigl([\tfrac12+\delta,1]\times J_s^{-\delta}\bigr),\qquad
+E_\delta=\Bigl\{\inf_sd^\delta_\Pi(s)\le\delta\Bigr\}.
+\]
+For a permuton the two versions differ by at most $6\delta$, since by the uniform marginals a strip
+of width $\delta$ has mass at most $\delta$. Hence
+\begin{equation}\label{eq:sandwich}
+\Bigl\{\inf_sd_\Pi(s)\le\delta\Bigr\}\subset E_\delta\subset\Bigl\{\inf_sd_\Pi(s)\le7\delta\Bigr\},
+\end{equation}
+and bounds on the two events are interchangeable up to a constant change of $\delta$.
+
+\subsection{The exact finite version}
+
+For a meander of order $n$, the \emph{centered atomic plot} $\Pi_n$ has mass $1/(2n)$ at each point
+$\bigl((i-\frac12)/2n,(\omega(i)-\frac12)/2n\bigr)$; it has the same limits as the permuton.
+
+\begin{proposition}\label{prop:micro}
+For a meander of order $n$ and $0<\delta<1/(4n)$, the event $E_\delta$ for $\Pi_n$ holds exactly
+when the first $n$ crossings along the river occupy $n$ consecutive positions along the road, read
+cyclically. In particular, for order $2m$ and $\delta<1/(8m)$ it is the zero-defect event $F_0$,
+and its probability is given by~\eqref{eq:F0}.
+\end{proposition}
+
+\begin{proof}
+Each atom has mass $1/(2n)>\delta$, so $d^\delta_{\Pi_n}(s)\le\delta$ forces $d^\delta_{\Pi_n}(s)=0$. No
+atom lies within $\delta$ of the river midpoint. The endpoints of $J_s$ are exactly $1/2$ apart, so
+they sit alike relative to the grid of road positions, which has spacing $1/(2n)$. If neither is within $\delta$ of an
+atom, $J_s^{+\delta}$ and $J_s^{-\delta}$ contain the same $n$ consecutive positions, and zero
+off-block mass says that these are the first-half crossings. Otherwise $J_s^{-\delta}$ contains $n-1$
+consecutive positions, all of first-half crossings, and $J_s^{+\delta}$ adds one candidate at each end;
+exactly one of the two candidates is a first-half crossing, which again gives $n$ consecutive
+positions. Conversely, if the first-half crossings occupy $n$ consecutive positions, take $s$ at the
+midpoint between grid positions just before them; both endpoints of $J_s$ are then at distance
+$1/(4n)>\delta$ from all atoms, and the off-block mass is zero.
+\end{proof}
+
+Heuristically, at resolution $\delta$ a meander looks like one of order about $1/\delta$, so by the
+estimate $q_m\approx A2^\alpha m^{-\alpha}$ one expects $\Prob(E_\delta)\approx\delta^{\astar}$ in the
+limit.
+
+\subsection{The bounds}
+
+\begin{theorem}[near-splits in the conjectured limit]\label{thm:nearsplit}
+Let $\Pi$ be the meandric permuton of Section~\ref{sec:limit}, with
+$\gamma^2=(17-\sqrt{145})/3$. There are constants $0<c_1\le C_1$ such that for all small $\delta>0$
+\[
+c_1\,\delta^{\astar}\;\le\;\Prob(\Pi\in E_\delta)\;\le\;C_1\,\delta^{\xstar+5/7},
+\qquad\astar=\frac{29+\sqrt{145}}{12}\approx3.4201,\quad\xstar+\frac57\approx3.1344 .
+\]
+\end{theorem}
+
+This concerns the limit object only; Section~\ref{sec:bridge} discusses finite meanders. The lower
+bound has the predicted exponent, and holds for every
+$\gamma\in(0,\sqrt2)$, that is, for every $x=4/\gamma^2>2$, with exponent $1+x$. The exponent of the upper bound is the best we
+have reached. If the limit $\lim_{\delta\to0}\log\Prob(E_\delta)/\log\delta$ exists, it lies in
+$[3.1344,3.4201]$. Two side results give context.
+\begin{itemize}
+\item \emph{Exact splits do not occur.} Almost surely no region covered by the river in a proper
+cyclic time interval equals, up to area zero, one covered by the road; so $\Prob(E_0)=0$. (The
+boundary of the region an SLE$_8$ has covered by a given time consists of SLE$_2$-type curves, and
+the boundaries for two independent curves share no arc.)
+\item \emph{One configuration has the sharp exponent.} The field event that two fixed disks around
+the marked points $0$ and $1$ of the sphere (see below) each carry area $1/2+O(\delta)$, and the rest
+$O(\delta)$, has probability $\delta^{\astar+o(1)}$.
+\end{itemize}
+
+\subsection{The lower bound}
+
+The lower bound is proved by building the event, with four ingredients.
+\emph{Two blobs suffice.} Suppose the sphere splits, up to area zero, into three regions, two
+\emph{blobs} $O_1$, $O_2$ and a remainder $O_3$, with $|\nu(O_1)-1/2|\le\delta_1$ and $\nu(O_3)\le\delta_2$, and suppose each curve, after
+discarding the times it spends in $O_3$, visits all of one of $O_1,O_2$ before any of the other.
+Then $\inf_sd_\Pi(s)\le2\delta_1+7\delta_2$, and so $E_{2\delta_1+7\delta_2}$ holds. This is deterministic:
+if both curves finish one blob before starting the other, the first half of river time and a
+suitable half of road time cover roughly the same blob.
+
+\emph{Fixed clumps are visited in blocks.} Fix two points $z_1,z_2$ and small disks of radius $r$
+around them. Say a curve visits the two disks \emph{in blocks} if it fills one disk completely
+before entering the other. Each curve visits $z_1$ and $z_2$ once, at different times, so by
+continuity, for small $r$, it visits the two disks in blocks. Both curves do so with some probability $P_{\mathrm{blk}}(r)>0$; as the curves
+are independent of the field and the area parametrization changes speeds but not orders, this holds
+conditionally on any field event.
+
+\emph{A convenient normalization of the field.} The unit-area sphere comes from a field with additive
+constant fixed on the unit circle and three $\gamma$-singularities, at the marked points $0$, $1$
+and $\infty$: the terms $-\gamma\log|z|$, $-\gamma\log|z-1|$ and, for $|z|>1$, $-(2Q-\gamma)\log|z|$
+with $Q=2/\gamma+\gamma/2$~\cite[Definition~2.2]{BGS}. Its law is weighted by the power
+$(2Q-3\gamma)/\gamma=x-2$ of its total area, where $x=4/\gamma^2$, and then normalized; the range
+$\gamma\in(0,\sqrt2)$ of the lower bound is exactly $x>2$, where this power is positive. A Gaussian
+change of variables rewrites this law exactly with the constant fixed on a large circle, inside
+which the term from $\infty$ is constant. So near $0$ and $1$ the field is a Gaussian free field
+plus the two singularities and a constant, and its restrictions to small disks around $0$ and $1$
+are conditionally independent given the outside.
+
+\emph{Pinned clumps, balance and the sphere weight.} Call a disk \emph{pinned} if it is centered at
+a marked point, where the field has the singularity $-\gamma\log|z-z_0|$. The area of a pinned disk
+has a heavier tail than that of an ordinary disk: by Wong's analysis of such chaos
+masses~\cite{Wong}, it lies in $[t,2t]$ with probability asymptotic to a constant times
+$t^{-(x-1)}$, against $t^{-x}$ for an ordinary disk. (The marked points are typical points of the
+area, where the field is already high.) Given the outside, the disks at $0$ and $1$ are independent,
+so both reach area of order $t$, with bounded outside area, at probability of order $t^{-2(x-1)}$. A
+one-dimensional Gaussian coordinate of the field in the first disk moves its area continuously; the
+two areas agree within $1$ with conditional probability of order $1/t$. Then after normalization
+each disk holds area $1/2+O(1/t)$ and the rest $O(1/t)$. Finally the weight $(\text{total
+area})^{x-2}$ multiplies the probability by $t^{x-2}$. Altogether
+\[
+t^{-2(x-1)}\cdot t^{-1}\cdot t^{\,x-2}=t^{-(1+x)} ,
+\]
+and with $\delta$ of order $1/t$ the first two ingredients give $\Prob(E_\delta)\ge c_1\delta^{1+x}$,
+which is $\delta^{\astar}$ at $x=\xstar$. The disks have a fixed radius with $P_{\mathrm{blk}}(r)>0$; no estimate
+for shrinking disks is needed.
+
+\subsection{The upper bound}
+
+The upper bound splits the event $\inf_sd_\Pi(s)\le\delta$, equivalent by~\eqref{eq:sandwich},
+by where the area sits.
+\begin{itemize}
+\item \emph{Concentrated area.} If one small ball holds almost all the area, or the boundary of the
+region the river covers in its first half of time is very small, the probability is at most a fixed fraction of that of the whole
+event. This uses re-rooting: moving the marked points to points sampled from the area. These cases
+are absorbed into the others.
+\item \emph{Diffuse area with a moderate total.} If the total area $t$ before normalization is at
+most $\delta^{-\vartheta}$ for a fixed $\vartheta<1$, and the boundary is macroscopic, near-agreement forces the boundaries of
+the two regions to come close at arbitrarily many separated places, which for independent
+SLE$_2$-type curves has probability below any power of $\delta$, by multipoint SLE estimates.
+\item \emph{A large total.} If $t>\delta^{-\vartheta}$, two separated cells of a fixed mesh carry fixed
+fractions of it. The worst case is two cells at the marked points, costing
+$t^{-2(x-1)}$, refunded by $t^{x-2}$ from the sphere weight: net $t^{-x}$, at most $\delta^{\vartheta x}$,
+with $\vartheta$ as close to one as desired.
+\end{itemize}
+So $\Prob(E_\delta)\le C\delta^{x-o(1)}$, one power short: the missing power is the balance factor of
+the lower bound. The five-sevenths corollary cited in the appendix recovers part of this power through estimates on
+retained rank integrals and a sum over configurations. This gives $x+5/7$. We do not interpret that integral estimate
+as a conditional probability of visit-order agreement. The prediction $1+x=\astar$ corresponds to recovering the full factor.

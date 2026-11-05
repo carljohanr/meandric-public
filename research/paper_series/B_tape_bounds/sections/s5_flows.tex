@@ -1,0 +1,145 @@
+% Section 5. Sources: 641_tape_window_bounds/PROOF.md Lemma L; 607_bounds_paper/paper.tex section 5 (finite region);
+% 805_entropy_certificates/PROOF.md section 1 (Theorem F, proof steps 1-4, remarks); 808_referee_flow_bound/FINAL.md;
+% 1252_referee_lower_theory/PROOF.md sections 0-2 (strip, memory m, Proposition A, Theorem F', remarks) and FINAL.md
+% section 3 (tests on strips); 607_bounds_paper/paper_word.tex section 4 (exposition).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{From flows to a lower bound}\label{sec:flows}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+For a lower bound we must exhibit many closed walks. An upper bound may count too much; a lower bound may count too
+little. This section first recalls the weight inequality with the direction reversed, which gives lower bounds, and
+then describes the entropy method used for the lower bound of Theorem~\ref{thm:main}.
+
+\subsection{Counting inside a finite region}
+
+\begin{lemma}\label{lem:region}
+Let $\psi\ge0$ be a weight on the tapes of $\cls$ that is zero on every tape with more than $N$ letters and has
+$\psi(\text{root})>0$. Suppose that $\sum_{T'}\psi(T')\ge R\,\psi(T)$ at every tape $T$ with $\psi(T)>0$, the sum running
+over the successors. Then $\mu\ge R^2$.
+\end{lemma}
+
+\begin{proof}
+Follow all histories from the root and delete a history when it reaches a tape of weight zero. Each move multiplies
+the total weight of the survivors by at least $R$, so after $t$ moves at least $R^t\psi(\text{root})/\max\psi$
+histories survive. Each survivor ends at a tape with at most $N$ letters and can be closed by Lemma~\ref{lem:sweep} in a
+bounded number of moves, and different survivors with the same end tape give different closed walks. The closed walks
+have boundedly many different lengths, so one length gets a fixed fraction of them. Neither the extra moves nor the
+fraction changes the growth rate.
+\end{proof}
+
+The earlier lower bound $12.0535$~\cite{BoundsPaper} came from this lemma on the bracket encoding and needed $1.26$
+billion table entries: the region must be large and the weight must fade toward its boundary. The entropy method
+works on infinite tapes and has no such boundary.
+
+\subsection{Counting by entropy}
+
+Choose a random rule for the next move that looks only at the letters near the head. Intuitively, if the rule makes
+on average $e^h$ equally likely choices per move, then it produces about $e^{ht}$ different histories of $t$ moves. If
+the rule is stationary, so that the tape seen from the head looks statistically the same at all times, and if on
+average it neither lengthens the tape nor moves the head to one side, then a typical history stays within a short
+stretch of tape, and Lemma~\ref{lem:sweep} closes it at small cost. Then $c_t$ is at least about $e^{ht}$, and
+\eqref{eq:fekete} gives $\mu\ge e^{2h}$. The work is to make such a rule exactly stationary on infinite tapes while
+writing it with finitely many numbers. Theorem~F below makes this precise.
+
+\subsection{Stationary flows}
+
+\emph{The strip.} Fix $K\ge2$, or $K=\infty$. Read a tape as a path of heights: a starting height, then one step
+up or down per letter. For a tape reached from the root the heights are the gap numbers \eqref{eq:path} plus
+$\lfloor K/2\rfloor$; moves never change the starting height. A tape lies in the \emph{strip of height $K$} if all
+heights lie in $\{0,\ldots,K-1\}$. On the strip, a split is allowed only if the new path stays in the strip; head
+moves and merges never leave it. Closed walks from the root on a strip count the meanders whose labels stay in the
+fixed band $-\lfloor K/2\rfloor\le g\le K-\lfloor K/2\rfloor$ of $K+1$ values (Section~\ref{sec:tape}); for even
+$K$ this is $-K/2\le g\le K/2$. Their growth rate $\Lambda_K$ is at most $\mu$.
+
+\emph{The reference law.} An infinite tape is a two-sided infinite path of heights in the strip with a head at one
+letter. The \emph{reference law} $\beta$ is a stationary Markov chain on such paths with \emph{memory} $m$: the
+probability of the next step depends on the current height and the last $m$ steps. We assume that every path of $m+2$
+heights in the strip has positive probability and that the chain is irreducible. For a finite word $w$ with given
+heights, $\beta(w)$ is its probability. The reference law is a fixed background; it describes the tape far from the
+head.
+
+\emph{Windows and flows.} Fix a radius $r$. A \emph{window} $w$ is the word of the $2r+1$ letters centered on the head,
+together with its heights. A \emph{flow} is a family of numbers $J(w,\xi)\ge0$, the \emph{flow values}, one for each
+window $w$ and each move $\xi$ that applies at $w$ in the strip, with total $1$. Intuitively, $J(w,\xi)$ is the
+probability that the window is $w$ and the next move is $\xi$. Put
+\[ \nu(w)=\sum_\xi J(w,\xi),\qquad p(\xi\mid w)=J(w,\xi)/\nu(w). \]
+The flow defines a random infinite tape and a random move: the window has law $\nu$; given the window, the letters
+beyond it continue as the chain $\beta$, independently on the two sides, from the $m$ letters at each end of the
+window; then the move $\xi$ is chosen with probability $p(\xi\mid w)$. Intuitively, the window is chosen by the flow
+and the far tape by the reference law.
+
+\emph{The conditions.}
+\begin{itemize}
+\item[(S)] \emph{Stationarity.} For every word $Y$ of $2r+3$ letters, with heights, let $Y^\circ$ be its middle
+$2r+1$ letters. The probability that after the move the $2r+3$ letters around the head read $Y$ equals the probability
+that they read $Y$ now:
+\[ \sum_{w,\xi}J(w,\xi)\,\beta_{w,\xi}(Y) \;=\; \nu(Y^\circ)\,\frac{\beta(Y)}{\beta(Y^\circ)}, \]
+where $\beta_{w,\xi}(Y)$ is the conditional probability, given the window $w$ and the reference law outside it, that
+the move $\xi$ produces a tape whose $2r+3$ central letters are $Y$. We call these the \emph{balance equations}.
+\item[(D)] \emph{Zero drift.} $\sum J(w,\xi)\,\Delta a(\xi)=\sum J(w,\xi)\,\Delta b(\xi)=0$, with the changes
+$\Delta a,\Delta b$ of the side lengths from \eqref{eq:drift}. Intuitively, on average the tape does not grow and the
+head does not travel.
+\item[(P)] \emph{Positivity.} $J(w,\Lm)>0$ for every window $w$. It is used in Step~2 below to prove
+ergodicity.
+\end{itemize}
+For a fixed reference law these are finitely many linear conditions on $J$. The following theorem, which we call
+Theorem~F (for flow), turns them into a lower bound.
+
+\begin{theoremF}
+Let $r\ge m$, and let $J$ be a flow satisfying (S), (D) and (P). Then
+\[ \mu\;\ge\;e^{2h},\qquad h\;=\;\sum_{w,\xi}J(w,\xi)\,\log\frac{\nu(w)}{J(w,\xi)} , \]
+where terms with $J(w,\xi)=0$ are left out. In particular, if $h\ge\log R$ then $\mu\ge R^2$.
+\end{theoremF}
+
+The number $h$ is the entropy of the next move given the window, averaged over the stationary process: the
+uncertainty of one move.
+
+\subsection{Proof of Theorem F, in outline}
+
+\emph{Step 1: the balance equations give stationarity of the whole tape.} Let the infinite tape have the law of the flow,
+and make one move. A move changes only the head letter and its neighbors. Given the $2r+3$ letters around the new
+head, the letters beyond them are again continuations of the chain from the $m$ letters at each end: for a head move
+they are the old letters, for a split the old ends survive because $r\ge m$, and for a merge the two letters newly
+brought into view are fresh chain letters. So the law of the new infinite tape is determined by the law of its $2r+3$
+central letters, and (S) says that this law is the old one. The process is stationary. The radius condition $r\ge m$
+is needed: in tests on small strips that compare the ranks of the linear systems, the balance equations with
+$r=m-1$ do not imply those at larger radius, while with $r\ge m$ they do.
+
+\emph{Step 2: the stationary process is ergodic.} By (P) the law of the flow has a positive density with respect to
+$\beta$, so the two laws have the same null sets. Let $f$ be a bounded harmonic function, that is,
+$\mathbb{E}[f(\omega_1)\mid\omega_0]=f(\omega_0)$ for the process $\omega_0,\omega_1,\ldots$ of infinite tapes. By
+stationarity and harmonicity,
+$\mathbb{E}\bigl(f(\omega_1)-f(\omega_0)\bigr)^2=2\mathbb{E}f(\omega_0)^2-2\mathbb{E}f(\omega_0)f(\omega_1)=0$, so
+$f$ is unchanged by every move of positive probability, in particular by the move $\Lm$, which is a shift of the
+infinite tape. The shift is ergodic for the irreducible chain $\beta$ (its period two does not matter), so $f$ is
+constant. A stationary Markov process whose bounded harmonic functions are constant is ergodic.
+
+\emph{Step 3: counting.} Write $t$ for the number of moves. Let $\Delta^a_i$ and $\Delta^b_i$ be the total changes
+of the side lengths after $i$ moves, and $I_t$ the sum of $-\log p(\xi_i\mid w_{i-1})$ over the first $t$ moves. By the
+ergodic theorem and (D), $\Delta^a_i/t$ and $\Delta^b_i/t$ tend to zero uniformly in $i\le t$, and $I_t/t$ tends to
+$h$. Fix $\varepsilon>0$. For large $t$, with probability at least $1/2$, $|\Delta^a_i|+|\Delta^b_i|\le\varepsilon t$
+for all $i\le t$ and $I_t\ge t(h-\varepsilon)$. From some fixed infinite tape this happens with conditional
+probability at least $1/2$, and each move sequence in the event has probability at most $e^{-t(h-\varepsilon)}$, so
+there are at least $\frac12e^{t(h-\varepsilon)}$ of them. Cut out the letters within distance
+$\lceil\varepsilon t\rceil+r+2$ of the head. All these move sequences run on this finite piece, because the head never
+comes within two letters of its ends. Pad the piece to a tape of $\cls$, build it from the root and return to the root
+afterwards by Lemma~\ref{lem:sweep}; both cost $O(\varepsilon t)+O(1)$ moves, in the \emph{unrestricted} machine
+(without the strip). Different move sequences give different closed walks, with lengths between $t$ and
+$t+O(\varepsilon t)+O(1)$, so for one length $t'$ in this range $c_{t'}\ge e^{t(h-\varepsilon)}/\mathrm{poly}(t)$. With
+$c_{t'}\le\mu^{t'/2}$ from \eqref{eq:fekete}, letting $t\to\infty$ and then $\varepsilon\to0$ gives
+$h\le\frac12\log\mu$.\qed
+
+\subsection{Remarks}
+
+Only the middle part of the closed walks is confined to the strip; the counted walks are walks of the unrestricted
+machine. So the bound concerns all meanders, but it can never exceed $\Lambda_K$. For a fixed reference law the
+conditions are linear in $J$ and $h$ is concave in $J$. A flow is \emph{exactly feasible} if it satisfies (S), (D)
+and (P) exactly, not up to rounding; every exactly feasible flow, optimal or not, gives a bound.
+
+The method was tested where the answer is known. On the strip of three levels the growth rate
+$\Lambda_3=10.4245356612\ldots$ is known exactly. The method reproduces it at radius $1$, $2$ and $3$, and to
+$15$ digits with a memory-three reference law, and in no test does it exceed it. Without the drift condition
+(D) the same computation gives $10.883$, above the true value. So (D) is essential, and the test is able to detect a
+wrong method. Theorem~F was proved in the project for a reference law of memory two that looks at the letters only,
+with no strip, and later written out for strips and for laws of any memory $m$ with $r\ge m$; both forms were read
+independently (Appendix~\ref{app:where}).

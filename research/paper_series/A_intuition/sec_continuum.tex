@@ -1,0 +1,349 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{A continuum model in which the KPZ formula is a theorem}\label{sec:continuum}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The physical argument of Section~\ref{sec:surfaces} has two unproved steps for meanders: that
+each curve acts like a spanning tree, and that the effects add up through the central charge.
+This section describes a continuum model of random surfaces in which the second step is exact,
+and explains the remaining ingredient, which Paper~D proves. In this section $N$ denotes a number
+of squares, not the order of a meander.
+
+\subsection{From counting to a continuum}\label{sec:dictionary}
+
+The rest of the paper speaks the language of continuum random surfaces. This subsection explains
+how that language translates the counting of Sections~\ref{sec:walks} and~\ref{sec:surfaces},
+in three steps, and Table~\ref{tab:dictionary} collects the translation.
+
+\emph{Step 1: describe a large surface by where its area sits.} Any sphere of squares can be
+spread out over a round sphere in an essentially unique way that preserves angles (by the
+uniformization theorem of complex analysis), much as a map of the Earth spreads the globe over a
+flat page. After this, the surface is recorded by a single function on the round sphere: how
+densely its squares are packed near each point. Write this density as $e^{\gamma h}$, where $h$
+is a random function and $\gamma$ a number that sets how strongly $h$ is felt. For a uniformly
+random sphere of squares, the logarithm of the density is predicted to be a \emph{Gaussian free
+field}, the two-dimensional analog of Brownian motion described below. Intuitively, Brownian
+motion records the ups and downs of a random walk, and the Gaussian free field records where a
+random surface is crowded and where it is sparse.
+
+\emph{Step 2: drawings change the law of the field.} Counting surfaces together with drawings
+multiplies the weight of each surface by its number of drawings, which by~\eqref{eq:charge} is a
+power of $\det\Delta_G$ up to a size factor. A classical formula of Polyakov says how this
+determinant depends on the shape: its logarithm is a constant times the \emph{energy}
+$\int|\nabla h|^2$ of the field, plus simpler terms that shift the field or depend only on the
+size, without changing how much the field fluctuates. The weight of a Gaussian
+field is itself of the form $e^{-\text{const}\cdot\int|\nabla h|^2}$. Multiplying one Gaussian
+weight by another gives a Gaussian weight again, with a changed constant. So a drawing does not
+change the kind of random surface; it only changes the parameter $\gamma$. Each spanning tree
+changes it by the same amount, which is the additivity of $c$ in continuum form. Trees make the
+field smoother, so $\gamma$ decreases: $\gamma^2=8/3$ for bare surfaces, $2$ with one tree, and
+$(17-\sqrt{145})/3\approx1.653$ with two.
+
+\emph{Step 3: read off the exponent from the size.} A counting law $\mu^n n^{-\alpha}$ becomes
+a statement about the size of the surface: the total weight of surfaces of size at least $n$
+decays like $n^{-(\alpha-1)}$ (Section~\ref{sec:surfaces}). In the continuum the size is a random
+variable, and the question becomes how heavy its tail is. The growth rate $\mu$ has no continuum
+counterpart: it counts local choices, and those are invisible after zooming out.
+
+\begin{table}[ht]
+\centering
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{0.47\textwidth}p{0.43\textwidth}}
+\toprule
+counting & continuum \\
+\midrule
+number of squares & area, or the number of squares of a random subdivision \\
+uniformly random sphere of squares, $c=0$ & field with $\gamma^2=8/3$ (the Brownian map) \\
+each sphere counted with its spanning trees, $c=-2$ & field with $\gamma^2=2$ \\
+two tree-like drawings (a meander), $c=-4$ & field with $\gamma^2=(17-\sqrt{145})/3$ \\
+a curve visiting every square once & a random curve through every point (SLE$_8$, Section~\ref{sec:limit}) \\
+counting exponent $\alpha$ & one plus the tail exponent of the size, $1+4/\gamma^2$ \\
+growth rate $\mu$ & no counterpart (a local quantity) \\
+thin neck splitting a meander into halves & near-split of the two curves (Section~\ref{sec:limit}) \\
+\bottomrule
+\end{tabular}
+\caption{A dictionary between counting and the continuum. Each entry on the right is a model or a
+prediction, not a theorem about the entry on the left; the next subsections say which parts are
+proved.}
+\label{tab:dictionary}
+\end{table}
+
+The model below makes Steps~2 and~3 exact for a continuum surface built directly from a Gaussian
+free field, with squares in place of area.
+
+\subsection{Random surfaces from a random field}
+
+The model is built from the \emph{Gaussian free field} $h$ on the sphere. It is a random
+function whose values $h(z)$ and $h(w)$ at two points have covariance about $-\log|z-w|$, minus
+the logarithm of their distance. It is too rough to have values at single points, since this
+covariance is infinite at $z=w$, but its average $h_S$ over a square
+$S$ is an ordinary normal random variable, with variance about $\log(1/|S|)$, where $|S|$ denotes
+the side length of $S$. Intuitively, $h$ is the two-dimensional analog of Brownian motion. We use
+it on a fixed unit square drawn on the sphere.
+
+Fix a parameter $Q\ge2$ and a small number $\varepsilon>0$. Start from the unit square and repeat
+the following rule: split a square $S$ into four equal squares if
+\[ e^{h_S/Q}\,|S| \;>\; \varepsilon ,\]
+and keep it otherwise. Let $N$ be the number of squares at the end. Intuitively,
+$e^{h_S/Q}|S|$ is the size of $S$ as seen by the field. Where the field is high, squares count as
+large and are split again and again, so high regions are covered by many small squares. Intuitively, the final squares play the role of the faces of a random planar map, and
+$N$ is the size of the surface. The parameter $Q$ enters only through this rule; the field itself
+does not depend on it. This construction is due to Ang, Park, Pfeffer and
+Sheffield~\cite{APPS}, following earlier work on the same subdivisions~\cite{DS}.
+
+The parameter $Q$ is tied to the central charge $c$ by $Q^2=(25-c)/6$, so $Q\ge2$ corresponds to
+$c\le1$. This is how the physics literature matches $Q$ to $c$, and the next subsection shows why it
+is natural: adding $k$ spanning trees raises $Q^2$ by $k/3$, which is exactly a drop of $2k$ in
+$c$. The probability literature usually writes $Q$ through a second number $\gamma\in(0,2]$,
+\begin{equation}\label{eq:Q}
+Q^2 \;=\; \frac{25-c}{6}, \qquad Q \;=\; \frac{2}{\gamma}+\frac{\gamma}{2};
+\end{equation}
+of the two solutions $\gamma$ of the second equation we take the one in $(0,2]$. So $\gamma=2$ at
+$Q=2$, and $\gamma\to0$ as $Q\to\infty$. A bare surface, $c=0$, has $Q^2=25/6$ and
+$\gamma^2=8/3$; the meander value $c=-4$ has $Q^2=29/6$ and
+$\gamma^2=(17-\sqrt{145})/3\approx1.653$. Squaring the second relation gives
+$Q^2-2=4/\gamma^2+\gamma^2/4$, so with $x=4/\gamma^2$ it says exactly $x+1/x=(13-c)/6$. The KPZ
+formula~\eqref{eq:kpz} is therefore the statement that the tail exponent $x$ equals $4/\gamma^2$.
+
+\subsection{Drawings as an exact change of parameter}
+
+For a planar map, the number of spanning trees equals a determinant built from the map's
+Laplacian matrix, by Kirchhoff's theorem; equivalently, it is the product of the nonzero
+eigenvalues of the Laplacian, divided by the number of vertices. The continuum model has an
+analog. The Laplacian of a
+continuum surface has infinitely many eigenvalues, so their product has to be renormalized; the
+result is the \emph{regularized determinant}. Ang, Park, Pfeffer and Sheffield proved that
+weighting the model by the $k$-th power of this determinant has exactly the same effect, for
+surfaces with a given number of squares, as changing $Q^2$ to $Q^2+k/3$, that is, $c$ to
+$c-2k$~\cite[Theorem~6.9]{APPS}. Intuitively, in this model drawing $k$ spanning trees is the
+same as lowering the central charge by $2k$. The additivity of $c$, which is an assumption for
+meanders, is here a theorem.
+
+Write $Q_k$ for the parameter after the change, $Q_k^2=Q^2+k/3$. Their theorem compares
+surfaces with the same number of squares. Comparing surfaces with different numbers of squares
+needs two corrections, which Paper~D derives. The determinant contains a factor proportional to
+$N^{1/3}$, which must be divided out. And the comparison of the two models is a Gaussian change of
+variables, which contributes a factor $Q/Q_k$ for each square, so $(Q/Q_k)^N$ in all; one
+multiplies by its inverse. This second factor is purely exponential in $N$: like $\mu^n$ for
+meanders, it changes the growth rate but not the exponent.
+
+\subsection{The tail law}
+
+What was missing to read off an exponent is the distribution of the number of squares. It is
+proved in Paper~D~\cite{PaperD}.
+
+\begin{theorem}[Paper~D~\cite{PaperD}]\label{thm:tail}
+For every $Q\ge2$ and every fixed $\varepsilon>0$,
+\[ \lim_{n\to\infty}\frac{\log \Pr(N\ge n)}{\log n} \;=\; -\frac{4}{\gamma^2}, \]
+with $\gamma$ given by~\eqref{eq:Q}.
+\end{theorem}
+
+Combined with the exact change of parameter, this gives the full KPZ curve.
+
+\begin{theorem}[Paper~D~\cite{PaperD}]\label{thm:apps}
+In the model above at $c=0$, with $Q_0^2=25/6$, weight each surface by the $k$-th power of the
+regularized determinant, divided by $N^{k/3}$, and by the factor $(Q_k/Q_0)^N$ with
+$Q_k^2=Q_0^2+k/3$. For every real $k\ge-1/2$, the total weight of surfaces with at least $n$
+squares is $n^{-x_k+o(1)}$, where
+\[ x_k+\frac1{x_k} \;=\; \frac{13+2k}{6},\qquad x_k\ge1 .\]
+At $k=2$, the analog of two spanning trees, $x_2=(17+\sqrt{145})/12$, so
+$1+x_2=\alpha_*$.
+\end{theorem}
+
+By the discussion after~\eqref{eq:kpz}, a tail exponent $x_2$ corresponds to the counting
+exponent $1+x_2$. Two caveats keep this in proportion. The statement is about cumulative tails,
+$\Pr(N\ge n)$, up to factors $n^{o(1)}$, not about the probability of each size. And it concerns
+a continuum model in which the spanning trees are replaced by a determinant; it says nothing
+directly about meanders, where the curves are actual curves on a discrete surface.
+
+\subsection{Idea of the proof}\label{sec:tailidea}
+
+We describe the upper bound for $Q>2$; the endpoint $Q=2$ needs a separate argument, given in
+Paper~D. The number of squares is large only if the field is unusually high somewhere, since
+high regions are where squares keep splitting. Count the squares of side $2^{-j}$ whose split
+condition holds.
+For a number $a>0$, the condition $e^{h_S/Q}2^{-j}>\varepsilon$ implies
+$(e^{h_S/Q}2^{-j}/\varepsilon)^{aQ}>1$, and averaging over the $4^j$ squares at that depth shows
+that their number is at most a constant times
+\[ 2^{\,j\,(2-aQ+a^2/2)} \]
+times a random factor whose $p$-th moment, the expected value of its $p$-th power, is finite for
+every $p<4/a^2$. The exponent
+$2-aQ+a^2/2$ is a quadratic in $a$ whose two roots are $\gamma$ and $4/\gamma$, as one checks from
+$Q=2/\gamma+\gamma/2$. It is negative exactly between them. Choosing $a$ slightly above $\gamma$
+makes the counts summable over $j$ and shows that the $p$-th moment of $N$ is finite for every
+$p<4/\gamma^2$. By Markov's inequality, $\Pr(N\ge n)\le \mathbb E[N^p]\,n^{-p}$ for each such
+order $p$, hence $\Pr(N\ge n)\le n^{-4/\gamma^2+o(1)}$. The matching lower bound comes from the
+cheapest way to make $N$ large: raise the field over one small square, which happens with a
+probability of the predicted size, and show that its descendants then produce enough squares.
+
+The ratio of the two roots, $(4/\gamma)/\gamma=4/\gamma^2$, is exactly the KPZ number $x$. This
+is where the quadratic of the physical prediction comes from in the proof.
+
+\subsection{Area versus number of squares}\label{sec:area}
+
+The surface also carries an area: the integral of $e^{\gamma h}$, suitably renormalized because
+$h$ has no values at points. A square of side $|S|$ has area roughly $e^{\gamma h_S}|S|^{\gamma Q}$,
+and the splitting rule $e^{h_S/Q}|S|>\varepsilon$ is the same as asking that this rough area
+exceed $\varepsilon^{\gamma Q}$. So the rule splits squares until each has small area. A natural
+first idea is that $N$ should be proportional to the area, whose tail is
+known~\cite{RV,Wong}. For $Q>2$ this is false in a precise sense (Paper~D): given that the area is
+very large, the probability that $N=1$ stays bounded away from zero. The field can be very high on
+fine scales inside a square that the splitting rule never inspects, because the rule only looks
+at averages over squares it has already created. The proof of Theorem~\ref{thm:tail} therefore
+works with the squares directly.
+
+\subsection{A branching random walk model}\label{sec:cascade}
+
+A simpler model shows the mechanism in its purest form. Call
+$H(S)=h_S+Q\log(|S|/\varepsilon)$ the \emph{height} of a square, so that $S$ is split exactly when
+$H(S)>0$. Passing from a square to one of its four children lowers $Q\log|S|$ by $Q\log2$ and
+changes $h_S$ by a random amount of variance about $\log2$. In the toy model these random amounts
+are independent normal steps, independent for different children; in the model of
+Section~\ref{sec:continuum} they are correlated. A square is split while its height is positive.
+The squares then form a \emph{branching random walk killed at zero}: each square has four
+children, each child's height is its parent's height plus a random step, and a square whose height
+is not positive has no children. The number $N$ of final squares is determined by this family
+tree, and for $Q>2$ its tail is known precisely~\cite{AHZ}:
+\[ \Pr(N\ge n) \;\sim\; \mathrm{const}\cdot n^{-x}, \qquad x \;=\; \frac{\lambda_+}{\lambda_-},
+\qquad \lambda_\pm \;=\; Q\pm\sqrt{Q^2-4}. \]
+The two rates are the roots of Section~\ref{sec:tailidea}: $\lambda_-=\gamma$ and
+$\lambda_+=4/\gamma$. Since $\lambda_+\lambda_-=4$ and $\lambda_++\lambda_-=2Q$,
+\[ x+\frac1x \;=\; \frac{\lambda_+^2+\lambda_-^2}{\lambda_+\lambda_-} \;=\; Q^2-2 \;=\; \frac{13-c}{6} .\]
+So the KPZ quadratic is the relation between the two exponential rates of a killed branching
+random walk. In this toy model Paper~D also proves the local version: for $Q>2$, every
+starting height and every $n$ that is one more than a multiple of $3$ (the only possible values,
+since each split adds three squares), $\Pr(N=n)$ lies between two constant multiples of
+$n^{-1-x}$. At $Q^2=29/6$ the
+exponent $1+x$ is again $\alpha_*$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The conjectured limit of large meanders}\label{sec:limit}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{The conjecture}
+
+Borga, Gwynne and Sun proposed a precise description of what a large uniformly random meander
+looks like when zoomed out~\cite{BGS}. It has four ingredients.
+
+\begin{itemize}
+\item \emph{The surface} is a \emph{Liouville quantum gravity sphere} (the name comes from
+physics): a continuum random surface of total area one, built from the Gaussian free field as in
+Section~\ref{sec:continuum}, with the size of a region measured by the area $\int e^{\gamma h}$ of
+Section~\ref{sec:area} instead of by counting squares. Its parameter is
+$\gamma^2=(17-\sqrt{145})/3$, the value that~\eqref{eq:Q} assigns to $c=-4$.
+\item \emph{The river and the road} become two random curves. Recall that each of them visits
+every square of the sphere exactly once. When the squares become infinitely small, such a curve
+becomes a continuous curve that passes through every point of the surface, like the
+space-filling curves of Peano and Hilbert, but random. Which random curve it is, is known for
+spanning trees (Figure~\ref{fig:peano}). Walk around a spanning tree of a fine grid, keeping the
+tree on your left. This path visits the neighborhood of every vertex and returns to its start,
+and as the grid gets finer it converges to a particular random space-filling curve, called
+SLE$_8$~\cite{LSWust}. (SLE, for Schramm--Loewner evolution, is a family of random curves indexed
+by a number; the value $8$ gives the curve that fills space.) Since the river and the road are
+expected to behave like spanning trees (Section~\ref{sec:charge}), both become SLE$_8$ curves.
+\item \emph{The two curves are independent} of each other and of the surface. Intuitively,
+zoomed out, knowing the river tells nothing about the road. This is the continuum form of the
+assumption that the two central charges add.
+\item \emph{Time along each curve is measured by area}: by time $t$ the curve has covered area $t$,
+and it covers the whole surface by time one. This is the continuum version of numbering the
+crossings: the $i$-th crossing along the river corresponds to time about $i/(2n)$ along the
+river curve, and similarly for the road.
+\end{itemize}
+
+\begin{figure}[ht]
+\centering
+\input{fig_peano}
+\caption{(a) A spanning tree of a $5\times5$ grid (black) and the path that walks around it,
+keeping the tree on its left (red). (b) The same for a random spanning tree of a $30\times30$
+grid. As the grid gets finer, the path converges to a random curve that passes through every
+point of the square, called SLE$_8$. Each tree-like curve of a meander is expected to look like
+this when zoomed out.}
+\label{fig:peano}
+\end{figure}
+
+\begin{conjecture}[Borga, Gwynne and Sun]\label{conj:bgs}
+Large uniformly random meanders, suitably rescaled, converge in distribution to this random
+surface with two independent curves.
+\end{conjecture}
+
+A weaker form concerns only the \emph{order of crossings}: the permutation that sends the
+position of each crossing along the river to its position along the road. Plot the $2n$ points
+$(i/2n,\omega(i)/2n)$ in the unit square, where $\omega(i)$ is the position along the road of the
+$i$-th crossing along the river, and give each point mass $1/(2n)$. Borga, Gwynne and Sun also
+conjecture that this cloud of points converges to a random measure on the square, built from the
+pairs of times at which the two curves visit the same point.
+
+The conjecture is consistent with the KPZ prediction, since it uses the same $\gamma$. It also
+explains why meanders are hard. For spheres of squares with one spanning tree the zoomed-out limit
+is known, and the proof works because the tree and the surface fit together. By Mullin's bijection
+(Section~\ref{sec:surfaces}), a surface with a spanning tree is the same thing as a pair of
+bracket words, that is, a pair of walks. These walks converge to two Brownian motions, and the
+pair of Brownian motions encodes the surface and the curve at once~\cite{Sheffield,DMS}. This
+works only when the curve fits its surface, which happens at $\gamma^2=2$, the value
+that~\eqref{eq:Q} assigns to $c=-2$. In a meander each curve is tree-like and would fit a surface
+with $\gamma^2=2$, but the surface carries two of them and has $\gamma^2\approx1.653$. No
+bijection with walks is known for this case, and no current method handles curves on a surface
+they do not fit.
+
+\subsection{Near-splits}
+
+The thin neck at the middle of Section~\ref{sec:shape} has a version that makes sense in the
+limit. Number the crossings of a meander of order $n$ in the order they occur along the river and
+in the order they occur along the road. Since the road is a closed loop, positions along it are
+read cyclically, around a circle. The meander has a thin neck at the middle of the river when the
+first half of the crossings along the river also occupies consecutive positions along the road.
+This is the same as asking that the road cross the vertical line through the middle of the river
+only twice. A \emph{near-split with tolerance $\delta$} relaxes this: the two halves agree except
+for a fraction $\delta$ of the crossings.
+
+In the limit object the sphere has total area one, and the river and the road are curves that
+each cover it once, at unit speed in area. The first half of the river is the region the river
+covers during its first half of time. Let $E_\delta$ be the event that for some time interval of
+length one half, read cyclically, the region covered by the road during that interval and the
+first half of the river differ in a set of area at most $\delta$. (Paper~D works with a slightly
+trimmed version of this event, which changes $\delta$ only by a constant factor.)
+
+The same event makes sense for the cloud of points of a finite meander, and there a near-split
+with tolerance below $1/(4n)$ is exactly a thin neck at the middle (Paper~D). For even $n$ its
+probability equals, up to constant factors, the neck probability $M_{n/2}^2/M_n$ of
+Section~\ref{sec:shape}; the constant factors account for the marked outermost arches and for
+the road crossing the middle line below the river instead of above it. So the probability is predicted to be about
+$n^{-\alpha_*}$. Heuristically, at resolution $\delta$ a meander of order $n$ looks like one of
+order about $1/\delta$; replacing $n$ by $1/\delta$, one expects $\Pr(E_\delta)$ to be about
+$\delta^{\alpha_*}$.
+
+\begin{theorem}[Paper~D~\cite{PaperD}]\label{thm:nearsplit}
+In the limit object of Conjecture~\ref{conj:bgs} there are constants $0<\kappa_1\le\kappa_2$ such that for
+all small $\delta>0$
+\[ \kappa_1\,\delta^{\alpha_*} \;\le\; \Pr(E_\delta) \;\le\; \kappa_2\,\delta^{3.134}, \qquad \alpha_*=\frac{29+\sqrt{145}}{12}\approx3.4201 .\]
+\end{theorem}
+
+The lower bound has exactly the predicted exponent. It is proved by building the event: the
+surface develops two lumps of area, each about one half, joined only weakly, which happens with
+probability of order $\delta^{\alpha_*}$ by an exact Gaussian computation and a known tail
+law~\cite{Wong}; then each of the two independent curves visits the two lumps one after the other,
+which happens with probability bounded below. The upper bound requires controlling every way the
+event can occur, and the exponent $3.134$ is the best reached so far.
+
+\subsection{Two glued disks}\label{sec:twodisk}
+
+One calculation makes the role of necks especially clear. A \emph{quantum disk} is a random
+surface of the same kind with a boundary; its boundary has a length, measured by the field in the
+same way as area. Ang and Gwynne showed that if the boundary has length $\ell$, the area $t$ has
+density proportional to
+\[ \ell^{2x}\, t^{-1-x}\, e^{-\beta_0\ell^2/t}, \qquad x=\frac4{\gamma^2},\]
+for a constant $\beta_0$~\cite{AG}. So a disk with boundary length $\ell$ typically has area of
+order $\ell^2$, and the tail $t^{-1-x}$ says that it occasionally has a much larger area.
+
+Glue two independent disks with the same short boundary length $\ell$ along their boundaries,
+and condition the total area to be one. This is a sphere with a neck of length $\ell$. Typically
+one disk is tiny and the other holds almost all of the area. A balanced split, with each disk
+holding between $1/2-\delta$ and $1/2+\delta$ of the area, requires both disks to be unusually
+large for their boundary, and the density above shows that its probability is about
+$\delta\,\ell^{2x}$ (Paper~D). A neck that is just short enough to be invisible at resolution $\delta$
+bounds a region of area about $\delta$, so $\ell^2\approx\delta$, and then the probability is
+about
+\[ \delta^{1+x} \;=\; \delta^{1+4/\gamma^2} ,\]
+which at the meander value of $\gamma$ is $\delta^{\alpha_*}$. This is the KPZ exponent again,
+now read as the cost of a balanced neck. The calculation is exact for the glued disks; that a
+near-split of the two curves forces such a neck is part of what remains to be proved.

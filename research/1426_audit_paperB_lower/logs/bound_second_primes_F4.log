@@ -1,0 +1,6 @@
+h_lo = H_lo/M_hi = 1.2515001857102438544530018306544176856208
+M in [ 0.9671396045946018 , 0.9671396045946018 ], width 2.8818411252262264e-18
+closed-form mass inside [M_lo, M_hi]: True
+mass mod p equals closed form mod p: True
+e^{2 h_lo} >= (Taylor lower bound) 12.219100857094327
+target 6109550428547/500000000000 = 12.219100857094: 2 h_lo >= upper bound of ln(target): True; slack in h >= 1.3394e-14

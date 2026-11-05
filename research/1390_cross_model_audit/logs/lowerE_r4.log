@@ -1,0 +1,11 @@
+r=4 s=41/50 nA=256 nB=256
+X: all positive, max 1152921504606846976 bits 61
+windows 512, flow values 1536; built in 0.0s
+(P): all push flows positive
+(D): sum pA - sum qA = 0, sum pB - sum qB = 0
+(S): 2048 extended-window equations checked exactly, 0 fail; 0.0s
+entropy: h >= 1.152839195820770 (0.0s)
+e^(2h) >= 10.0309808783260 (floored, 13 decimals: 100309808783260)
+slack in h vs target: 4.642e-15
+target 10.030980878326: MET
+RESULT: ACCEPT (S checked) total 0.0s

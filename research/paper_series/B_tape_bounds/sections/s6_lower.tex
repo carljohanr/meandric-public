@@ -1,0 +1,138 @@
+% Section 6. Sources: 1228_combined_lower/FINAL.md (result, stages, increments, verifier); 1253_referee_lower_computation
+% /FINAL.md (stage values, counts, law parameters, number of directions, parent counts); 1252_referee_lower_theory/PROOF.md
+% sections 3-5 (Propositions B, C, D) and FINAL.md (law hypotheses H1-H3 exact, 154 five-paths);
+% 1008_lower_122/PROOF.md (head cycles, four-move edit cycles, entropy enclosure); 1019_overnight_structural/
+% MEMORY_THREE_EXTENSION.txt, SIGNED_PARENT_CERTIFICATE_ARGUMENT.txt, SPARSE_CONTEXT_REFINEMENT_ARGUMENT.txt;
+% 607_bounds_paper/paper_word.tex section 5 (cycle example, figure); 1203_ceiling_ladder/FINAL.md section 1 (strip,
+% kappa); ledger/STATE.md row "mu lower"; ledger/facts.json muLower.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The lower-bound certificate}\label{sec:lower}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+A certificate for Theorem~F is a reference law and an exactly feasible flow. Here we ask for a little more than (P):
+the balance equations (S) and the drift equations (D) hold exactly, not up to rounding, and every flow value is
+positive. At the radii we need, solving (S) exactly is too expensive. The certificate is therefore built from pieces
+that are feasible by construction, and only positivity and the entropy are left to compute.
+
+\subsection{The strip and the reference law}
+
+The strip has height $K=12$. The reference law $\beta$ has memory three and is built in three layers. The first is a nearest-neighbor
+law on the twelve heights; its probability of stepping up at heights $0,1,\ldots,11$ is
+\[ 1,\ \tfrac{97}{100},\ \tfrac{99}{100},\ \tfrac{47}{50},\ \tfrac{171}{200},\ \tfrac{69}{100},\
+   \tfrac{31}{100},\ \tfrac{29}{200},\ \tfrac{3}{50},\ \tfrac{1}{100},\ \tfrac{3}{100},\ 0, \]
+symmetric under reflection of the strip. In the second layer, after a step up the odds of stepping up again are
+multiplied by $\kappa=4/5$, and after a step down by $1/\kappa$, so the path changes direction a little more often.
+In the third layer, each path of four heights gains probability if its first and last steps point in opposite
+directions and loses it if they point the same way, by $\eta=3/16$ times the smallest probability among the paths
+with the same middle heights up to reversal and reflection; then the same is done for paths of five heights, with
+$\zeta=1/8$. Neither change alters the probabilities of shorter paths; each lets the next step depend on one more
+earlier step. All hypotheses of Theorem~F on the law were checked in exact rational
+arithmetic: the $154$ paths of $m+2=5$ heights in the strip have positive probability, the law is stationary, its
+marginals are consistent, and the chain is irreducible.
+% Law layers checked in the code: kappa in 914 edge_model.py (odds u_b/(1-u_b) * kappa^(b-a)), see 1203 PROOF
+% section 1; eta in 1019 memory_two.py (quartet a,b,c,d with b,c interior: + eta * group minimum * sign, sign +1 when
+% the first and last steps are opposite; triple marginals kept); zeta in 1019 memory_three.py (same on quintets with
+% b,d interior; quartet marginals kept). Parameters as stored in the parent: 1253 FINAL item 4.
+
+\subsection{Constructions that stay feasible}
+
+The certificate combines four constructions. A \emph{direction} is a signed change of the flow values that keeps the
+balance equations (S) and the drift equations (D) exactly; adding any multiple of a direction to an exactly feasible
+flow leaves (S) and (D) exact, and only positivity has to be checked again.
+
+\emph{A signed parent at a small radius.} At radius $6$ the system (S) and (D) was solved exactly in rational numbers.
+The solution, the \emph{parent}, has $226{,}079$ flow values and satisfies all $220{,}110$ balance equations and both
+drift equations; $7{,}708$ of its flow values are negative. A parent with negative values is allowed, because the
+equations are linear and positivity is needed only for the final flow.
+
+\emph{Lifting.} A nonnegative flow at radius $6$, after normalization, defines a law of the infinite tape, and the same law can
+be read through windows of any larger radius. For the signed parent, the lift is defined by the same linear formula. The lifted flow value of a larger window is the old flow value of its central window times the
+conditional reference probability of the extra letters; so the \emph{density} $J/\beta$, the flow divided by the
+reference probability of the window, does not change. Lifting preserves (S), (D), and the total mass (the sum of all flow values). For a nonnegative flow it also
+preserves the entropy after normalization; no entropy is assigned to the signed intermediate parent.
+
+\emph{Closed walks.} The main source of directions is closed walks. Take a short tape $T_0$, the \emph{anchor}, and a
+walk of moves that starts and ends at $T_0$. Suppose that no tape on the walk changes the starting height, the first
+three letters, the last three letters, or the letter sum. Then the far tape beyond these \emph{protected ends} has the
+same conditional law at every step. Fix a signed number $z$. For each move of the walk, from a tape $T$, add
+$z\,\beta(T_0)/\beta(T)$ to the density $J/\beta$ of that move at every window whose central letters, with their
+heights, spell $T$; that is, the flow value $J(w,\xi)$ grows by $z\,\beta(T_0)\beta(w)/\beta(T)$. If the walk makes the
+same move from the same tape twice, the two amounts add. Each edge of the walk then carries the same
+flow $z\,\beta(T_0)$ times the same law of the far tape, so at every tape the added inflow equals the added outflow:
+the balance equations hold exactly, for every $z$. The drift vanishes because the walk is closed. The simplest walks
+are the \emph{head cycles} $\Rm\Lm$, a step of the head and back. Next come four-move \emph{edit cycles}, which use a
+split and a merge, such as $\Stwo\,\Lm\,\Mm\,\Rm$ from $+[-]+$ (Figure~\ref{fig:cycle}): split, step aside, merge, and
+step back. Read from the root, this cycle is one of the eight meanders of order $3$; in the certificate the same
+pattern runs inside longer tapes, whose protected ends it does not touch. The certificate also uses walks of six and
+eight moves.
+
+Protection matters. In tests on small strips, protecting only two letters at each end, or replacing the factor
+$\beta(T_0)/\beta(T)$ by a constant, makes some random cycles violate the balance equations, and the tests detect it.
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[>=Stealth]
+  \tp{(0,0)}{+,-,+}{2}
+  \tp{(4.2,0)}{+,+,-,-,+}{3}
+  \tp{(4.2,-1.6)}{+,+,-,-,+}{2}
+  \tp{(0,-1.6)}{+,-,+}{1}
+  \draw[->,line width=0.5pt] (1.25,0)--(4.0,0) node[midway,above,font=\small] {$\Stwo$};
+  \draw[->,line width=0.5pt] (5.1,-0.3)--(5.1,-1.3) node[midway,right,font=\small] {$\Lm$};
+  \draw[->,line width=0.5pt] (4.0,-1.6)--(1.25,-1.6) node[midway,below,font=\small] {$\Mm$};
+  \draw[->,line width=0.5pt] (0.54,-1.3)--(0.54,-0.3) node[midway,left,font=\small] {$\Rm$};
+\end{tikzpicture}
+\caption{A four-move closed walk, drawn on the root $+[-]+$ for clarity; on the root it rewrites the end letters.
+In the certificate the same pattern runs inside a longer anchor $T_0$, whose protected ends it does not touch; there,
+equal flow on the four edges, corrected by the factor $\beta(T_0)/\beta(T)$, keeps every balance equation exact.}
+\label{fig:cycle}
+\end{figure}
+
+\emph{Sparse refinement.} A closed walk changes the flow only in the windows that contain one of its tapes. So a
+direction at radius $9$ or $10$ changes only a small fraction of the flow values, and the entropy and the mass can be
+updated exactly from the changed values alone. Positivity must be checked on every changed value; the others keep the
+values, and the positivity, of the lifted radius-$8$ flow. Refining a direction by one letter at each end splits it
+into finer directions whose sum is the original direction, lifted, so refinements can be added without losing what was
+there.
+
+In summary, the final flow is the lifted parent plus a finite signed sum of closed-walk directions. It satisfies (S)
+and (D) exactly by linearity, whatever the coefficients. The coefficients were found by numerical optimization and are
+stored as binary floating-point numbers, which are read as the exact dyadic rationals they represent; the optimization
+plays no role in the proof. What remains is to check that every flow value of the final sum is positive and to bound
+its entropy from below.
+
+\subsection{The certificate}
+
+The certificate was built in stages (Table~\ref{tab:lower}). The base stage lifts the parent to radius $8$ and adds
+$542{,}910$ closed-walk directions, which give a positive flow on $3{,}210{,}357$ (window, move) pairs. Four sparse
+stages add directions at radius $9$ and $10$. In all, $968{,}894$ directions were used.
+
+\begin{table}[htb]
+\centering
+\begin{tabular}{llrrl}
+\toprule
+stage & radius & directions & values changed & $e^{2h}\ge$ \\
+\midrule
+base (parent and closed walks) & $8$ & $542{,}910$ & all $3{,}210{,}357$ & $12.213777757442$\\
+sparse increment & $9$ & $24{,}576$ & $621{,}335$ & $12.214596070132$\\
+aggregated increment & $10$ & $139{,}264$ & $6{,}165{,}672$ & $12.216487956539$\\
+increment 1 & $10$ & $131{,}072$ & $10{,}470{,}289$ & $12.218343762668$\\
+increment 2 & $10$ & $131{,}072$ & $10{,}423{,}865$ & $\mathbf{12.219100857094}$\\
+\bottomrule
+\end{tabular}
+\caption{The stages of the lower-bound certificate, height $K=12$, memory three. Each stage is a certificate by
+itself. The values are rounded down.}
+\label{tab:lower}
+\end{table}
+
+The last stage changes $10{,}423{,}865$ flow values in $5{,}020{,}763$ windows. Its smallest density $J/\beta$ is
+$0.04510\ldots$, so the final flow is strictly positive, and its entropy is
+\[ h\;\ge\;1.25150018571024385\ldots,\qquad e^{2h}\;\ge\;\frac{6109550428547}{500000000000}=12.219100857094 . \]
+
+\paragraph{Rounding outward.}
+The entropy was evaluated in $160$-bit interval arithmetic with directed rounding, so that every rounding error
+moves the result in the safe direction. Write $\bar J=J/\beta$ for the density and $\bar\nu(w)=\sum_\xi\bar J(w,\xi)$.
+Enclosures $\beta\in[\beta_-,\beta_+]$, $\bar J\in[\bar J_-,\bar J_+]$, $\bar\nu\in[\bar\nu_-,\bar\nu_+]$ give the safe
+lower entropy term $\beta_-\bar J_-\bigl[-\log\min(1,\bar J_+/\bar\nu_-)\bigr]$ of each (window, move) pair and the safe
+upper mass term $\beta_+\bar\nu_+$ of each window. Writing these sums as $H_-$ and $M_+$, the lower bound is $\exp(2H_-/M_+)$, evaluated with downward rounding
+and truncated to twelve decimals. The division by $M_+$ accounts for normalization of the final flow. The drift sums are exactly zero by
+construction; the intervals around zero computed by the checker are a consistency check, not the proof.

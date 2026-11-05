@@ -1,0 +1,65 @@
+% Section 3. Sources: 602 PROOF.md sections 4-8 and REPORT.md sections 3-5; 1367 PROOF_CHECK.md (Lemma T),
+% logs/check_r12.log.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The upper bound}\label{sec:upper}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{A weight that the moves do not increase}
+
+\begin{lemma}\label{lem:subinv}
+Let $v>0$ be a function on all states and $R>0$, with
+\[ \sum_{y\text{ successor of }x} v(y)\;\le\;R\,v(x)\qquad\text{for every state }x. \]
+Then $z_n\le R^{2n}$ for every $n$.
+\end{lemma}
+
+\begin{proof}
+By induction, the total weight of the endpoints of all walks of $t$ moves from $x$ is at most $R^tv(x)$. The closed
+walks at $e$ contribute $(A^{2n})_{e,e}\,v(e)$ to this total for $t=2n$; divide by $v(e)$.
+\end{proof}
+
+The bound holds for every $n$ with constant one, with no asymptotic input. The work is to find $v$ and to check
+infinitely many inequalities with finitely many computations.
+
+\subsection{The weight}
+
+Fix a \emph{radius} $r\ge2$. For a stack $S$ let $E(S)$ be the number of adjacent equal pairs (positions $i$ with
+$S_i=S_{i+1}$) and $T(S)$ the number of adjacent equal triples. Let $\mathrm{view}(S)$ be the top $r$ symbols of $S$,
+or all of $S$ together with a bottom mark if $S$ is shorter. The weight is
+\[ v(U,L,c)\;=\;a^{|U|+|L|}\,p^{E(U)+E(L)}\,t^{T(U)+T(L)}\;u\bigl(\mathrm{view}(U),\mathrm{view}(L),c\bigr), \]
+with three positive numbers $a,p,t$ and a table $u$ of positive integers indexed by the pairs of views and the
+parity. Intuitively, $a$ prices the number of open chords, $p$ and $t$ price runs of equal parities, which are rare
+in typical stacks, and the table corrects the price for the top of each stack, where the moves act.
+
+The inequality of Lemma~\ref{lem:subinv} at a state depends only on its top $r+1$ symbols in each stack.
+
+\begin{lemma}[Truncation]\label{lem:trunc}
+Let $x'$ be obtained from $x$ by keeping the top $r+1$ symbols of each stack. Then
+$\sum_y v(y)/v(x)=\sum_{y'}v(y')/v(x')$.
+\end{lemma}
+
+\begin{proof}
+The allowed moves agree, because they depend only on the top symbols. For each move the quotient $v(y)/v(x)$ is
+$a^{\pm1}$ times $p$ and $t$ to the changes of $E$ and $T$, times $u(y)/u(x)$. A push or pop changes $E$ and $T$ only
+through the top three symbols, and the views before and after the move are read from the top $r+1$ symbols; these
+agree for $x$ and $x'$ since $r+1\ge3$.
+\end{proof}
+
+So the infinitely many inequalities reduce to the states with at most $r+1$ symbols in each stack:
+$2(2^{r+2}-1)^2$ of them, which is $536{,}805{,}378$ at $r=12$. In the language of~\cite{PaperB} these are the rows of
+the certificate; here each row is simply a short state.
+
+\subsection{The certificate}
+
+The certificate has radius $12$, parameters
+\[ a=\tfrac{1783}{2000},\qquad p=\tfrac{137}{200},\qquad t=\tfrac{97}{125},\qquad R=\tfrac{3187011595}{10^9}, \]
+and a table of $67{,}092{,}481$ used entries (the entries for parity $1$ are those for parity $0$ with the two
+parities exchanged, which is only a way of storing the table). All inequalities hold; with $R$ lowered by
+$10^{-9}$ four of them fail, so $R$ is the least admissible value with this denominator. The largest quotient
+$\sum_yv(y)/v(x)$ is $3.187011594348$, at $U=0$, $L=1111000000$ (bottom first), $c=0$. By
+Lemma~\ref{lem:subinv}, $z_n\le R^{2n}$, which is the upper half of Theorem~\ref{thm:main}.
+
+The table was found by an iterative solver in floating point; the solver plays no role in the proof. Smaller radii
+give weaker bounds: $R^2=10.187205938372711824$ at radius $7$, and in floating point $10.2646$, $10.2323$,
+$10.2135$, $10.1978$ at radii $3$ to $6$. Without the factors $p$ and $t$ the bound at radius $8$ is $10.2963$, worse
+than radius $3$ with them. The gap to the estimate $10.113$ shrinks roughly like $r^{-1}$; a gap of $0.01$ would
+need a radius of about $50$, far beyond tables of size $4^{r+1}$.

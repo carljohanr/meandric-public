@@ -1,0 +1,7 @@
+records 226079 D bits 14308
+windows 58450 legal pairs 226079 records equal legal pairs in canonical order: True
+C3: sum N == D: True  drift a == 0: True  drift b == 0: True  negative: 7708  none zero: True
+C2: rows 220110, rows with nonzero residual 0 []
+time 6.9 s
+wrote work/parent_c.bin
+PARENT PASS {"records": 226079, "D_bits": 14308, "order_ok": true, "sumN_eq_D": true, "drift_a": true, "drift_b": true, "negative": 7708, "nonzero": true, "rows": 220110, "bad_rows": 0, "perturbed": null}

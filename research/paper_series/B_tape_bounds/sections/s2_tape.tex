@@ -1,0 +1,298 @@
+% Section 2. Sources: 637_rung2_matrix_product/PROOF.md section 1 (Proposition T) and FINAL.md;
+% 677_tape_bijection_review/REVIEW.md; 607_bounds_paper/paper_word.tex Appendix A (labels, stacks, words) and
+% Appendix B (linear completion); 805_entropy_certificates/PROOF.md section 1.2 step 3 (Lemmas R and B);
+% 641_tape_window_bounds/PROOF.md section 0 (class C); web/src/meandric/tapeMachine.ts and TapeMachineWriteup.tsx
+% (rules as implemented, gap numbers, picture of a move). Counts: 1251 FINAL (n <= 9), 1252 FINAL EY6 (n <= 15).
+% The worked examples were re-derived with a small script written for this paper (rules of tapeMachine.ts).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The tape machine}\label{sec:tape}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Number the crossings $1,\ldots,2n$ from left to right. The river cuts the road into $2n$ pieces, the \emph{arches},
+each joining two crossings: $n$ \emph{upper} arches above the river and $n$ \emph{lower} arches below it. Arches on the
+same side do not cross. In the running example
+(Figure~\ref{fig:cut}) the upper arches join $1$--$2$, $3$--$6$, $4$--$5$ and the lower arches join $1$--$6$,
+$2$--$5$, $3$--$4$.
+
+\subsection{Labels}
+
+Delete crossing $2n$, that is, cut the road open there. The road becomes a path through the crossings
+$1,\ldots,2n-1$, whose two ends are the arches that went to $2n$. Give crossing $1$ the label $g(1)=0$ and continue
+along the path with the rule
+\begin{equation}\label{eq:arch}
+  g(j')-g(j)=\begin{cases}-1&\text{for an upper arch from crossing $j$ to crossing $j'$, $j<j'$},\\ +1&\text{for a lower arch from crossing $j$ to crossing $j'$, $j<j'$}.\end{cases}
+\end{equation}
+The path has no cycle, so $g$ is well defined. Intuitively, $g(j)$ counts the half turns of the road on its way from
+crossing $1$ to crossing $j$: read from left to right, an arch below the river turns one way and an arch above turns
+the other. In the running example the labels of crossings $1,\ldots,5$ are $0,-1,0,1,0$.
+
+\begin{lemma}[labels]\label{lem:labels}
+For a meander, neighboring crossings $j$ and $j+1$ along the river ($1\le j\le 2n-2$) have labels that differ by
+exactly one, and $g(2n-1)=0$. Conversely, suppose that $n$ noncrossing upper arches and $n$ noncrossing lower arches
+on the points $1,\ldots,2n$ admit a function $g$ on
+$1,\ldots,2n-1$ that obeys \eqref{eq:arch} on every arch not ending at $2n$ and changes by $\pm1$ between neighbors,
+then the arches form a single closed road.
+\end{lemma}
+
+\begin{proof}[Idea of the proof]
+There are $2n-2$ river segments between neighboring crossings $j,j+1\le 2n-1$. Above the river, each of the $n-1$
+upper arches not ending at $2n$ bounds a \emph{face}: the region between that arch, the river and the arches directly
+under it. Below the river there are $n-1$ such faces as well. For a single road, the road cuts the sphere into two
+disks, the river segments in each disk are disjoint chords of it, and the faces in each disk are arranged as a tree.
+This lets one assign each river segment to exactly one face: to the face above it if the label steps down along it, to
+the face below it if the label steps up. Every face receives exactly one segment. Adding up the label steps along the
+bottom of a face, over its river segments and across the arches under it, gives the rule \eqref{eq:arch} for the arch
+on top of it. For the converse,
+suppose the arches formed a second closed component. It bounds a disk that contains no other component; the river
+cuts this disk into one more face than it has segments inside, but each face needs a segment of its own. The full
+argument is in the repository (Appendix~\ref{app:where}).
+\end{proof}
+
+\subsection{The two stacks at a cut}
+
+Cover the part of the meander to the right of a vertical line, the \emph{cut}, placed between crossings $j$ and $j+1$.
+Intuitively, this is like sliding a piece of paper from left to right along the meander, stopping between two
+crossings. The arches that start at or before crossing $j$ and end after the cut are \emph{open}. The open arches on
+one side are nested, so the innermost one closes first: they form a \emph{stack}, a list in which the last entry added
+is the first one removed. Let
+$\sigma=(\sigma_1,\ldots,\sigma_a)$ be the labels of the left ends of the open lower arches, from the outermost to
+the innermost, and $\tau=(\tau_1,\ldots,\tau_b)$ the same for the open upper arches. The \emph{stack state} is
+$(g(j),\sigma,\tau)$. After the first crossing it is $(0,(0),(0))$: one arch leaves crossing~$1$ on each side.
+
+Revealing crossing $j+1$ works as follows. Its label is $g(j)\pm1$ by Lemma~\ref{lem:labels}. On each side of the
+river the new crossing either \emph{opens} an arch, whose label $g(j+1)$ is pushed on the stack, or \emph{closes} the
+innermost open arch, which is popped. A closing must agree with \eqref{eq:arch}: a lower arch can close only if its
+label is $g(j+1)-1$, an upper arch only if its label is $g(j+1)+1$. One more condition comes from
+Lemma~\ref{lem:labels}: the label can step up only if the innermost open lower arch has label $g(j)$, and down only if
+the innermost open upper arch has label $g(j)$. We call these rules the \emph{label machine}. With the help of the
+converse half of Lemma~\ref{lem:labels}, the sequences of updates that the label machine allows correspond exactly to
+the meanders (Appendix~\ref{app:where}).
+
+The stack states that occur have four properties: neighboring entries of a stack differ by one; the innermost lower
+label is $g(j)$ or $g(j)-2$; the innermost upper label is $g(j)$ or $g(j)+2$; and the two innermost labels are not
+both two away from $g(j)$. A stack is empty only in two situations: the lower stack can be empty only when $g(j)=1$,
+and the upper stack only when $g(j)=-1$.
+
+
+\subsection{Tapes}
+
+Write the numbers
+\begin{equation}\label{eq:path}
+  -1,\ \sigma_1,\ \ldots,\ \sigma_a,\ \tau_b-1,\ \ldots,\ \tau_1-1,\ 0 .
+\end{equation}
+By the facts just listed, consecutive numbers differ by exactly one. Record the differences as a word of signs, $+$ for
+a step up and $-$ for a step down, and mark the step from $\sigma_a$ to $\tau_b-1$ (from $-1$ if $\sigma$ is empty, to
+$0$ if $\tau$ is empty) as the \emph{head}. The result is the \emph{tape}: a word of $a+b+1$ letters with one marked
+letter, written with the head in brackets. We call the numbers \eqref{eq:path} the \emph{gap numbers}, for the
+reason given in the next paragraph. The \emph{root} is the tape of the stack state after crossing $1$: the gap numbers
+are $-1,0,-1,0$ and the tape is $+[-]+$.
+
+The tape has a direct picture (Figure~\ref{fig:cut}). The cut meets $a$ open arches below the river, then the river,
+then $b$ open arches above. Each of these $a+b+1$ objects carries one letter, read from bottom to top, and the river
+carries the head. The numbers \eqref{eq:path} sit in the gaps between the objects: the gap below everything has number
+$-1$, crossing an object changes the number by its letter, and the gap above everything has number $0$. The gap just
+above an open lower arch carries the label of the crossing where that arch started; the gap just below an open upper
+arch carries that label minus one.
+
+The tape determines the two stacks: the gap numbers are the partial sums of the letters, starting from $-1$, and the
+head says where $\sigma$ ends and $\tau$ begins. The tape does not always determine $g(j)$: if the head letter is $-$,
+then $g(j)=\sigma_a$; if it is $+$, then $g(j)$ can be $\sigma_a$ or $\sigma_a+2$. We call two stack states that
+differ only in $g(j)$ \emph{twins}. Twins lead to the same tapes after the next crossing, so nothing is lost by
+forgetting $g(j)$.
+
+\subsection{The moves}
+
+Each of the crossings $2,\ldots,2n-1$ becomes one \emph{move} of the tape; the first crossing creates the first tape
+and the last one closes the road. Table~\ref{tab:moves} lists the six kinds: two
+head moves, three splits, which replace the head letter by three letters, and one merge, which replaces the head and
+its two neighbors by one letter. A move reads and changes only the head letter and its two neighbors.
+
+\begin{table}[htb]
+\centering
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{llll}
+\toprule
+move & on the tape & condition & arches at the crossing \\
+\midrule
+$\Lm$ (head left) & $x[s]y\ \mapsto\ [x]sy$ & head has a left neighbor & lower closes, upper opens\\
+$\Rm$ (head right) & $x[s]y\ \mapsto\ xs[y]$ & head has a right neighbor & upper closes, lower opens\\
+$\Sone$ (split) & $[+]\ \mapsto\ +[-]+$ & head is $+$ & both open\\
+$\Stwo$ (split) & $[-]\ \mapsto\ +[-]-$ & head is $-$ & both open; label up\\
+$\Sthree$ (split) & $[-]\ \mapsto\ -[-]+$ & head is $-$ & both open; label down\\
+$\Mm$ (merge) & $x[+]y\ \mapsto\ [x+y+1]$ & two neighbors, not $+[+]+$ & both close\\
+\bottomrule
+\end{tabular}
+\caption{The moves of the tape machine. Here $x$, $s$, $y$ stand for letters, and the rest of the tape is
+unchanged. In the merge the letters count as $\pm1$: $-[+]-$ becomes $[-]$, and
+$-[+]+$ and $+[+]-$ become $[+]$. The replacement at $+[+]+$ would give a step of $3$ and does not exist. At most four
+moves apply to any tape.}
+\label{tab:moves}
+\end{table}
+
+The table follows from the stack rules by cases. If the head letter is $-$, both innermost labels equal $g(j)$. A step
+up must open an upper arch (an upper closing would need label $g(j)+2$); below it either opens an arch, which gives
+$\Stwo$, or closes one, which moves the head one letter to the left. A step down is the mirror image: $\Sthree$ or a
+move of the head to the right. If the head letter is $+$, the innermost upper label is two more than the innermost
+lower label $\sigma_a$, and the next label must be $\sigma_a+1$. Opening on both sides gives $\Sone$; closing below and
+opening above moves the head left; opening below and closing above moves it right; closing on both sides deletes the
+two innermost entries, and three consecutive steps of \eqref{eq:path} become one. Their sum is $\pm1$ except when
+all three are $+$; then the sum is $3$, and the new state would need the next label to go down and up at once, so it
+has no continuation. This is the excluded merge at $+[+]+$. Finally, an empty stack corresponds exactly to a head at
+an end of the tape, which explains the conditions on the head moves and the merge. Figure~\ref{fig:moves} shows the
+moves at two tapes of the running example.
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[>=Stealth]
+  % panel (a): head on -
+  \tp{(0,0)}{+,-,+,-,+}{4}
+  \node[font=\small,anchor=east] at (-0.1,0) {(a)};
+  \tp{(3.0,1.5)}{+,-,+,-,+}{3}
+  \tp{(3.0,0.5)}{+,-,+,-,+}{5}
+  \tp{(3.0,-0.5)}{+,-,+,+,-,-,+}{5}
+  \tp{(3.0,-1.5)}{+,-,+,-,-,+,+}{5}
+  \foreach \yy/\lab in {1.5/{$\Lm$},0.5/{$\Rm$},-0.5/{$\Stwo$},-1.5/{$\Sthree$}} {
+    \draw[->,line width=0.5pt] (1.95,0)--(2.85,\yy) node[pos=0.62,fill=white,inner sep=1pt,font=\scriptsize] {\lab};}
+  % panel (b): head on +
+  \begin{scope}[xshift=8.0cm]
+  \tp{(0,0)}{+,-,+,-,+}{3}
+  \node[font=\small,anchor=east] at (-0.1,0) {(b)};
+  \tp{(3.0,1.5)}{+,-,+,-,+}{2}
+  \tp{(3.0,0.5)}{+,-,+,-,+}{4}
+  \tp{(3.0,-0.5)}{+,-,+,-,+,-,+}{4}
+  \tp{(3.0,-1.5)}{+,-,+}{2}
+  \foreach \yy/\lab in {1.5/{$\Lm$},0.5/{$\Rm$},-0.5/{$\Sone$},-1.5/{$\Mm$}} {
+    \draw[->,line width=0.5pt] (1.95,0)--(2.85,\yy) node[pos=0.62,fill=white,inner sep=1pt,font=\scriptsize] {\lab};}
+  \end{scope}
+\end{tikzpicture}
+\caption{The moves at two tapes. (a) The tape $+-+[-]+$ of Figure~\ref{fig:cut}, with the head on a $-$: two head
+moves and two splits. (b) The tape $+-[+]-+$ reached after crossing $4$, with the head on a $+$: two head moves, one
+split and the merge $-[+]-\mapsto[-]$, which returns to the root. The shaded box is the head.}
+\label{fig:moves}
+\end{figure}
+
+A \emph{walk} is a sequence of tapes in which each tape is obtained from the previous one by a move; its length is
+the number of moves. A \emph{closed walk} is a walk that starts and ends at the root.
+
+\begin{theorem}[tape machine]\label{thm:tape}
+For every $n\ge1$, reading the crossings $2,\ldots,2n-1$ of a meander as moves is a bijection between the meanders of
+order $n$ and the walks of $2n-2$ moves of Table~\ref{tab:moves} that start at the root $+[-]+$ and end at the root.
+\end{theorem}
+
+\begin{proof}[Idea of the proof]
+\emph{Labels.} Deleting crossing $2n$ turns the road into a path, and Lemma~\ref{lem:labels} gives labels that change
+by $\pm1$ along arches and between neighbors along the river.
+
+\emph{Stacks and differences.} At each cut the open arches form two stacks of labels, and the numbers
+\eqref{eq:path} form a path with steps $\pm1$; its steps and the marked step are the tape. The tape recovers both
+stacks.
+
+\emph{One crossing, one move.} Revealing the next crossing pushes or pops each stack, and the case analysis above
+shows that the possible updates are exactly the moves of Table~\ref{tab:moves}, that different updates give different
+tapes, and that twin stack states lead to the same tapes. Hence a walk of tapes starting at the root lifts in exactly
+one way to a walk of stack states, and it ends at the first stack state if and only if the tape walk ends at the
+root (the root has head letter $-$, so its label is determined). The first crossing creates the root and the last
+crossing closes the two remaining arches, so a meander of order $n$ gives a closed walk of $2n-2$ moves.
+
+\emph{Back to a meander.} Conversely, replay a closed walk from the root, remembering at which crossing each arch was
+opened. Every closing joins the current crossing to the most recently opened arch on its side, so the arches do not
+cross; at the end one arch remains on each side and both are joined to a final crossing $2n$. The labels obey
+\eqref{eq:arch} and the neighbor rule by construction, so by the converse half of Lemma~\ref{lem:labels} the arches
+form one closed road. The two constructions undo each other.
+\end{proof}
+
+The same proof works on a strip: closed walks whose gap numbers stay in a fixed range of $K$ consecutive integers
+count the meanders whose labels stay in the same range extended by one value at the top, a fixed band of $K+1$
+integers. For example, gap numbers from $-1$ to $1$ correspond to labels from $-1$ to $2$. Strips are used for the
+lower bound (Section~\ref{sec:flows}).
+
+\paragraph{The excluded merge and the one-road property.}
+The machine never closes a loop too early. Such a step would be a crossing that closes, on both sides, two arches
+belonging to the same piece of road. No allowed move does this. Every tape reached from the root can be completed to a closed walk
+(Lemma~\ref{lem:sweep} below), every closed walk gives a single road (the converse half of
+Lemma~\ref{lem:labels}), and a loop closed early would survive in the completion as a second component. At a head
+$-$ the machine has no merge at all: there the two innermost arches carry the same label, and the label of the new
+crossing would have to be one more and one less than that label at once. The merge at $+[+]+$ is missing for a
+different reason, label consistency: after it the arch below would force the next label down and the arch above would
+force it up, so no continuation exists. The local rules know nothing about connectivity; it is the planar argument of
+Lemma~\ref{lem:labels} that turns the label rules into the global condition that the road is one closed curve.
+% Author's check, not in the sources (script written for this paper): over all histories of at most 11 moves, at every
+% tape with head letter + the two innermost open arches belong to different pieces of road, including at + [+] +.
+% UNVERIFIED as a general statement; not used anywhere.
+
+\subsection{Worked examples}
+
+\emph{Order $2$.} The root has four moves: $\Lm$, $\Rm$, $\Stwo$, $\Sthree$. After a split the head is on a $-$,
+where no merge applies, so only the head moves can be undone in one more move. The closed walks of $2$ moves are
+therefore $\Lm\Rm$ and $\Rm\Lm$:
+\[ +[-]+ \xrightarrow{\ \Lm\ } [+]-+ \xrightarrow{\ \Rm\ } +[-]+, \qquad
+   +[-]+ \xrightarrow{\ \Rm\ } +-[+] \xrightarrow{\ \Lm\ } +[-]+ . \]
+The first gives the lower arches $1$--$2$, $3$--$4$ and the upper arches $1$--$4$, $2$--$3$; the second is its mirror
+image. These are the $M_2=2$ meanders.
+
+\emph{Order $3$.} The running example is the closed walk $\Rm\,\Sone\,\Lm\,\Mm$. Table~\ref{tab:example} follows it
+crossing by crossing.
+
+\begin{table}[htb]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{cclcccl}
+\toprule
+crossing & label & arches at this crossing & $\sigma$ & $\tau$ & tape after it & move \\
+\midrule
+$1$ & $0$ & opens lower $1$--$6$, upper $1$--$2$ & $(0)$ & $(0)$ & $+[-]+$ & (start)\\
+$2$ & $-1$ & closes upper $1$--$2$, opens lower $2$--$5$ & $(0,-1)$ & $()$ & $+-[+]$ & $\Rm$\\
+$3$ & $0$ & opens lower $3$--$4$, upper $3$--$6$ & $(0,-1,0)$ & $(0)$ & $+-+[-]+$ & $\Sone$\\
+$4$ & $1$ & closes lower $3$--$4$, opens upper $4$--$5$ & $(0,-1)$ & $(0,1)$ & $+-[+]-+$ & $\Lm$\\
+$5$ & $0$ & closes lower $2$--$5$ and upper $4$--$5$ & $(0)$ & $(0)$ & $+[-]+$ & $\Mm$\\
+$6$ & & closes lower $1$--$6$ and upper $3$--$6$ & & & & (end)\\
+\bottomrule
+\end{tabular}
+\caption{The running example as a walk of the tape machine. The merge at crossing $5$ is $-[+]-\mapsto[-]$.}
+\label{tab:example}
+\end{table}
+
+The other seven meanders of order $3$ are the walks $\Lm\Rm\Lm\Rm$, $\Lm\Rm\Rm\Lm$, $\Rm\Lm\Lm\Rm$, $\Rm\Lm\Rm\Lm$,
+$\Lm\,\Sone\,\Rm\,\Mm$, $\Stwo\,\Lm\,\Mm\,\Rm$ and $\Sthree\,\Rm\,\Mm\,\Lm$. Counting closed walks by computer gives
+\[ 1,\ 2,\ 8,\ 42,\ 262,\ 1828,\ 13820,\ 110954,\ \ldots \]
+for $n=1,2,3,\ldots$, the meander numbers; the counts were compared with the exact table up to $n=15$. A
+correct count for small $n$ is a check of the implementation, not a proof; the proof is Theorem~\ref{thm:tape}.
+
+\subsection{Basic facts}
+
+Let $\cls$ be the class of tapes with at least three letters whose first and last letters are $+$ and whose letters
+sum to $1$ (counting $+$ as $+1$ and $-$ as $-1$). The root is in $\cls$, and every move maps $\cls$ to itself: a split
+replaces a letter by three with the same sum, a merge replaces three by one with the same sum, and neither changes an
+end letter $+$ into $-$. A merge never acts on a tape of three letters, because the only such tape in $\cls$ is $+-+$,
+whose middle letter is $-$.
+Let $a$ and $b$ be the numbers of letters to the left and to the right of the head. The moves change $(a,b)$ by
+\begin{equation}\label{eq:drift}
+  \Lm:(-1,+1),\qquad \Rm:(+1,-1),\qquad \text{splits}:(+1,+1),\qquad \Mm:(-1,-1).
+\end{equation}
+So $a$ changes parity at every move, and a closed walk has an even number of moves.
+
+\begin{lemma}[linear completion]\label{lem:sweep}
+Every tape of $\cls$ with $N$ letters can be reached from the root in at most $3N$ moves, and the root can be reached
+from it in at most $3N$ moves, through tapes with at most $N$ letters.
+\end{lemma}
+
+\begin{proof}
+A merge deletes the head letter $+$ and one neighboring $-$, and leaves the other neighbor in place. A split read
+backward deletes the head letter $-$ and one neighboring $+$. Put the head on the second letter and sweep to the right,
+keeping the inner letters before the head all equal. When the head and the inner letter before it differ, delete this
+pair, by a merge for the return and by a backward split for the build, after at most one head move; the head moves
+back by at most two places. Otherwise move right. When the head reaches the last letter, all inner letters are equal
+and sum to $-1$, so the tape is $+-+$. There are $(N-3)/2$ deletions; counting the moves gives at most $3N$. Read
+backward, the build is a legal walk from the root, because head moves are reversible and a backward split read forward
+is a split.
+\end{proof}
+
+Closed walks can be concatenated: one closed walk followed by another is again a closed walk. Write $c_t$ for the
+number of closed walks of $t$ moves, so that $c_{2n-2}=M_n$. Then $c_tc_{t'}\le c_{t+t'}$, and since at most four moves
+apply at any tape, $c_t\le 4^t$. By Fekete's lemma on supermultiplicative sequences
+\begin{equation}\label{eq:fekete}
+  \mu=\lim_{n\to\infty}c_{2n}^{1/n}=\sup_n c_{2n}^{1/n},\qquad\text{so}\qquad c_t\le\mu^{t/2}\ \text{for every even }t.
+\end{equation}
+This is also why squares appear in both bounds: one unit of $n$ is two moves.

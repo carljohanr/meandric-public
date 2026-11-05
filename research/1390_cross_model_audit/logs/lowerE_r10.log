@@ -1,0 +1,29 @@
+r=10 s=41/50 nA=1048576 nB=1048576
+X: all positive, max 1152921504606846976 bits 61
+windows 2097152, flow values 6291456; built in 0.6s
+(P): all push flows positive
+(D): sum pA - sum qA = 0, sum pB - sum qB = 0
+(S): 8388608 extended-window equations checked exactly, 0 fail; 11.3s
+entropy: h >= 1.155619710060893 (12.2s)
+e^(2h) >= 10.0869188408196 (floored, 13 decimals: 100869188408196)
+slack in h vs target: 3.218e-14
+target 10.086918840819: MET
+RESULT: ACCEPT (S checked) total 24.4s
+       24.67 real        23.87 user         0.76 sys
+          2562785280  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              415537  page reclaims
+                   0  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   0  voluntary context switches
+                2860  involuntary context switches
+        476935233515  instructions retired
+        101401595650  cycles elapsed
+          2583972144  peak memory footprint

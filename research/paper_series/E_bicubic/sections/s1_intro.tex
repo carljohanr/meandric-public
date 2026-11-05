@@ -1,0 +1,89 @@
+% Section 1. Sources: 602 PROOF.md section 1 and REPORT.md section 1; 602r REPORT.md item 4; 1367 FINAL.md (literature).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}\label{sec:intro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{The problem}
+
+A \emph{planar map} is a connected graph drawn on the sphere without crossings, loops and multiple edges allowed,
+considered up to deformation. It is \emph{cubic} if every vertex has degree three, and \emph{bicubic} if moreover its
+vertices can be colored black and white so that every edge joins a black and a white vertex. A \emph{Hamiltonian
+cycle} is a cycle through every vertex exactly once. We count triples (bicubic planar map with $2n$ vertices,
+Hamiltonian cycle, one edge of the cycle marked and oriented); the marked edge removes all symmetry. Their number is
+$z_n$:
+\[ z_1,z_2,\ldots \;=\; 2,\ 8,\ 40,\ 228,\ 1424,\ 9520,\ 67064,\ 492292,\ \ldots \]
+This is sequence A116456 of the OEIS~\cite{OEISbicubic}. Concatenating the codes of two configurations
+(Section~\ref{sec:words}) gives $z_{m+n}\ge z_mz_n$, so the limit
+\[ \mu^2 \;=\; \lim_{n\to\infty} z_n^{1/n} \;=\; \sup_n z_n^{1/n} \]
+exists by Fekete's lemma~\cite{Fekete}. We write the growth rate as a square, as the physics literature does,
+because $z_n$ counts maps with $2n$ vertices: $\mu$ is the growth per vertex. (In this paper $\mu$ is always this
+bicubic growth rate, not the meander growth rate of Papers~A--D.)
+
+The problem comes from physics. Guitter, Kristjansen and Nielsen~\cite{GKN} introduced it as a model of
+two-dimensional quantum gravity coupled to matter of central charge $c=-1$, and argued that
+$z_n\approx\mathrm{const}\cdot\mu^{2n}n^{\gamma-2}$ with the irrational exponent $\gamma=-(1+\sqrt{13})/6$. The same
+model is the bicubic counterpart of meanders: both count pairs of non-crossing arch systems on the two sides of a line,
+and in both the physical prediction rests on a coupling of matter and gravity that has not been proved
+(for meanders see~\cite{PaperA}). Di~Francesco,
+Duplantier, Golinelli and Guitter~\cite{DDGG} computed $z_n$ for $n\le 28$ and estimated
+\[ \mu^2 \;=\; 10.113\pm0.001 \]
+(their equation~(60)). This is a numerical estimate, not a bound; the authors write that the predictions remain
+conjectural.
+
+\subsection{Previous bounds and the main result}
+
+The only rigorous bounds we found are those of Guitter, Kristjansen and Nielsen~\cite{GKN}, Section~5. In arch
+language a configuration is two systems of non-crossing arches on $2n$ points of a line, one above and one below,
+every arch joining an even and an odd point. Forgetting the parity condition gives at most $c_nc_{n+1}$
+configurations, with $c_n$ the Catalan numbers, hence $\mu^2\le16$. Conversely, a single arch system above the line
+automatically satisfies the parity condition, and flipping any subset of its $n$ arches below the line gives $2^nc_n$
+distinct configurations, hence $\mu^2\ge 8$. Later papers~\cite{DDGG},~\cite{DGGbicolored} study exponents
+numerically and state no bounds.
+
+\begin{theorem}\label{thm:main}
+For every $n\ge1$,
+\[ z_n\;\le\;\Bigl(\frac{3187011595}{10^9}\Bigr)^{2n},\qquad\text{hence}\qquad
+   \mu^2\le 10.157042906664444025\ldots<10.15705 ; \]
+and
+\[ \mu^2\;\ge\;10.086918840819 . \]
+\end{theorem}
+
+So $\mu^2$ is known to within $0.071$, and the estimate $10.113$ lies $0.026$ above the lower bound and $0.044$
+below the upper bound.
+
+\subsection{The methods in outline}
+
+Both bounds work on a machine with two stacks (Section~\ref{sec:words}). Read the vertices along the Hamiltonian cycle
+one at a time. Each vertex has one edge that is not on the cycle, a \emph{chord}, drawn inside or outside the cycle.
+The open chords on each side form a stack, and since the map is bipartite, all that matters about an open chord is the
+parity of the position where it was opened. The configurations of size $n$ are exactly the closed walks of $2n$ moves
+from the empty state.
+
+The upper bound (Section~\ref{sec:upper}) is the method of Paper~B~\cite{PaperB}, Sections~3 and~4, in its simplest
+form:
+a positive weight on states that no step increases by more than a factor $R$ in total gives $z_n\le R^{2n}$. The
+weight looks at the top twelve symbols of each stack and is stored as a table of $67$ million integers.
+
+The lower bound (Section~\ref{sec:lower}) is the entropy method of Paper~B, Sections~5 and~6. One constructs a random rule
+for the next move that looks only at the top symbols of the stacks and that is stationary: the stacks seen from the
+top look statistically the same at every time. If the rule makes on average $e^h$ equally likely choices per move,
+there are about $e^{ht}$ closed walks of $t$ moves. For meanders, making the rule exactly stationary was the main
+difficulty and needed a large exact linear solve and many corrections. Here it is free. The two-stack machine is
+reversible: every move can be undone by a move. Intuitively, a rule that is in balance across every move, as much flow
+forward as backward, is automatically stationary, and such rules are given by arbitrary positive numbers on the
+states. The work that remains is to choose good numbers and to bound the entropy.
+
+\subsection{Status of the results}
+
+The encoding by two-stack words and the upper certificate were obtained earlier in this project; the encoding was
+checked in a separate independent reading, which also recounted $z_1,\ldots,z_{10}$ from the definition and counted
+the maps for $n\le4$ without the word model, and which confirmed an upper certificate of radius~$7$ on all states with
+at most $22$ open chords. The radius-$12$ certificate of Theorem~\ref{thm:main} was first checked by two programs written
+by one author; for this paper it was checked a third time by a program written separately from the mathematical
+statement alone (Section~\ref{sec:checks}). The lower bound is new. Its theorem (Theorem~L) adapts the entropy
+theorem of Paper~B; the proof of the adaptation, the reversible construction (Proposition~\ref{prop:rev}) and the
+closing lemma (Lemma~\ref{lem:sweep}) were checked in a separate independent reading. The lower certificate was
+checked by two separately written programs, one of which checks every stationarity equation directly without using
+Proposition~\ref{prop:rev}, and a third time by a program written in that independent reading. Nothing has been reviewed outside the project, and no proof
+assistant was used. Programs, proofs and certificates are in the project repository~\cite{Repo};
+Appendix~\ref{app:where} lists where each proof is.

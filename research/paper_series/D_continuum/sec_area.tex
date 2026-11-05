@@ -1,0 +1,50 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Area versus number of squares}\label{sec:area}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The field also defines an area. Let $\nu$ be the Gaussian multiplicative chaos of $h$ with
+parameter $\gamma$, the measure $e^{\gamma h(z)-\gamma^2\E[h(z)^2]/2}dz$ of
+Section~\ref{sec:upper}; this is the Liouville quantum gravity area of the surface. A
+square $S$ has area roughly
+\[
+\nu(S)\approx e^{\gamma h_S-\gamma^2\log(1/|S|)/2}|S|^2=e^{\gamma h_S}|S|^{2+\gamma^2/2}
+=e^{\gamma h_S}|S|^{\gamma Q},
+\]
+using $\gamma Q=2+\gamma^2/2$. Raising the rule~\eqref{eq:rule} to the power $\gamma Q$ shows that a
+square is cut exactly when this rough area exceeds $\varepsilon^{\gamma Q}$. So one might guess that
+$N$ is about $\nu(S_0)/\varepsilon^{\gamma Q}$. By a theorem of Wong~\cite{Wong}, $\Prob(\nu(S_0)>t)$
+is asymptotic to a constant times $t^{-4/\gamma^2}$, the exponent of Theorem~\ref{thm:tail}. Yet
+the guess is false in a precise sense.
+
+\begin{proposition}\label{prop:area}
+For every $Q>2$ and fixed $\varepsilon>0$,
+\[
+\liminf_{t\to\infty}\Prob\bigl(N=1\;\big|\;\nu(S_0)>t\bigr)>0 .
+\]
+\end{proposition}
+
+\begin{proof}
+Let $Y=h_{S_0}$ be the average over the unit square; it is a nondegenerate centered normal
+variable, and $N=1$ exactly when $Y\le Q\log\varepsilon$, since then $S_0$ is not active. Write
+$h(z)=Y\chi(z)+h^\perp(z)$ with $\chi(z)=\operatorname{Cov}(h(z),Y)/\operatorname{Var}(Y)$; the
+residual field $h^\perp$ is independent of $Y$. On a closed subsquare $U$ in the interior of $S_0$,
+$\chi$ is smooth and bounded, and $h^\perp$ still has covariance $-\log|z-w|$ plus a smooth
+bounded function. So Wong's theorem applies to the chaos $\nu^\perp$ of $h^\perp$ and gives
+that $t^{4/\gamma^2}\Prob(\nu^\perp(U)>t)$ has a positive limit.
+
+The two chaos measures differ on $U$ by the factor $\exp(\gamma Y\chi(z)-\gamma^2\operatorname{Var}(Y)\chi(z)^2/2)$.
+Choose a compact interval $\mathcal I$ below $Q\log\varepsilon$ with $\Prob(Y\in\mathcal I)>0$. For $Y\in\mathcal I$
+this factor is at least a deterministic $d_0>0$ on $U$. By independence,
+\[
+\Prob\bigl(\nu(S_0)>t,\ N=1\bigr)\ge\Prob(Y\in\mathcal I)\,\Prob\bigl(\nu^\perp(U)>t/d_0\bigr),
+\]
+which is at least a positive constant times $t^{-4/\gamma^2}$, while $\Prob(\nu(S_0)>t)$ is at most a
+constant times $t^{-4/\gamma^2}$, again by Wong's theorem. Dividing proves the claim.
+\end{proof}
+
+The rule~\eqref{eq:rule} sees the field only through averages over squares it has already made. If
+the average over $S_0$ is low, the subdivision stops at once, however high the field is on fine
+scales inside, while the area sees all scales. Given a large area, the proposition rules out that
+$N$ is comparable to the area with conditional probability tending to one; it does not rule out a
+comparison that holds with positive conditional probability. This is why the proof of
+Theorem~\ref{thm:tail} works with the squares directly.

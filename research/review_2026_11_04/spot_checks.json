@@ -1,0 +1,58 @@
+{
+  "scope": "Orders 1 through 6 only; no large certificate verification",
+  "counts": [
+    {
+      "n": 1,
+      "meanders": 1,
+      "band_minus1_2": 1,
+      "band_minus1_1": 1,
+      "bicubic": 2
+    },
+    {
+      "n": 2,
+      "meanders": 2,
+      "band_minus1_2": 2,
+      "band_minus1_1": 2,
+      "bicubic": 8
+    },
+    {
+      "n": 3,
+      "meanders": 8,
+      "band_minus1_2": 7,
+      "band_minus1_1": 6,
+      "bicubic": 40
+    },
+    {
+      "n": 4,
+      "meanders": 42,
+      "band_minus1_2": 31,
+      "band_minus1_1": 22,
+      "bicubic": 228
+    },
+    {
+      "n": 5,
+      "meanders": 262,
+      "band_minus1_2": 161,
+      "band_minus1_1": 92,
+      "bicubic": 1424
+    },
+    {
+      "n": 6,
+      "meanders": 1828,
+      "band_minus1_2": 932,
+      "band_minus1_1": 422,
+      "bicubic": 9520
+    }
+  ],
+  "width": "0.07783299643521289818",
+  "rounded_width": "0.0779",
+  "reduction_vs_2005_percent": "94.882774724838073755424063116370808678500986193293885601577909270",
+  "reduction_vs_Fox_2026_percent": "92.398379096082342203340169938470553765016114854966305303252270730",
+  "factor_vs_2005": "19.541840474638018190402966332468635286471046328802778998571420049",
+  "factor_vs_Fox_2026": "13.155089061132062343953712838799891959117491345207866809097486514",
+  "bicubic_upper_square": "10.157042906664444025",
+  "band_growth": "10.424535661222148803855856364048752022845231171485642176234573004",
+  "band_quartic_residual": "5.9E-60",
+  "predicted_alpha": "3.4201328815660246233440200858648840043687793670878194960060361104",
+  "continuum_upper_exponent": "3.1344185958517389090583058001505982900830650813735337817203218247"
+}

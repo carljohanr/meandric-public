@@ -1,0 +1,129 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Transfer to finite meanders}\label{sec:bridge}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The number $\astar$ now appears in three proved statements: the KPZ curve of the APPS model (as
+$1+x_2$), the near-split lower bound, and the glued disks. None concerns finite meanders. This section compares
+the missing step with percolation, where the corresponding step was carried out, and proves what the
+missing pieces would give.
+
+\subsection{The analogy with percolation}
+
+In site percolation on the triangular lattice, each site is open independently with probability
+$1/2$. The probability that the open cluster of a site, the sites it reaches through open
+neighbors, reaches distance $R$ is $R^{-5/48+o(1)}$, proved in three pieces. \emph{The continuum
+exponent}: Lawler, Schramm and Werner computed it for the continuum limit, built from SLE$_6$, the
+curve describing boundaries of large clusters~\cite{LSW}. \emph{Convergence}: Smirnov proved
+convergence to that limit~\cite{Smirnov}. \emph{Transfer of rare events}: convergence says nothing
+about small probabilities, and Kesten's scaling relations, based on splitting a rare event into
+nearly independent events on nested annuli, transfer the continuum probability to the
+lattice~\cite{Kesten}. Together these give the lattice theorem~\cite{LSW,SW}; no single piece
+suffices.
+
+For meanders the continuum exponent is partly done: Theorem~\ref{thm:nearsplit} has the predicted
+exponent on the lower side and $\xstar+5/7\approx3.1344$ on the upper side. Convergence is open:
+it is Conjecture~\ref{conj:bgs}, and even the weaker Conjecture~\ref{conj:permuton} is open. The
+transfer of rare events has barely started: a meander is encoded by its two systems of arches,
+above and below the river, and this encoding has no independence between scales, so there is no
+analog of nested annuli. What is known is combinatorial.
+
+\subsection{Combinatorial transfer facts}
+
+Write $L(n)=n\log\mu-\log M_n$, which is nonnegative because $\mu=\sup_nM_n^{1/n}$, and
+$D(m)=\log(M_{2m}/M_m^2)=-\log q_m$. A power law $M_n\approx A\mu^nn^{-\alpha}$ means
+$L(n)\approx\alpha\log n$.
+
+\begin{lemma}\label{lem:transfer}
+The following hold for all $m,n\ge1$.
+\begin{enumerate}
+\item[(a)] \emph{The halving identity.} $L(n)=\sum_{j\ge0}2^{-(j+1)}D(2^jn)$.
+\item[(b)] \emph{Exact neck at one-cell tolerance.} For the centered atomic plot of a meander of
+order $2m$ and $0<\delta<1/(8m)$, the near-split event $E_\delta$ is the zero-defect event $F_0$,
+and $2q_m\le\Prob_{2m}(E_\delta)\le\frac12C_r^2q_m$.
+\item[(c)] \emph{Few mismatches cost little.} There is an absolute constant $C$ such that the number
+of meanders of order $m+n$ with at most $w\ge2$ road arches crossing a given river gap, with $2m$
+crossings on its left, is at most $e^{Cw}M_mM_n$.
+\item[(d)] \emph{Near-splits at small tolerance.} Consequently, for the centered atomic plot of a
+uniform meander of order $2m$ and every $0<\delta<1/8$,
+\[
+q_m\le\Prob_{2m}(E_\delta)\le e^{C(m\delta+1)}q_m .
+\]
+\end{enumerate}
+\end{lemma}
+
+Part (a) holds because $D(m)=2L(m)-L(2m)$, so the sum telescopes, and $L(n)/n\to0$. Part (b) is
+Proposition~\ref{prop:micro} with~\eqref{eq:F0}. Part (c) is a completion argument: close each half
+into a meander by a few new crossings, merging the resulting loops one by one, and record the moves
+in a word of length $w-1$ over four letters from which the construction can be undone. Part (d) follows from (c), since a near-split
+with tolerance $\delta$ has of order $m\delta+1$ arches over the middle gap, and because an exact
+junction is a near-split. So at tolerance $w/m$ with $w=o(\log m)$, a near-split costs the exact
+neck probability times $m^{o(1)}$; the continuum sees much coarser tolerances.
+
+\subsection{The conditional lower bound}
+
+\begin{proposition}[conditional lower bound]\label{prop:condlower}
+Suppose that for some $w_n\ge1$ with $w_n/\log n\to0$, the centered atomic plot $\Pi_n$ of a
+uniform meander of order $n$ satisfies
+\[
+\Prob\bigl(\Pi_n\in E_{w_n/n}\bigr)\;\ge\;n^{-o(1)}\;\Prob\bigl(\Pi\in E_{w_n/n}\bigr)
+\]
+along even $n$. Then $M_n\ge\mu^nn^{-\astar-o(1)}$ for all $n$.
+\end{proposition}
+
+\begin{proof}
+Let $n=2m$ and $\delta=w_n/n$. By Lemma~\ref{lem:transfer}(d), the hypothesis and the lower bound of
+Theorem~\ref{thm:nearsplit},
+\[
+q_m\ge e^{-C(w_n+1)}\Prob(\Pi_n\in E_\delta)\ge e^{-C(w_n+1)}n^{-o(1)}c_1\Bigl(\frac{w_n}n\Bigr)^{\astar}
+=n^{-\astar-o(1)},
+\]
+because $w_n=o(\log n)$ and $w_n\ge1$. So $D(m)\le(\astar+o(1))\log m$ as $m\to\infty$. Insert
+this into the halving identity. Every argument $2^jn$ there is at least $n$, so for large $n$ the
+bound applies to every term, and since $\sum_j2^{-(j+1)}\log(2^jn)=\log n+\log2$,
+\[
+L(n)\le(\astar+o(1))(\log n+\log2).
+\]
+Hence $M_n=\mu^ne^{-L(n)}\ge\mu^nn^{-\astar-o(1)}$.
+\end{proof}
+
+The hypothesis is a \emph{relative} estimate: it compares the probabilities of polynomially rare
+events, at a tolerance just above one lattice cell, for finite meanders and for the limit object. It
+is much stronger than Conjecture~\ref{conj:permuton}, which concerns only typical behavior. The conclusion would be the first power-law lower
+bound for meanders; the best unconditional one, $M_n\ge\mu^ne^{-K\sqrt n}$, is in Paper~C~\cite{PaperC}.
+% Checked: Paper C, Theorem 1, states this bound.
+
+\subsection{The conditional upper bound}
+
+The other direction needs much less precision. A \emph{coupling} of two random objects is a
+construction of both on one probability space. For two measures $\rho,\rho'$ on $[0,1]^2$ let
+$d_{\mathrm{rect}}(\rho,\rho')=\sup|\rho(\mathcal A\times\mathcal B)-\rho'(\mathcal A\times\mathcal B)|$, the supremum over rectangles
+$\mathcal A\times\mathcal B$ with $\mathcal A$ an interval of river positions and $\mathcal B$ an interval of
+road positions.
+
+\begin{proposition}[conditional upper bound]\label{prop:condupper}
+Suppose that for some $\sigma,\tau>0$ and every large even $n$, the centered atomic plot $\Pi_n$ of a
+uniform meander of order $n$ and the meandric permuton $\Pi$ can be built on one probability space
+so that
+\[
+\Prob\bigl(d_{\mathrm{rect}}(\Pi_n,\Pi)>n^{-\tau}\bigr)\le Cn^{-\sigma}.
+\]
+Then $M_n\le C_{\alpha'}\,\mu^nn^{-\alpha'}$ for every $\alpha'<\min\bigl(\sigma,(\xstar+5/7)\,\tau\bigr)$, where
+$(\xstar+5/7)\tau\approx3.1344\,\tau$.
+\end{proposition}
+
+\begin{proof}
+The off-block mass $d_\rho(s)$ is a sum of the masses of at most four rectangles, so
+$|d_\rho(s)-d_{\rho'}(s)|\le4d_{\mathrm{rect}}(\rho,\rho')$ for every $s$. An exact junction of an order
+$n=2m$ meander has $d_{\Pi_n}(s)=0$ for a suitable $s$. So on the event of a good coupling,
+$\inf_sd_\Pi(s)\le4n^{-\tau}$, and by~\eqref{eq:sandwich} and Theorem~\ref{thm:nearsplit},
+\[
+q_m\le Cn^{-\sigma}+\Prob\bigl(\Pi\in E_{4n^{-\tau}}\bigr)\le Cn^{-\sigma}+C'n^{-(\xstar+5/7)\tau}.
+\]
+Hence $D(m)\ge\alpha'\log m-O(1)$ for every $\alpha'$ below the minimum, and the halving identity
+gives $L(n)\ge\alpha'\log n-O(1)$ for all large $n$.
+\end{proof}
+
+Here the tolerance $n^{-\tau}$ may be much coarser than one cell, and no completion is needed. Since
+$M_n\le\mu^{n+1}/(8n)$ is known~\cite{PaperC}, this improves on known bounds only when
+$\min(\sigma,3.1344\,\tau)$ exceeds one.
+% Checked: Paper C, Theorem 1, states this bound.

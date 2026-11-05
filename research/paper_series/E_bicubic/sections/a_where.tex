@@ -1,0 +1,70 @@
+% Appendix A. Folder map; statuses from 602 REPORT.md, 602r REPORT.md and 1367 FINAL.md.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Where the proofs are}\label{app:where}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Paths are relative to the directory \path{meandric/research} of the project repository~\cite{Repo}. ``Read
+independently'' means that a separate reading, in the folder named, wrote its own proof or its own checking program.
+Nothing has been reviewed outside the project. The upper certificate ($268$~MB) is kept on external storage and
+referenced from its folder by name and SHA-256 hash.
+
+Three numbers to reproduce first with a new implementation: the transfer gives
+\[ z_1,\ldots,z_{10}\;=\;2,\ 8,\ 40,\ 228,\ 1424,\ 9520,\ 67064,\ 492292,\ 3735112,\ 29114128; \]
+the upper certificate gives the largest quotient $3.187011594348$; the radius-$4$ lower certificate gives
+$e^{2h}\ge10.030980878326$.
+
+\begin{table}[H]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3.5pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{7.2cm}>{\raggedright\arraybackslash}p{4.2cm}}
+\toprule
+result & where & status \\
+\midrule
+Theorem~\ref{thm:enc} (encoding), transfer, $z_{m+n}\ge z_mz_n$ &
+\path{602_bicubic_upper_bound/PROOF.md}, sections~2--3 (Theorems~A, B, Lemma~2.1) &
+proved; read independently (\path{602r_referee_bicubic_bound}); counts recomputed, maps counted for $n\le4$ \\
+Lemma~\ref{lem:words} (symmetry, charge), Lemma~\ref{lem:sweep} (sweep) &
+\path{1367_bicubic_note/PROOF_LOWER.md}, section~1 (Lemmas~1, 2, S); test \path{sweep_test.py} &
+proved; tested on all states with at most $10$ symbols; read independently (\path{1377_referee_bicubic_lower}) \\
+\addlinespace
+Lemma~\ref{lem:subinv}, the weight, the row form &
+\path{602_bicubic_upper_bound/PROOF.md}, sections~4--5 (Lemma~4.1, covering lemma, Theorem~C) &
+proved; read independently (\path{602r}) \\
+Lemma~\ref{lem:trunc} (truncation) &
+\path{1367_bicubic_note/PROOF_CHECK.md} (Lemma~T) & proved; equivalent to the covering lemma of \path{602} \\
+Upper certificate, radius $12$ &
+\path{602_bicubic_upper_bound/cert/cert_r12.bin}, \path{logs/cert_r12.log}; third check
+\path{1367_bicubic_note/check_states.c}, \path{logs/check_r12.log}, \path{logs/teeth_r12.log} &
+certified: three checkers, two by one author; radius $7$ confirmed independently (\path{602r}) \\
+\addlinespace
+Theorem~L (entropy bound) &
+\path{1367_bicubic_note/PROOF_LOWER.md}, section~2; adapted from \path{805_entropy_certificates/PROOF.md} and
+Paper~B, Section~5 & proved; read independently (\path{1377}) \\
+Proposition~\ref{prop:rev} (reversible flows) &
+\path{1367_bicubic_note/PROOF_LOWER.md}, section~3 & proved; read independently (\path{1377}); checked by checker~B \\
+Lower certificates, radius $4$, $8$, $10$ &
+\path{1367_bicubic_note/cert/flow_r10.bin} (and \path{_r4}, \path{_r8}); \path{check_flow_a.py},
+\path{check_flow_b.py}; \path{logs/check_flow_*}; third check \path{1377_referee_bicubic_lower/check_flow_da.py} & certified: three checkers, one written independently \\
+Float tables &
+\path{602_bicubic_upper_bound/REPORT.md}, section~4; \path{1367_bicubic_note/logs/float_table.log} &
+numerical, not bounds \\
+\addlinespace
+Literature &
+\path{1367_bicubic_note/FINAL.md} (primary sources); \path{602_bicubic_upper_bound/REPORT.md}, section~1;
+\path{189_bicubic_hamiltonian/REPORT.md} & literature \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Format of the lower certificates.} A file \path{flow_r*.bin} starts with the eight bytes
+\texttt{BICFLOW1}, then a 32-bit integer $r$ (the radius), then 64-bit integers $s_n$, $s_d$ (the switch
+probability $s=s_n/s_d$ of the reference law), $n_A=4^r$ and $n_B=4^r$, followed by $n_A+n_B$ positive 64-bit
+integers $X$ (all little-endian). Write $\mathrm{code}(w_1\ldots w_k)=\sum_i w_i2^{i-1}$, with the top symbol in the
+lowest bit, and let $c$ be the parity of the window. The number $X_U(w)$, for windows with $U_1=1-c$, is entry
+$c\,2^{2r-1}+\mathrm{code}(L_1\ldots L_r)\,2^{r-1}+\mathrm{code}(U_2\ldots U_r)$ of the first block, and $X_L(w)$, for
+windows with $L_1=1-c$, is the same entry of the second block with $\mathrm{code}(L_2\ldots L_r)\,2^{r}+
+\mathrm{code}(U_1\ldots U_r)$ in place of the middle terms. By Proposition~\ref{prop:rev} any positive $X$ gives a
+valid flow, so a wrong reading of the format could only lower the bound, never invalidate it.
+

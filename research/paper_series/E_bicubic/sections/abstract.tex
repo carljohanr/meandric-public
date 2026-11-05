@@ -1,0 +1,15 @@
+% Abstract. Numbers: 602_bicubic_upper_bound/REPORT.md (upper certificate), 1367_bicubic_note/FINAL.md (checks, lower).
+\begin{abstract}
+A bicubic planar map is a map on the sphere in which every vertex has degree three and the vertices can be colored
+black and white so that every edge joins two colors. Let $z_n$ be the number of such maps with $2n$ vertices, each
+with a Hamiltonian cycle and a marked oriented edge on the cycle. The limit $\mu^2=\lim z_n^{1/n}$ exists and is
+estimated numerically at $10.113$; the best bounds stated in the literature are $8\le\mu^2\le16$. We prove
+\[ 10.0869\;\le\;\mu^2\;\le\;10.1571 . \]
+The maps are encoded as walks of a machine with two stacks of parities, and both bounds are certificates for this
+machine, checked by computer in exact arithmetic. The upper bound is a positive weight on the states such that the
+successors of every state weigh at most $3.187011595$ times as much as the state; its $536{,}805{,}378$ inequalities
+were checked by three programs, one of them written separately for this paper. The lower bound is a stationary random rule for choosing moves that
+looks only at the top ten symbols of each stack. The machine is reversible, and this makes exact stationarity
+easy: any positive numbers define such a rule. Its entropy, at least $1.1556$ per move, gives the lower bound.
+All code was written using Claude (Opus 5.5) or Codex (Sol 5.1) with active review and guidance throughout.
+\end{abstract}

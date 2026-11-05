@@ -1,0 +1,81 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The conjectured meander limit}\label{sec:limit}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The APPS model concerns determinants, not curves. For meanders themselves, Borga, Gwynne and Sun
+proposed a precise description of a large random meander seen from far away~\cite{BGS}. This
+section explains it; nothing in it is new. Close the river into a loop through infinity. River and
+road are then two loops on the sphere crossing $2n$ times, and their union is a planar map whose
+$2n$ vertices have degree four and are each visited once by both curves. A uniform meander of order
+$n$ is thus a random planar map with two curves through every vertex, and each curve orders the
+vertices.
+
+\subsection{The surface and the curves}
+
+A \emph{Liouville quantum gravity sphere} with parameter $\gamma\in(0,2)$ is, for our purposes, a
+random measure of total mass one on the sphere, of the form $e^{\gamma h}d^2z$ for a variant $h$ of the Gaussian free
+field, defined as a Gaussian multiplicative chaos as in Section~\ref{sec:upper}. The variant has
+logarithmic singularities at marked points and a prescribed behavior at infinity, and its law is
+weighted by a power of its total mass before the mass is normalized to one~\cite{DMS},
+\cite[Section~2]{BGS}. We write $\nu$ for the area. Such spheres are the expected limits of random
+planar maps. For uniform planar maps ($c=0$, $\gamma^2=8/3$) this is proved in the sense of metric
+spaces: the limit of the graph distance, suitably rescaled, is the \emph{Brownian map}, a random
+compact metric space~\cite{LeGall,Miermont}. For meanders the parameter is the value that~\eqref{eq:Q} assigns to
+$c=-4$, namely $\gamma^2=(17-\sqrt{145})/3\approx1.6528$.
+
+\emph{Schramm--Loewner evolutions} SLE$_\kappa$ are a one-parameter family of random fractal
+curves in the plane, characterized by invariance under conformal maps and a Markov property: given
+an initial piece, the rest of the curve is again an SLE$_\kappa$ in the remaining domain. The
+parameter $\kappa>0$ measures how much the curve wiggles. For $\kappa\ge8$ the curve passes through
+every point. SLE$_8$ is the scaling limit of the curve that runs around a uniformly
+random spanning tree~\cite{LSWust}. Its whole-plane version starts and ends at infinity and visits
+every point of the sphere; a fixed point is visited exactly once, almost surely. Given the surface,
+a curve is \emph{traced at unit area speed} if it is parametrized by $[0,1]$ so that the region
+covered during $[0,t]$ has area $t$. The two curves of the limit object are chosen independently of
+each other and of the field before this parametrization; afterwards they share the area clock.
+
+\begin{conjecture}[Borga, Gwynne and Sun {\cite[Conjecture~1.4]{BGS}}]\label{conj:bgs}
+Large uniformly random meanders, with the uniform measure on vertices and a suitable rescaling of
+distances, converge in law to a unit-area Liouville quantum gravity sphere with
+$\gamma^2=(17-\sqrt{145})/3$, decorated by two independent whole-plane space-filling SLE$_8$
+curves traced at unit area speed.
+\end{conjecture}
+
+A weaker form concerns only the orders of the crossings. A \emph{permuton} is a
+probability measure on the unit square $[0,1]^2$ whose two marginals are uniform. A permutation
+$\omega$ of $\{1,\ldots,2n\}$ gives one: spread mass $1/(2n)$ uniformly over each small square
+$[\frac{i-1}{2n},\frac{i}{2n}]\times[\frac{\omega(i)-1}{2n},\frac{\omega(i)}{2n}]$. Permutons are the
+natural limits of large permutations. For a meander, number the crossings $1,\ldots,2n$ from left
+to right along the river, and let $\omega(i)$ be the position of crossing $i$ along the road,
+traversed counterclockwise starting from crossing $1$, so $\omega(1)=1$~\cite[Definition~1.6]{BGS}.
+In the limit object both curves start and end at the marked point $\infty$, which plays the role of
+crossing $1$. Another starting crossing or direction would only rotate or reflect the cyclic road
+order, which the events of Section~\ref{sec:nearsplit} do not see. In the limit object, the analogous
+measure is the \emph{meandric permuton}
+\[
+\Pi(\mathcal A\times\mathcal B)=\nu\bigl(\eta_1(\mathcal A)\cap\eta_2(\mathcal B)\bigr),\qquad \mathcal A,\mathcal B\subset[0,1],
+\]
+where $\eta_1$ is the river curve and $\eta_2$ the road curve: $\Pi(\mathcal A\times\mathcal B)$ is the area of the
+set of points that the river visits during the times $\mathcal A$ and the road during the times $\mathcal B$. Its
+marginals are uniform because each curve is traced at unit area speed.
+
+\begin{conjecture}[Borga, Gwynne and Sun {\cite[Conjecture~1.8]{BGS}}]\label{conj:permuton}
+The permuton of a uniformly random meander of order $n$ converges in law, as $n\to\infty$, to the
+meandric permuton $\Pi$.
+\end{conjecture}
+
+Both conjectures are open. BGS compute properties of the candidate limit, such as the expected
+frequencies of small patterns in the permutation, but neither convergence nor the exponent
+follows.
+
+\emph{Why the conjecture is hard.} In the theory of Duplantier, Miller and Sheffield (``mating
+of trees''), a $\gamma$-LQG surface and an independent
+space-filling SLE$_\kappa$ with $\kappa=16/\gamma^2$ together have a simple description by a pair
+of correlated Brownian motions. Call such a curve \emph{matched} to the surface. For one spanning
+tree, $\gamma^2=2$ and $\kappa=8$ match. Mullin's bijection encodes a map with a spanning tree by two
+walks, one tracing the tree and one its dual, and these walks converge to the pair of Brownian
+motions~\cite{Sheffield,DMS}. For meanders each curve alone would call for $\gamma^2=2$, while the
+pair calls for $\gamma^2\approx1.653$, whose matched curve has $\kappa=4\xstar\approx9.68$. No current
+method handles curves that are not matched to the surface. The
+next two sections therefore prove results about the limit object itself, which is well defined,
+without any claim that meanders converge to it.
