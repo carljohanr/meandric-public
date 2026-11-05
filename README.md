@@ -4,9 +4,7 @@ Papers, selected proofs, and programs for studying the growth of meander numbers
 
 **[Read the papers (PDFs)](papers/) · [Start with Paper B: bounds](papers/B_tape_bounds.pdf)**
 
-The main contribution is the tape method in Paper B: encode a meander as a closed sequence of local edits, obtain upper bounds from paired weight inequalities, and obtain lower bounds from the entropy of stationary flows. The paper reports
-
-**12.219 ≤ μ ≤ 12.297**, where μ is the exponential growth constant of closed meanders counted by order. Bounds here are rounded outward to three decimal places; Paper B gives the full precision.
+The main contribution is the tape method in Paper B: encode a meander as a closed sequence of local edits, obtain upper bounds from paired weight inequalities, and obtain lower bounds from the entropy of stationary flows. The paper reports **12.219 ≤ μ ≤ 12.297**, where μ is the exponential growth constant of closed meanders counted by order. Bounds here are rounded outward to three decimal places; Paper B gives the full precision.
 
 | Source | Lower bound | Upper bound | Publication |
 |---|---:|---:|---|
