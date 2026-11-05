@@ -2,9 +2,20 @@
 
 Papers, selected proofs, and programs for studying the growth of meander numbers. This is a contained research snapshot by Carl Johan Ragnarsson, prepared on November 4, 2026. The repository is initially private.
 
+**[Read the papers (PDFs)](papers/) · [Start with Paper B: bounds](papers/B_tape_bounds.pdf)**
+
 The main contribution is the tape method in Paper B: encode a meander as a closed sequence of local edits, obtain upper bounds from paired weight inequalities, and obtain lower bounds from the entropy of stationary flows. The paper reports
 
-**12.219100857094 ≤ μ ≤ 12.29693385352921289818…**, where μ is the exponential growth constant of closed meanders counted by order.
+**12.219 ≤ μ ≤ 12.297**, where μ is the exponential growth constant of closed meanders counted by order. Bounds here are rounded outward to three decimal places; Paper B gives the full precision.
+
+| Source | Lower bound | Upper bound | Publication |
+|---|---:|---:|---|
+| [Albert and Paterson (2005)](https://doi.org/10.1016/j.jcta.2005.02.006) | 11.380 | 12.901 | Journal article |
+| [Fox (2026)](https://github.com/mnfoxx/meander-bounds) | 11.608 | 12.632 | Manuscript and code |
+| [Caroppo, Da Lozzo, Di Battista and Vihrovs (2026)](https://arxiv.org/abs/2610.11944) | — | 12.806 | Preprint |
+| **[This work: Paper B](papers/B_tape_bounds.pdf)** | **12.219** | **12.297** | **Research draft** |
+
+This comparison follows Table 1 of Paper B. The numerical estimate μ ≈ 12.263 is not a proved bound.
 
 This repository contains code to generate and independently check smaller examples of those methods. It does not distribute the large historical certificates or claim a tested reconstruction of every record endpoint. See [Reproducing the bounds](docs/REPRODUCING.md) for the distinction and the current limits.
 
@@ -12,11 +23,11 @@ This repository contains code to generate and independently check smaller exampl
 
 | Paper | Topic | Read | Source |
 |---|---|---|---|
-| A | Intuition and the open meander problem | [PDF](research/paper_series/A_intuition/main.pdf) | [LaTeX](research/paper_series/A_intuition/main.tex) |
-| B | Tape encoding and growth-constant bounds | [PDF](research/paper_series/B_tape_bounds/main.pdf) | [LaTeX](research/paper_series/B_tape_bounds/main.tex) |
-| C | Subexponential estimates and bounded-label families | [PDF](research/paper_series/C_subexponential/main.pdf) | [LaTeX](research/paper_series/C_subexponential/main.tex) |
-| D | Continuum models and conditional connections to finite meanders | [PDF](research/paper_series/D_continuum/main.pdf) | [LaTeX](research/paper_series/D_continuum/main.tex) |
-| E | Bounds for Hamiltonian cycles on bicubic maps | [PDF](research/paper_series/E_bicubic/main.pdf) | [LaTeX](research/paper_series/E_bicubic/main.tex) |
+| A | Intuition and the open meander problem | [PDF](papers/A_intuition.pdf) | [LaTeX](research/paper_series/A_intuition/main.tex) |
+| B | Tape encoding and growth-constant bounds | [PDF](papers/B_tape_bounds.pdf) | [LaTeX](research/paper_series/B_tape_bounds/main.tex) |
+| C | Subexponential estimates and bounded-label families | [PDF](papers/C_subexponential.pdf) | [LaTeX](research/paper_series/C_subexponential/main.tex) |
+| D | Continuum models and conditional connections to finite meanders | [PDF](papers/D_continuum.pdf) | [LaTeX](research/paper_series/D_continuum/main.tex) |
+| E | Bounds for Hamiltonian cycles on bicubic maps | [PDF](papers/E_bicubic.pdf) | [LaTeX](research/paper_series/E_bicubic/main.tex) |
 
 These are research drafts. The full meander asymptotic formula and its predicted critical exponent remain unproved. No external peer review is claimed. C and D have selected supporting proofs here, not their entire historical dependency chains.
 

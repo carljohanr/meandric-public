@@ -46,7 +46,7 @@ Larger radii use the same constructions but consume more memory and time. The ra
 
 ## Build the papers
 
-Install Tectonic separately, then run `tectonic main.tex` inside each paper directory. The figures and bibliography are included. The checked-in PDFs are built from the release sources. The paper appendices refer to both included and omitted historical folders; consult `CONTENTS.md` rather than treating the release as the complete private research archive.
+Install Tectonic separately, then run `tectonic main.tex` inside each paper's source directory under `research/paper_series`. The figures and bibliography are included. The checked-in PDFs in the top-level `papers/` folder are built from the release sources. After rebuilding, copy the generated `main.pdf` to the matching named PDF in `papers/` (for example, `papers/B_tape_bounds.pdf`). The paper appendices refer to both included and omitted historical folders; consult `CONTENTS.md` rather than treating the release as the complete private research archive.
 
 ## Scope of validation
 

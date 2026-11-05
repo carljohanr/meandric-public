@@ -1,6 +1,6 @@
 # Included material
 
-The five papers are under `research/paper_series`. The original research folder names are preserved to connect the source to the appendices.
+The five PDF papers are in the top-level [papers folder](../papers/), named A through E. Their LaTeX sources and figures remain under `research/paper_series`; the original research folder names are preserved to connect the source to the appendices.
 
 | Purpose | Main locations |
 |---|---|
